@@ -1,10 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
-const HomeScreen = () => {
+const HomeScreen = props => {
     return (
         <View style={styles.Hero}>
             <Text>Home Screen</Text>
+            <Button
+                title="Go to Module Selector"
+                onPress={() => props.navigation.navigate('Selector')}
+            />
         </View>
     );
 };
