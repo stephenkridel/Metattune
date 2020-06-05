@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const SelectorScreen = () => {
+const SessionScreen = () => {
     return (
         <View style={styles.Hero}>
-            <Text style={styles.HeroText}>Module Screen</Text>
-            <TouchableOpacity onPress={() => props.navigation.navigate('Session')} style={styles.Module}>
-                <Text>Nature Session</Text>
+            <Text style={styles.HeroText}>Session Screen</Text>
+            <TouchableOpacity style={styles.Module}>
+                <Text>Play Session</Text>
             </TouchableOpacity>
         </View>
     );
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SelectorScreen;
+export default SessionScreen;
