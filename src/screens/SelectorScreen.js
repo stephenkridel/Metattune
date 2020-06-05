@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const SelectorScreen = () => {
+const SelectorScreen = props => {
     return (
         <View style={styles.Hero}>
             <Text style={styles.HeroText}>Module Screen</Text>
