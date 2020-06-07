@@ -1,12 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import SessionModule from '../components/SessionModule';
+import AudioObjects from '../data/AudioObjects.js';
+
+const info = AudioObjects();
 
 const SelectorScreen = props => {
+    console.log(info.nature.file);
     return (
         <View style={styles.Hero}>
             <Text style={styles.HeroText}>Module Screen</Text>
-            <SessionModule title='Nature Session'/>
+            <SessionModule 
+                title={info.nature.title}
+                file={info.nature.file}
+            />
+            <SessionModule 
+                title={info.nature.title}
+                file={info.nature.file}
+            />
         </View>
     );
 };

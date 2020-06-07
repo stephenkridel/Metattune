@@ -8,7 +8,7 @@ async function PlayMusic(source) {
         await soundObject.loadAsync(source);
         await soundObject.playAsync();
     } catch (error) {
-        console.log('There was an error in playing the sound.');
+        console.log('There was an error in playing the sound');
     }
     
 }

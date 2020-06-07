@@ -2,18 +2,20 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PlayMusic from '../modules/PreMixedAudio';
 
-const SessionScreen = () => {
+const SessionScreen = props => {
 
-    const source = require('../assets/nature.mp3');
+    const file = props.navigation.getParam('file');
+
+    console.log(file)
 
     return (
         <View style={styles.Hero}>
             <Text style={styles.HeroText}>Session Screen</Text>
-            <TouchableOpacity onPress={() => PlayMusic(source)} style={styles.Module}>
+            <TouchableOpacity onPress={() => PlayMusic(file)} style={styles.Module}>
                 <Text>Play Session</Text>
             </TouchableOpacity>
         </View>
-    );
+    ); 
 };
 
 const styles = StyleSheet.create({
