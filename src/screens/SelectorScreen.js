@@ -6,7 +6,6 @@ import AudioObjects from '../data/AudioObjects.js';
 const info = AudioObjects();
 
 const SelectorScreen = props => {
-    console.log(info.nature.file);
     return (
         <View style={styles.Hero}>
             <Text style={styles.HeroText}>Module Screen</Text>

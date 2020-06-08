@@ -1,5 +1,3 @@
-const audio = require('./audio.json');
-
 export default function AudioObjects() {
     const nature = {
         title: 'Nature',

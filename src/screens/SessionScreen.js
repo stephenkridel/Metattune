@@ -6,8 +6,6 @@ const SessionScreen = props => {
 
     const file = props.navigation.getParam('file');
 
-    console.log(file)
-
     return (
         <View style={styles.Hero}>
             <Text style={styles.HeroText}>Session Screen</Text>
