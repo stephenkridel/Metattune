@@ -9,9 +9,14 @@ const SessionScreen = props => {
     return (
         <View style={styles.Hero}>
             <Text style={styles.HeroText}>Session Screen</Text>
-            <TouchableOpacity onPress={() => PlayMusic(file)} style={styles.Module}>
-                <Text>Play Session</Text>
-            </TouchableOpacity>
+            <View style={styles.Controls}>
+                <TouchableOpacity onPress={() => PlayMusic(file)} style={styles.Module}>
+                    <Text>Play Session</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => PlayMusic(file)} style={styles.Module}>
+                    <Text>Stop Session</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     ); 
 };
@@ -28,10 +33,16 @@ const styles = StyleSheet.create({
     Module: {
         alignItems: 'center', 
         justifyContent: 'center',
-        height: 200,
-        width: 200,
+        height: 100,
+        width: 100,
         backgroundColor: 'green',
-        borderRadius: 100
+        borderRadius: 50
+    },
+    Controls: {
+        height: 100,
+        width: 225,
+        flexDirection: 'row',
+        justifyContent: "space-between"
     }
 });
 
