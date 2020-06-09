@@ -1,44 +1,86 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import PlayMusic from '../modules/PreMixedAudio';
+import { Audio } from 'expo-av';
 
-const SessionScreen = props => {
+export default class SessionScreen extends Component {
+    constructor(props) {
+        super(props);
+        const file = this.props.navigation.getParam('file');
+        this.playbackInstance = null;
+        this.state = {
+            isPlaying: false,
+            hasPlayed: false,
+            btnText: 'Play'
+        };
+    };
 
-    const file = props.navigation.getParam('file');
+    async loadNewAudio() {
+        const soundObject = new Audio.Sound();
+        try {
+            await soundObject.loadAsync(require("../assets/nature.mp3"));
+        } catch (error) {
+            console.log('There was an error loading the sound');
+        }
+        this.playbackInstance = soundObject;
+    };
 
-    const [playing, setPlaying] = useState(false);
+    onPlayPausedPressed = () => {
+        if (this.state.isPlaying) {
+            try {
+                this.playbackInstance.pauseAsync();
+            } catch (error) {
+                console.log('There was an error pausing the sound');
+            }
+            this.state.isPlaying = false;
+            this.state.btnText = 'Play';
+        } else {
+            try {
+                this.playbackInstance.playAsync();
+            } catch (error) {
+                console.log('There was an error playing the sound');
+            }
+            this.state.isPlaying = true;
+            this.state.btnText = 'Pause';
+        }
+    };
 
-    const [text, setText] = useState('Play');
+    onStopPressed = () => {
+        if (this.state.isPlaying) {
+            try {
+                this.playbackInstance.stopAsync();
+            } catch (error) {
+                console.log('There was an error stopping the sound');
+            }
+        }
+    };
+    
+    componentDidMount = () => {
+        this.loadNewAudio();
+    };
 
-    return (
-        <View style={styles.Hero}>
-            <Text style={styles.HeroText}>Session Screen</Text>
-            <View style={styles.Controls}>
-                <TouchableOpacity 
-                    onPress={() => {
-                        // PlayMusic(file);
-                        if (playing) {
-                            setPlaying(false);
-                            setText('Play');
-                        } else {
-                            setPlaying(true);
-                            setText('Pause');
-                        };
-                    }} 
-                    style={styles.Module}>
-                    <Text>{text} Session</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    onPress={() => {
-                        // PlayMusic(file);
-                        setPlaying(false);
-                    }}
-                    style={styles.Module}>
-                    <Text>Stop Session</Text>
-                </TouchableOpacity>
+    render() {
+        return (
+            <View style={styles.Hero}>
+                <Text style={styles.HeroText}>Session Screen</Text>
+                <View style={styles.Controls}>
+                    <TouchableOpacity 
+                        onPress={() => {
+                            this.onPlayPausedPressed();
+                        }} 
+                        style={styles.Module}>
+                        <Text>{this.state.btnText} Session</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        onPress={() => {
+                            this.onStopPressed();
+                        }}
+                        style={styles.Module}>
+                        <Text>Stop Session</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
-    ); 
+        );
+    }
 };
 
 const styles = StyleSheet.create({
@@ -65,5 +107,3 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     }
 });
-
-export default SessionScreen;
