@@ -52,11 +52,16 @@ export default class SessionScreen extends Component {
             } catch (error) {
                 console.log('There was an error stopping the sound');
             }
+            this.state.isPlaying = false;
         }
     };
     
     componentDidMount = () => {
         this.loadNewAudio();
+    };
+
+    componentWillUnmount = () => {
+        this.playbackInstance.unloadAsync();
     };
 
     render() {
