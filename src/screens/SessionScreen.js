@@ -6,6 +6,7 @@ export default class SessionScreen extends Component {
     constructor(props) {
         super(props);
 
+        // collects the file and title props from SessionModule.js
         const file = this.props.navigation.getParam('file');
         const title = this.props.navigation.getParam('title');
 
