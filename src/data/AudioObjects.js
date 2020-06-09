@@ -11,11 +11,18 @@ export default function AudioObjects() {
         'Nature',
         require("../assets/nature.mp3"),
     )
-    
+
     const urban = new PremixedAudioElement(
         'Urban',
         require("../assets/nature.mp3"),
     )
 
-    return { nature, urban }
+    const beach = new PremixedAudioElement(
+        'Beach',
+        require("../assets/nature.mp3"),
+    )
+
+    premixedAudioList = [nature, urban, beach];
+
+    return { premixedAudioList }
 };
