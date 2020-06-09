@@ -6,6 +6,7 @@ export default class SessionScreen extends Component {
     constructor(props) {
         super(props);
         const file = this.props.navigation.getParam('file');
+        this.source = file;
         this.playbackInstance = null;
         this.state = {
             isPlaying: false,
@@ -17,7 +18,7 @@ export default class SessionScreen extends Component {
     async loadNewAudio() {
         const soundObject = new Audio.Sound();
         try {
-            await soundObject.loadAsync(require("../assets/nature.mp3"));
+            await soundObject.loadAsync(this.source);
         } catch (error) {
             console.log('There was an error loading the sound');
         }
