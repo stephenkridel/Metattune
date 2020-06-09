@@ -10,32 +10,35 @@ const SelectorScreen = props => {
     return (
         <View style={styles.Hero}>
             <Text style={styles.HeroText}>Module Screen</Text>
-                <FlatList
-                    data={info.premixedAudioList}
-                    keyExtractor={item => item.title}
-                    renderItem={({ item }) => {
-                        return (
-                            <SessionModule 
-                                // passes title and file to the SessionModule component
-                                title={item.title}
-                                file={item.file}
-                            />
-                        );
-                    }}
-                />
+                <View style={styles.List}>
+                    <FlatList
+                        data={info.premixedAudioList}
+                        keyExtractor={item => item.title}
+                        renderItem={({ item }) => {
+                            return (
+                                <SessionModule 
+                                    // passes info (.title, .file, .color) to the SessionModule component
+                                    info={item}
+                                />
+                            );
+                        }}
+                    />
+                </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     Hero: {
+        marginTop: 60,
         flex: 1, 
         alignItems: 'center', 
         justifyContent: 'center',
         alignSelf: 'center'
     },
     HeroText: {
-        marginBottom: 20
+        marginBottom: 20,
+        fontSize: 40
     }
 });
 
