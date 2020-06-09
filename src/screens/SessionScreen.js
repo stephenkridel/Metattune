@@ -25,23 +25,27 @@ export default class SessionScreen extends Component {
         this.playbackInstance = soundObject;
     };
 
-    onPlayPausedPressed = () => {
+    onPlayPausePressed = () => {
         if (this.state.isPlaying) {
             try {
                 this.playbackInstance.pauseAsync();
             } catch (error) {
                 console.log('There was an error pausing the sound');
             }
-            this.state.isPlaying = false;
-            this.state.btnText = 'Play';
+            this.setState({ 
+                isPlaying: flase,
+                btnText: 'Play'
+            });
         } else {
             try {
                 this.playbackInstance.playAsync();
             } catch (error) {
                 console.log('There was an error playing the sound');
             }
-            this.state.isPlaying = true;
-            this.state.btnText = 'Pause';
+            this.setState({ 
+                isPlaying: true,
+                btnText: 'Pause'
+            });
         }
     };
 
@@ -52,7 +56,10 @@ export default class SessionScreen extends Component {
             } catch (error) {
                 console.log('There was an error stopping the sound');
             }
-            this.state.isPlaying = false;
+            this.setState({ 
+                isPlaying: false,
+                btnText: 'Play'
+            });
         }
     };
     
@@ -71,7 +78,7 @@ export default class SessionScreen extends Component {
                 <View style={styles.Controls}>
                     <TouchableOpacity 
                         onPress={() => {
-                            this.onPlayPausedPressed();
+                            this.onPlayPausePressed();
                         }} 
                         style={styles.Module}>
                         <Text>{this.state.btnText} Session</Text>
