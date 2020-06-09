@@ -14,7 +14,7 @@ const SelectorScreen = props => {
                 file={info.nature.file}
             />
             <SessionModule 
-                title={info.nature.title}
+                title={info.urban.title}
                 file={info.nature.file}
             />
         </View>

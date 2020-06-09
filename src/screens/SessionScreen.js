@@ -5,9 +5,14 @@ import { Audio } from 'expo-av';
 export default class SessionScreen extends Component {
     constructor(props) {
         super(props);
+
         const file = this.props.navigation.getParam('file');
+        const title = this.props.navigation.getParam('title');
+
+        this.title = title;
         this.source = file;
         this.playbackInstance = null;
+        
         this.state = {
             isPlaying: false,
             hasPlayed: false,
@@ -33,7 +38,7 @@ export default class SessionScreen extends Component {
                 console.log('There was an error pausing the sound');
             }
             this.setState({ 
-                isPlaying: flase,
+                isPlaying: false,
                 btnText: 'Play'
             });
         } else {
@@ -74,7 +79,7 @@ export default class SessionScreen extends Component {
     render() {
         return (
             <View style={styles.Hero}>
-                <Text style={styles.HeroText}>Session Screen</Text>
+                <Text style={styles.HeroText}>{this.title} Session Screen</Text>
                 <View style={styles.Controls}>
                     <TouchableOpacity 
                         onPress={() => {
