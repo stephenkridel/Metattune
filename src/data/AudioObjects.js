@@ -16,19 +16,19 @@ export default function AudioObjects() {
 
     const urban = new PremixedAudioElement(
         'Urban',
-        require("../assets/nature.mp3"),
+        require("../assets/urban.mp3"),
         'grey'
     )
 
     const beach = new PremixedAudioElement(
         'Beach',
-        require("../assets/nature.mp3"),
+        require("../assets/beach.mp3"),
         'lightblue'
     )
 
     const rainforest = new PremixedAudioElement(
         'Rainforest',
-        require("../assets/nature.mp3"),
+        require("../assets/rainforest.mp3"),
         'darkgreen'
     )
 
