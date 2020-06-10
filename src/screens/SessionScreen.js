@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
+import { getPermissionsAsync } from 'expo-av/build/Audio';
 
 export default class SessionScreen extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ export default class SessionScreen extends Component {
         const info = this.props.navigation.getParam('info');
 
         this.title = info.title;
+        this.color = info.color;
         this.source = info.file;
         this.playbackInstance = null;
 
@@ -24,17 +26,16 @@ export default class SessionScreen extends Component {
         const soundObject = new Audio.Sound();
         try {
             await soundObject.loadAsync(this.source);
+            this.playbackInstance = soundObject;
         } catch (error) {
             console.log('There was an error loading the sound');
         }
-        this.playbackInstance = soundObject;
     }
 
     onPlayPausePressed = () => {
         if (this.state.isPlaying) {
             try {
                 this.playbackInstance.pauseAsync();
-
                 this.setState({
                     isPlaying: false,
                     btnText: 'Play'
@@ -45,7 +46,6 @@ export default class SessionScreen extends Component {
         } else {
             try {
                 this.playbackInstance.playAsync();
-
                 this.setState({
                     isPlaying: true,
                     btnText: 'Pause'
@@ -57,17 +57,14 @@ export default class SessionScreen extends Component {
     };
 
     onStopPressed = () => {
-        if (this.state.isPlaying) {
-            try {
-                this.playbackInstance.stopAsync();
-
-                this.setState({
-                    isPlaying: false,
-                    btnText: 'Play'
-                });
-            } catch (error) {
-                console.log('There was an error stopping the sound');
-            }
+        try {
+            this.playbackInstance.stopAsync();
+            this.setState({
+                isPlaying: false,
+                btnText: 'Play'
+            });
+        } catch (error) {
+            console.log('There was an error stopping the sound');
         }
     };
 
@@ -80,6 +77,9 @@ export default class SessionScreen extends Component {
     };
 
     render() {
+        const colorStyles = {
+            backgroundColor: this.color
+        };
         return (
             <View style={styles.Hero}>
                 <Text style={styles.HeroText}>{this.title} Session Screen</Text>
@@ -88,7 +88,7 @@ export default class SessionScreen extends Component {
                         onPress={() => {
                             this.onPlayPausePressed();
                         }}
-                        style={styles.Module}
+                        style={[styles.Module, colorStyles]}
                     >
                         <Text>{this.state.btnText} Session</Text>
                     </TouchableOpacity>
@@ -96,7 +96,7 @@ export default class SessionScreen extends Component {
                         onPress={() => {
                             this.onStopPressed();
                         }}
-                        style={styles.Module}
+                        style={[styles.Module, colorStyles]}
                     >
                         <Text>Stop Session</Text>
                     </TouchableOpacity>
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: 100,
         width: 100,
-        backgroundColor: 'green',
         borderRadius: 50
     },
     Controls: {
