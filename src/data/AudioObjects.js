@@ -26,7 +26,13 @@ export default function AudioObjects() {
         'lightblue'
     )
 
-    premixedAudioList = [nature, urban, beach];
+    const rainforest = new PremixedAudioElement(
+        'Rainforest',
+        require("../assets/nature.mp3"),
+        'darkgreen'
+    )
+
+    premixedAudioList = [nature, urban, beach, rainforest];
 
     return { premixedAudioList }
 };
