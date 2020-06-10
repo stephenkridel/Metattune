@@ -6,7 +6,7 @@ const HomeScreen = props => {
         <View style={styles.Hero}>
             <Text>Home Screen</Text>
             <Button
-                title="Go to Module Selector"
+                title='Go to Module Selector'
                 onPress={() => props.navigation.navigate('Selector')}
             />
         </View>
@@ -15,9 +15,9 @@ const HomeScreen = props => {
 
 const styles = StyleSheet.create({
     Hero: {
-        flex: 1, 
-        alignItems: 'center', 
-        justifyContent: 'center' 
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 

@@ -5,14 +5,14 @@ import SelectorScreen from './src/screens/SelectorScreen';
 import SessionScreen from './src/screens/SessionScreen';
 
 const navigator = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Selector: SelectorScreen,
-    Session: SessionScreen
-  },
-  {
-    initialRouteName: 'Home',
-  }
+    {
+        Home: HomeScreen,
+        Selector: SelectorScreen,
+        Session: SessionScreen
+    },
+    {
+        initialRouteName: 'Home'
+    }
 );
 
 export default createAppContainer(navigator);

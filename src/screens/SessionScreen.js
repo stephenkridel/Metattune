@@ -12,13 +12,13 @@ export default class SessionScreen extends Component {
         this.title = info.title;
         this.source = info.file;
         this.playbackInstance = null;
-        
+
         this.state = {
             isPlaying: false,
             hasPlayed: false,
             btnText: 'Play'
         };
-    };
+    }
 
     async loadNewAudio() {
         const soundObject = new Audio.Sound();
@@ -28,14 +28,14 @@ export default class SessionScreen extends Component {
             console.log('There was an error loading the sound');
         }
         this.playbackInstance = soundObject;
-    };
+    }
 
     onPlayPausePressed = () => {
         if (this.state.isPlaying) {
             try {
                 this.playbackInstance.pauseAsync();
 
-                this.setState({ 
+                this.setState({
                     isPlaying: false,
                     btnText: 'Play'
                 });
@@ -46,7 +46,7 @@ export default class SessionScreen extends Component {
             try {
                 this.playbackInstance.playAsync();
 
-                this.setState({ 
+                this.setState({
                     isPlaying: true,
                     btnText: 'Pause'
                 });
@@ -61,7 +61,7 @@ export default class SessionScreen extends Component {
             try {
                 this.playbackInstance.stopAsync();
 
-                this.setState({ 
+                this.setState({
                     isPlaying: false,
                     btnText: 'Play'
                 });
@@ -70,7 +70,7 @@ export default class SessionScreen extends Component {
             }
         }
     };
-    
+
     componentDidMount = () => {
         this.loadNewAudio();
     };
@@ -84,37 +84,39 @@ export default class SessionScreen extends Component {
             <View style={styles.Hero}>
                 <Text style={styles.HeroText}>{this.title} Session Screen</Text>
                 <View style={styles.Controls}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         onPress={() => {
                             this.onPlayPausePressed();
-                        }} 
-                        style={styles.Module}>
+                        }}
+                        style={styles.Module}
+                    >
                         <Text>{this.state.btnText} Session</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         onPress={() => {
                             this.onStopPressed();
                         }}
-                        style={styles.Module}>
+                        style={styles.Module}
+                    >
                         <Text>Stop Session</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         );
     }
-};
+}
 
 const styles = StyleSheet.create({
     Hero: {
-        flex: 1, 
-        alignItems: 'center', 
+        flex: 1,
+        alignItems: 'center',
         justifyContent: 'center'
     },
     HeroText: {
         marginBottom: 20
     },
     Module: {
-        alignItems: 'center', 
+        alignItems: 'center',
         justifyContent: 'center',
         height: 100,
         width: 100,
@@ -125,6 +127,6 @@ const styles = StyleSheet.create({
         height: 100,
         width: 225,
         flexDirection: 'row',
-        justifyContent: "space-between"
+        justifyContent: 'space-between'
     }
 });
