@@ -34,23 +34,25 @@ export default class SessionScreen extends Component {
         if (this.state.isPlaying) {
             try {
                 this.playbackInstance.pauseAsync();
+
+                this.setState({ 
+                    isPlaying: false,
+                    btnText: 'Play'
+                });
             } catch (error) {
                 console.log('There was an error pausing the sound');
             }
-            this.setState({ 
-                isPlaying: false,
-                btnText: 'Play'
-            });
         } else {
             try {
                 this.playbackInstance.playAsync();
+
+                this.setState({ 
+                    isPlaying: true,
+                    btnText: 'Pause'
+                });
             } catch (error) {
                 console.log('There was an error playing the sound');
             }
-            this.setState({ 
-                isPlaying: true,
-                btnText: 'Pause'
-            });
         }
     };
 
@@ -58,13 +60,14 @@ export default class SessionScreen extends Component {
         if (this.state.isPlaying) {
             try {
                 this.playbackInstance.stopAsync();
+
+                this.setState({ 
+                    isPlaying: false,
+                    btnText: 'Play'
+                });
             } catch (error) {
                 console.log('There was an error stopping the sound');
             }
-            this.setState({ 
-                isPlaying: false,
-                btnText: 'Play'
-            });
         }
     };
     
