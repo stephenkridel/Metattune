@@ -33,5 +33,5 @@ export default function AudioObjects() {
 
     premixedAudioList = [nature, urban, beach, rainforest];
 
-    return {premixedAudioList};
+    return { premixedAudioList };
 }

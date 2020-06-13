@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
-import { getPermissionsAsync } from 'expo-av/build/Audio';
 
 export default class SessionScreen extends Component {
     constructor(props) {
@@ -14,6 +13,9 @@ export default class SessionScreen extends Component {
         this.color = info.color;
         this.source = info.file;
         this.playbackInstance = null;
+        this.colorStyles = {
+            backgroundColor: this.color
+        };
 
         this.state = {
             isPlaying: false,
@@ -77,9 +79,6 @@ export default class SessionScreen extends Component {
     };
 
     render() {
-        const colorStyles = {
-            backgroundColor: this.color
-        };
         return (
             <View style={styles.Hero}>
                 <Text style={styles.HeroText}>{this.title} Session Screen</Text>
@@ -96,7 +95,7 @@ export default class SessionScreen extends Component {
                         onPress={() => {
                             this.onStopPressed();
                         }}
-                        style={[styles.Module, colorStyles]}
+                        style={[styles.Module, this.colorStyles]}
                     >
                         <Text>Stop Session</Text>
                     </TouchableOpacity>
