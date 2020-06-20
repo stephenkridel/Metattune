@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
-import {withNavigation} from 'react-navigation';
+import { Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
 const SelectorModule = props => {
     return (
