@@ -13,9 +13,6 @@ export default class SessionScreen extends Component {
         this.color = info.color;
         this.source = info.file;
         this.playbackInstance = null;
-        this.colorStyles = {
-            backgroundColor: this.color
-        };
 
         this.state = {
             isPlaying: false,
@@ -52,6 +49,7 @@ export default class SessionScreen extends Component {
                     isPlaying: true,
                     btnText: 'Pause'
                 });
+                console.log('Playing sound');
             } catch (error) {
                 console.log('There was an error playing the sound');
             }
@@ -79,6 +77,9 @@ export default class SessionScreen extends Component {
     };
 
     render() {
+        const colorStyles = {
+            backgroundColor: this.color
+        };
         return (
             <View style={styles.Hero}>
                 <Text style={styles.HeroText}>{this.title} Session Screen</Text>
@@ -95,7 +96,7 @@ export default class SessionScreen extends Component {
                         onPress={() => {
                             this.onStopPressed();
                         }}
-                        style={[styles.Module, this.colorStyles]}
+                        style={[styles.Module, colorStyles]}
                     >
                         <Text>Stop Session</Text>
                     </TouchableOpacity>

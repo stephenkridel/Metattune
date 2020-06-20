@@ -1,16 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import SessionModule from '../components/SessionModule';
+import CustomSessionModule from '../components/CustomSessionModule';
 import AudioObjects from '../data/AudioObjects.js';
 
-// returns info as an object that contains the list premixedAudioList
+// returns two lists: premixedAudioList and singleAudioList that contain the audio objects
 const info = AudioObjects();
 
 const SelectorScreen = props => {
     return (
         <View style={styles.Hero}>
             <Text style={styles.HeroText}>Module Screen</Text>
-            <View style={styles.List}>
+            <Text>Premixed Sessions</Text>
+            <>
                 <FlatList
                     data={info.premixedAudioList}
                     keyExtractor={item => item.title}
@@ -23,7 +25,9 @@ const SelectorScreen = props => {
                         );
                     }}
                 />
-            </View>
+                <Text>Custom Sessions</Text>
+                <CustomSessionModule info={info.singleAudioList} />
+            </>
         </View>
     );
 };
