@@ -49,7 +49,6 @@ export default class SessionScreen extends Component {
                     isPlaying: true,
                     btnText: 'Pause'
                 });
-                console.log('Playing sound');
             } catch (error) {
                 console.log('There was an error playing the sound');
             }
