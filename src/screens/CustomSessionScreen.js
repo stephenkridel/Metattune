@@ -37,6 +37,7 @@ export default class CustomSessionScreen extends Component {
             try {
                 for (var i = 0; i < 5; i++) {
                     this.playbackInstance[i].pauseAsync();
+                    console.log('Paused');
                 }
                 this.setState({
                     isPlaying: false,
@@ -49,6 +50,7 @@ export default class CustomSessionScreen extends Component {
             try {
                 for (var i = 0; i < 5; i++) {
                     this.playbackInstance[i].playAsync();
+                    console.log('Playing');
                 }
                 this.setState({
                     isPlaying: true,
@@ -62,7 +64,9 @@ export default class CustomSessionScreen extends Component {
 
     onStopPressed = () => {
         try {
-            this.playbackInstance.stopAsync();
+            for (var i = 0; i < 5; i++) {
+                this.playbackInstance[i].stopAsync();
+            }
             this.setState({
                 isPlaying: false,
                 btnText: 'Play'
@@ -76,13 +80,11 @@ export default class CustomSessionScreen extends Component {
         this.loadNewAudio();
     };
 
-    /*
     componentWillUnmount = () => {
         for (var i = 0; i < 5; i++) {
             this.playbackInstance[i].unloadAsync();
         }
     };
-    */
 
     render() {
         const colorStyles = {

@@ -128,6 +128,7 @@ export default class PickerScreen extends Component {
                         );
                     })}
                 </Picker>
+
                 <Button
                     title='Load Session'
                     onPress={() =>
