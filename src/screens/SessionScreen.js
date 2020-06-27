@@ -87,7 +87,7 @@ export default class SessionScreen extends Component {
                         onPress={() => {
                             this.onPlayPausePressed();
                         }}
-                        style={[styles.Module, colorStyles]}
+                        style={[styles.Module, this.colorStyles]}
                     >
                         <Text>{this.state.btnText} Session</Text>
                     </TouchableOpacity>
