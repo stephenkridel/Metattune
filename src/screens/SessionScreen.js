@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
+import Timer from '../helpers/timer.js';
 
 export default class SessionScreen extends Component {
     constructor(props) {
@@ -16,6 +17,10 @@ export default class SessionScreen extends Component {
         this.colorStyles = {
             backgroundColor: this.color
         };
+
+        this.timerInstance = new Timer(function () {
+            console.log('working');
+        }, 10000);
 
         this.state = {
             isPlaying: false,
@@ -38,6 +43,7 @@ export default class SessionScreen extends Component {
         if (this.state.isPlaying) {
             try {
                 this.playbackInstance.pauseAsync();
+                this.timerInstance.pause();
                 this.setState({
                     isPlaying: false,
                     btnText: 'Play'
@@ -48,6 +54,8 @@ export default class SessionScreen extends Component {
         } else {
             try {
                 this.playbackInstance.playAsync();
+                this.timerInstance.start();
+                console.log(this.timerInstance.remaining);
                 this.setState({
                     isPlaying: true,
                     btnText: 'Pause'
@@ -61,6 +69,7 @@ export default class SessionScreen extends Component {
     onStopPressed = () => {
         try {
             this.playbackInstance.stopAsync();
+            this.timerInstance.stop();
             this.setState({
                 isPlaying: false,
                 btnText: 'Play'
@@ -75,7 +84,10 @@ export default class SessionScreen extends Component {
     };
 
     componentWillUnmount = () => {
-        this.playbackInstance.unloadAsync();
+        if (this.playbackInstance != null) {
+            this.playbackInstance.unloadAsync();
+            this.playbackInstance = null;
+        }
     };
 
     render() {
