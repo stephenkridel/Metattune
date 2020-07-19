@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Modal,
+    YellowBox,
+    AppState
+} from 'react-native';
 import { Audio } from 'expo-av';
-import Timer from '../helpers/timer.js';
+import {
+    randomizeSoundBites,
+    loadSoundBiteAudio,
+    setupTimers
+} from '../helpers/SoundBitesAndTimers.js';
 
 export default class SessionScreen extends Component {
     constructor(props) {
@@ -13,6 +25,7 @@ export default class SessionScreen extends Component {
         this.title = info.title;
         this.color = info.color;
         this.source = info.file;
+        this.soundBites = info.soundBites;
 
         this.playbackInstance = null;
 
@@ -20,9 +33,7 @@ export default class SessionScreen extends Component {
             backgroundColor: this.color
         };
 
-        this.timerInstance = new Timer(function () {
-            console.log('working');
-        }, 10000);
+        this.timerInstances = null;
 
         this.state = {
             isPlaying: false,
@@ -30,19 +41,38 @@ export default class SessionScreen extends Component {
             btnText: 'Play',
             hasLoaded: false,
             errorMsg: 'Hello',
-            isError: false
+            isError: false,
+            AppState: AppState.currentState
         };
+
+        // Ignoring a warning for long timers (RN error 12981)
+        YellowBox.ignoreWarnings(['Setting a timer']);
     }
+
+    soundBiteTimerSetup = async array => {
+        const randomizedArray = await randomizeSoundBites(array);
+        const loadedSoundArray = await loadSoundBiteAudio(randomizedArray);
+        const timersArray = await setupTimers(loadedSoundArray);
+
+        return timersArray;
+    };
 
     loadNewAudio = async () => {
         const soundObject = new Audio.Sound();
         try {
             await soundObject.loadAsync(this.source);
+            this.timerInstances = await this.soundBiteTimerSetup(
+                this.soundBites
+            );
+            //loadedSoundObject, this.timerInstances] = Promise.all([
+            //    soundObject.loadAsync(this.source),
+            //    soundBiteTimerSetup(this.soundBites)
+            //]);
             this.playbackInstance = soundObject;
             this.setState({ hasLoaded: true });
         } catch (error) {
             this.setState({
-                errorMsg: 'There was an error loading the audio',
+                errorMsg: 'Sorry, there was an error loading the audio',
                 isError: true
             });
         }
@@ -52,28 +82,28 @@ export default class SessionScreen extends Component {
         if (this.state.isPlaying) {
             try {
                 await this.playbackInstance.pauseAsync();
-                this.timerInstance.pause();
+                this.timerInstances.forEach(element => element.pause());
                 this.setState({
                     isPlaying: false,
                     btnText: 'Play'
                 });
             } catch (error) {
                 this.setState({
-                    errorMsg: 'There was an error pausing the audio',
+                    errorMsg: 'Sorry, there was an error pausing the audio',
                     isError: true
                 });
             }
         } else {
             try {
                 await this.playbackInstance.playAsync();
-                this.timerInstance.start();
+                this.timerInstances.forEach(element => element.start());
                 this.setState({
                     isPlaying: true,
                     btnText: 'Pause'
                 });
             } catch (error) {
                 this.setState({
-                    errorMsg: 'There was an error playing the audio',
+                    errorMsg: 'Sorry, there was an error playing the audio',
                     isError: true
                 });
             }
@@ -83,14 +113,14 @@ export default class SessionScreen extends Component {
     onStopPressed = async () => {
         try {
             await this.playbackInstance.stopAsync();
-            this.timerInstance.stop();
+            this.timerInstances.forEach(element => element.stop());
             this.setState({
                 isPlaying: false,
                 btnText: 'Play'
             });
         } catch (error) {
             this.setState({
-                errorMsg: 'There was an error stopping the audio',
+                errorMsg: 'Sorry, there was an error stopping the audio',
                 isError: true
             });
         }
@@ -98,13 +128,26 @@ export default class SessionScreen extends Component {
 
     componentDidMount = () => {
         this.loadNewAudio();
+        // listens for the app to go into background or foreground and then
+        // runs onPlayPausePressed. This keeps the timers running on time
+        AppState.addEventListener('change', this.onPlayPausePressed);
     };
 
     componentWillUnmount = async () => {
-        if (this.playbackInstance != null) {
-            await this.playbackInstance.unloadAsync();
-            this.playbackInstance = null;
+        try {
+            if (this.playbackInstance != null) {
+                await this.playbackInstance.unloadAsync();
+                this.playbackInstance = null;
+            }
+        } catch (error) {
+            this.setState({
+                errorMsg:
+                    'Sorry, we experienced an error. This may cause future problems. If it does, close out of the app completely and reload it.',
+                isError: true
+            });
         }
+
+        AppState.removeEventListener('change', this.onPlayPausePressed);
     };
 
     render() {
