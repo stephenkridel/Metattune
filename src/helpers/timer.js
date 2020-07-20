@@ -26,5 +26,9 @@ export default class Timer {
             this.remaining = this.delay;
             clearTimeout(this.instance);
         };
+
+        this.destroy = () => {
+            clearTimeout(this.instance);
+        };
     }
 }
