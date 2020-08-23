@@ -58,7 +58,7 @@ export default class SessionScreen extends Component {
         return timersAndSoundArrays;
     };
 
-    _loadNewAudio = async () => {
+    _loadAudio = async () => {
         const soundObject = new Audio.Sound();
         try {
             await soundObject.loadAsync(this.source);
@@ -71,6 +71,21 @@ export default class SessionScreen extends Component {
         } catch (error) {
             this.setState({
                 errorMsg: 'Sorry, there was an error loading the audio',
+                isError: true
+            });
+        }
+    };
+
+    _unloadAudio = async () => {
+        try {
+            if (this.playbackInstance != null) {
+                await this.playbackInstance.unloadAsync();
+                this.playbackInstance = null;
+            }
+        } catch (error) {
+            this.setState({
+                errorMsg:
+                    'Sorry, we experienced an error. This may cause future problems. If it does, close out of the app completely and reload it.',
                 isError: true
             });
         }
@@ -130,13 +145,13 @@ export default class SessionScreen extends Component {
     };
 
     componentDidMount = () => {
-        this._loadNewAudio();
+        this._loadAudio();
         // listens for the app to go into background or foreground and then runs onPlayPausePressed
         // with isPlaying always true. This stops the timers so that they dont get off time.
         AppState.addEventListener('change', this._handleAppStateChange);
     };
 
-    componentWillUnmount = async () => {
+    componentWillUnmount = () => {
         this.soundBitesArray.forEach(async element => {
             element.unloadAsync();
         });
@@ -148,18 +163,7 @@ export default class SessionScreen extends Component {
         // had an error from using this.pauseAudio() as the second arg instead of this.pauseAudio
         AppState.removeEventListener('change', this._handleAppStateChange);
 
-        try {
-            if (this.playbackInstance != null) {
-                await this.playbackInstance.unloadAsync();
-                this.playbackInstance = null;
-            }
-        } catch (error) {
-            this.setState({
-                errorMsg:
-                    'Sorry, we experienced an error. This may cause future problems. If it does, close out of the app completely and reload it.',
-                isError: true
-            });
-        }
+        this._unloadAudio();
     };
 
     render() {

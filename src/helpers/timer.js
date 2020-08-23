@@ -5,7 +5,6 @@ export default class Timer {
         this.instance = null;
         this.remaining = delay;
         this.startTime = null;
-        this.instance = null;
 
         this.start = () => {
             this.startTime = Date.now();
@@ -29,6 +28,7 @@ export default class Timer {
 
         this.destroy = () => {
             clearTimeout(this.instance);
+            this.instance = null;
         };
     }
 }
