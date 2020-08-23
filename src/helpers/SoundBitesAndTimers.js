@@ -2,6 +2,7 @@ import Timer from '../helpers/Timer.js';
 import { Audio } from 'expo-av';
 
 const randomizeSoundBites = array => {
+    // Fisher-Yates shuffle
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -30,7 +31,7 @@ const loadSoundBiteAudio = array => {
     return array;
 };
 /*
-const loadSoundBiteAudio = async array => {
+const loadSoundBiteAudio = array => {
     array.map(element => {
         try {
             element;
