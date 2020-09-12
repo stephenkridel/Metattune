@@ -46,7 +46,7 @@ export default class SessionScreen extends Component {
             AppState: AppState.currentState
         };
 
-        // the time in miliseconds each voice prompt fires
+        // the time in miliseconds each voice prompt fires for ***8*** prompts
         this.durationList = [
             53000,
             106000,
@@ -64,10 +64,7 @@ export default class SessionScreen extends Component {
     _soundBiteTimerSetup = array => {
         const randomizedArray = randomizeSoundBites(array);
         const loadedSoundArray = loadSoundBiteAudio(randomizedArray);
-        const timersAndSoundArrays = setupTimers(
-            loadedSoundArray,
-            this.durationList
-        );
+        const timersAndSoundArrays = setupTimers(loadedSoundArray);
 
         return timersAndSoundArrays;
     };
@@ -166,13 +163,17 @@ export default class SessionScreen extends Component {
     };
 
     componentWillUnmount = () => {
-        this.soundBitesArray.forEach(async element => {
-            element.unloadAsync();
-        });
+        if (this.soundBitesArray != null) {
+            this.soundBitesArray.forEach(async element => {
+                element.unloadAsync();
+            });
+        }
 
-        this.timerInstances.forEach(element => {
-            element.destroy();
-        });
+        if (this.timerInstances != null) {
+            this.timerInstances.forEach(element => {
+                element.destroy();
+            });
+        }
 
         // had an error from using this.pauseAudio() as the second arg instead of this.pauseAudio
         AppState.removeEventListener('change', this._handleAppStateChange);

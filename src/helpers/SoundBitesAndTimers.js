@@ -40,7 +40,7 @@ const setupTimers = soundArray => {
         timerArray[i] = new Timer(function () {
             soundArray[i].playAsync();
             // console.log(soundArray[i]);
-        }, (i + 1) * 53000);
+        }, i * 53000);
     }
 
     return [timerArray, soundArray];
