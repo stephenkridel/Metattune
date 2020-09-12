@@ -46,6 +46,17 @@ export default class SessionScreen extends Component {
             AppState: AppState.currentState
         };
 
+        // the time in miliseconds each voice prompt fires
+        this.durationList = [
+            53000,
+            106000,
+            159000,
+            212000,
+            265000,
+            3180000,
+            371000,
+            4240000
+        ];
         // Ignoring a warning for long timers (RN error 12981)
         YellowBox.ignoreWarnings(['Setting a timer']);
     }
@@ -53,7 +64,10 @@ export default class SessionScreen extends Component {
     _soundBiteTimerSetup = array => {
         const randomizedArray = randomizeSoundBites(array);
         const loadedSoundArray = loadSoundBiteAudio(randomizedArray);
-        const timersAndSoundArrays = setupTimers(loadedSoundArray);
+        const timersAndSoundArrays = setupTimers(
+            loadedSoundArray,
+            this.durationList
+        );
 
         return timersAndSoundArrays;
     };
