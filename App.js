@@ -11,7 +11,10 @@ const navigator = createStackNavigator(
         Session: SessionScreen
     },
     {
-        initialRouteName: 'Home'
+        initialRouteName: 'Home',
+        defaultNavigationOptions: {
+            cardStyle: { backgroundColor: 'white' }
+        }
     }
 );
 
