@@ -8,6 +8,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 *.mp3
+*.png
 web-build/
 web-report/
 

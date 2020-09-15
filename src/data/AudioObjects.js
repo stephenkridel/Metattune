@@ -1,10 +1,11 @@
 export default function AudioObjects() {
     class PremixedAudioElement {
-        constructor(title, file, color, soundBites) {
+        constructor(title, file, color, soundBites, image) {
             this.title = title;
             this.file = file;
             this.color = color;
             this.soundBites = soundBites;
+            this.image = image;
         }
     }
 
@@ -18,7 +19,8 @@ export default function AudioObjects() {
             require('../assets/audio3.mp3'),
             require('../assets/audio4.mp3'),
             require('../assets/audio5.mp3')
-        ]
+        ],
+        require('../assets/forest.png')
     );
 
     const urban = new PremixedAudioElement(
@@ -31,12 +33,13 @@ export default function AudioObjects() {
             require('../assets/audio3.mp3'),
             require('../assets/audio4.mp3'),
             require('../assets/audio5.mp3')
-        ]
+        ],
+        require('../assets/urban.png')
     );
 
-    const beach = new PremixedAudioElement(
-        'Beach',
-        require('../assets/beach.mp3'),
+    const space = new PremixedAudioElement(
+        'Space',
+        require('../assets/space.mp3'),
         'lightblue',
         [
             require('../assets/audio1.mp3'),
@@ -44,7 +47,8 @@ export default function AudioObjects() {
             require('../assets/audio3.mp3'),
             require('../assets/audio4.mp3'),
             require('../assets/audio5.mp3')
-        ]
+        ],
+        require('../assets/space.png')
     );
 
     const rainforest = new PremixedAudioElement(
@@ -57,10 +61,11 @@ export default function AudioObjects() {
             require('../assets/audio3.mp3'),
             require('../assets/audio4.mp3'),
             require('../assets/audio5.mp3')
-        ]
+        ],
+        require('../assets/forest.png')
     );
 
-    premixedAudioList = [nature, urban, beach, rainforest];
+    premixedAudioList = [nature, urban, space, rainforest];
 
     return { premixedAudioList };
 }
