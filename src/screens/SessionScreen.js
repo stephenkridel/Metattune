@@ -46,17 +46,6 @@ export default class SessionScreen extends Component {
             AppState: AppState.currentState
         };
 
-        // the time in miliseconds each voice prompt fires
-        this.durationList = [
-            53000,
-            106000,
-            159000,
-            212000,
-            265000,
-            3180000,
-            371000,
-            4240000
-        ];
         // Ignoring a warning for long timers (RN error 12981)
         YellowBox.ignoreWarnings(['Setting a timer']);
     }
@@ -64,10 +53,7 @@ export default class SessionScreen extends Component {
     _soundBiteTimerSetup = array => {
         const randomizedArray = randomizeSoundBites(array);
         const loadedSoundArray = loadSoundBiteAudio(randomizedArray);
-        const timersAndSoundArrays = setupTimers(
-            loadedSoundArray,
-            this.durationList
-        );
+        const timersAndSoundArrays = setupTimers(loadedSoundArray);
 
         return timersAndSoundArrays;
     };
@@ -166,13 +152,17 @@ export default class SessionScreen extends Component {
     };
 
     componentWillUnmount = () => {
-        this.soundBitesArray.forEach(async element => {
-            element.unloadAsync();
-        });
+        if (this.soundBitesArray != null) {
+            this.soundBitesArray.forEach(async element => {
+                element.unloadAsync();
+            });
+        }
 
-        this.timerInstances.forEach(element => {
-            element.destroy();
-        });
+        if (this.timerInstances != null) {
+            this.timerInstances.forEach(element => {
+                element.destroy();
+            });
+        }
 
         // had an error from using this.pauseAudio() as the second arg instead of this.pauseAudio
         AppState.removeEventListener('change', this._handleAppStateChange);
