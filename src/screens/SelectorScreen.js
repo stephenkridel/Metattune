@@ -6,11 +6,11 @@ import AudioObjects from '../data/AudioObjects.js';
 // returns info as an object that contains the list premixedAudioList
 const info = AudioObjects();
 
-const SelectorScreen = props => {
+const SelectorScreen = () => {
     return (
         <View style={styles.Hero}>
-            <Text style={styles.HeroText}>Module Screen</Text>
-            <View style={styles.List}>
+            <Text style={styles.HeroText}>Explore</Text>
+            <View>
                 <FlatList
                     data={info.premixedAudioList}
                     keyExtractor={item => item.title}
@@ -32,13 +32,16 @@ const styles = StyleSheet.create({
     Hero: {
         marginTop: 60,
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        backgroundColor: 'white'
     },
     HeroText: {
         marginBottom: 20,
-        fontSize: 40
+        marginLeft: 20,
+        fontSize: 30,
+        fontWeight: 'bold'
     }
 });
 
