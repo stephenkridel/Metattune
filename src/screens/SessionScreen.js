@@ -46,20 +46,6 @@ export default class SessionScreen extends Component {
             AppState: AppState.currentState
         };
 
-<<<<<<< HEAD
-        // the time in miliseconds each voice prompt fires for ***8*** prompts
-        this.durationList = [
-            53000,
-            106000,
-            159000,
-            212000,
-            265000,
-            3180000,
-            371000,
-            4240000
-        ];
-=======
->>>>>>> selector-screen-styling
         // Ignoring a warning for long timers (RN error 12981)
         YellowBox.ignoreWarnings(['Setting a timer']);
     }
