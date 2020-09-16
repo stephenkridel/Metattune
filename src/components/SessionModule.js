@@ -1,35 +1,14 @@
 import React from 'react';
-import {
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    Dimensions,
-    View,
-    Image
-} from 'react-native';
+import { Text, StyleSheet, Dimensions, View, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { AntDesign } from '@expo/vector-icons';
+import ArrowButton from './ArrowButton';
 
 const SelectorModule = props => {
     return (
         <View style={styles.Container}>
             <Text style={styles.ListText}>{props.info.title}</Text>
             <View style={styles.ButtonContainer}>
-                <TouchableOpacity
-                    // navigates to the SessionScreen passing info (.title, .file, and .color) to SessionScreen.js
-                    onPress={() =>
-                        props.navigation.navigate('Session', {
-                            info: props.info
-                        })
-                    }
-                    style={styles.Button}
-                >
-                    <AntDesign
-                        name='arrowright'
-                        size={20}
-                        style={styles.Icon}
-                    />
-                </TouchableOpacity>
+                <ArrowButton screen={'Session'} info={props.info} />
             </View>
             <Image source={props.info.image} style={styles.Image} />
         </View>
@@ -65,17 +44,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 40,
         top: 5
-    },
-    Icon: {
-        color: 'white',
-        position: 'absolute',
-        top: 15,
-        left: 15
-    },
-    Button: {
-        height: 50,
-        width: 50
     }
 });
 
-export default withNavigation(SelectorModule);
+export default SelectorModule;
