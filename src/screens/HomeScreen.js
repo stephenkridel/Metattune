@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     SubHeader: {
         fontSize: 18,
         textAlign: 'center',
-        marginBottom: 40,
+        marginBottom: 43,
         color: 'black',
         marginHorizontal: 40
     },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         height: 256,
         width: 330,
         marginBottom: 20,
-        marginTop: 50,
+        marginTop: 40,
         marginBottom: 35
     }
 });
