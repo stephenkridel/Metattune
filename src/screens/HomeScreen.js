@@ -1,18 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import ArrowButton from '../components/ArrowButton';
 
 const HomeScreen = props => {
     return (
         <View style={styles.Hero}>
-            <Text style={styles.Text}>ATT App</Text>
-            <TouchableOpacity
-                style={styles.Button}
-                title='Go to Module Selector'
-                onPress={() => props.navigation.navigate('Selector')}
-            >
-                <Text style={styles.ButtonText}>Go to Session Options</Text>
-            </TouchableOpacity>
+            <Image
+                source={require('../assets/home.png')}
+                style={styles.Image}
+            />
+            <Text style={styles.Header}>The Attention Training App</Text>
+            <Text style={styles.SubHeader}>
+                ATT is a research-backed method that guides you to focus on
+                sounds around you. An ATT session takes only 10-15 minutes.
+            </Text>
+            <ArrowButton screen={'Selector'} />
         </View>
     );
 };
@@ -20,25 +22,39 @@ const HomeScreen = props => {
 const styles = StyleSheet.create({
     Hero: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'pink'
+        alignItems: 'center'
     },
-    Text: {
-        fontSize: 60,
-        marginBottom: 50,
-        color: 'white'
+    Header: {
+        fontSize: 25,
+        textAlign: 'center',
+        marginBottom: 5,
+        fontWeight: 'bold',
+        color: 'black'
+    },
+    SubHeader: {
+        fontSize: 18,
+        textAlign: 'center',
+        marginBottom: 40,
+        color: 'black',
+        marginHorizontal: 40
     },
     Button: {
-        height: 100,
-        width: 200,
-        borderRadius: 10,
+        height: 50,
+        width: 50,
+        borderRadius: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'black'
     },
     ButtonText: {
         fontSize: 18
+    },
+    Image: {
+        height: 256,
+        width: 330,
+        marginBottom: 20,
+        marginTop: 50,
+        marginBottom: 35
     }
 });
 
