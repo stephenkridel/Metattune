@@ -8,6 +8,7 @@ import {
     YellowBox,
     AppState
 } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import {
     randomizeSoundBites,
@@ -39,7 +40,8 @@ export default class SessionScreen extends Component {
         this.state = {
             isPlaying: false,
             hasPlayed: false,
-            btnText: 'Play',
+            // the name for the arror icon is 'caretright'
+            btnText: 'caretright',
             hasLoaded: false,
             errorMsg: 'Hello',
             isError: false,
@@ -98,7 +100,7 @@ export default class SessionScreen extends Component {
                 this.timerInstances.forEach(element => element.stop());
                 this.setState({
                     isPlaying: false,
-                    btnText: 'Play'
+                    btnText: 'caretright'
                 });
             } catch (error) {
                 this.setState({
@@ -112,7 +114,7 @@ export default class SessionScreen extends Component {
                 this.timerInstances.forEach(element => element.start());
                 this.setState({
                     isPlaying: true,
-                    btnText: 'Pause'
+                    btnText: 'pause'
                 });
             } catch (error) {
                 this.setState({
@@ -188,29 +190,22 @@ export default class SessionScreen extends Component {
                         </Text>
                     </View>
                 </Modal>
-                <Text style={styles.HeroText}>{this.title} Session Screen</Text>
-                <View style={styles.Controls}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this._onPlayPausePressed();
-                        }}
-                        // disables the button if the audio hasn't loaded
-                        disabled={this.state.hasLoaded ? false : true}
-                        style={[styles.Module, this.colorStyles]}
-                    >
-                        <Text>{this.state.btnText} Session</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this._onStopPressed();
-                        }}
-                        // disables the button if the audio hasn't loaded
-                        disabled={this.state.hasLoaded ? false : true}
-                        style={[styles.Module, this.colorStyles]}
-                    >
-                        <Text>Stop Session</Text>
-                    </TouchableOpacity>
-                </View>
+                <Text style={styles.HeroText}>{this.title}</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        this._onPlayPausePressed();
+                    }}
+                    // disables the button if the audio hasn't loaded
+                    disabled={this.state.hasLoaded ? false : true}
+                    // for different colors -> style={[styles.Module, this.colorStyles]}
+                    style={styles.Module}
+                >
+                    <AntDesign
+                        name={this.state.btnText}
+                        size={35}
+                        color='white'
+                    />
+                </TouchableOpacity>
             </View>
         );
     }
@@ -223,20 +218,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     HeroText: {
-        marginBottom: 20
+        marginBottom: 30,
+        fontSize: 25,
+        fontWeight: 'bold'
     },
     Module: {
         alignItems: 'center',
         justifyContent: 'center',
         height: 100,
         width: 100,
-        borderRadius: 50
+        borderRadius: 50,
+        backgroundColor: 'black'
     },
-    Controls: {
-        height: 100,
-        width: 225,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+    ModuleText: {
+        color: 'white',
+        fontSize: 15
     },
     Modal: {
         flex: 1,
