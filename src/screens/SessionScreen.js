@@ -52,92 +52,136 @@ export default class SessionScreen extends Component {
         YellowBox.ignoreWarnings(['Setting a timer']);
     }
 
-    _soundBiteTimerSetup = array => {
-        const randomizedArray = randomizeSoundBites(array);
-        const loadedSoundArray = loadSoundBiteAudio(randomizedArray);
-        const timersAndSoundArrays = setupTimers(loadedSoundArray);
+    _errorHandler = (error, message) => {
+        this.setState({
+            errorMsg: message,
+            isError: true
+        });
+        console.log(error);
+    };
 
-        return timersAndSoundArrays;
+    _soundBiteTimerSetup = async array => {
+        try {
+            const result = await randomizeSoundBites(array);
+            const nextResult = await loadSoundBiteAudio(result);
+            const finalResult = await setupTimers(nextResult);
+            return finalResult;
+        } catch (error) {
+            this._errorHandler(
+                error,
+                'Sorry, there was an error setting up the audio'
+            );
+        }
     };
 
     _loadAudio = async () => {
-        const soundObject = new Audio.Sound();
         try {
+            const soundObject = new Audio.Sound();
+            soundObject.setOnPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
             await soundObject.loadAsync(this.source);
+
             [
                 this.timerInstances,
                 this.soundBitesArray
-            ] = this._soundBiteTimerSetup(this.soundBites);
+            ] = await this._soundBiteTimerSetup(this.soundBites);
+
             this.playbackInstance = soundObject;
             this.setState({ hasLoaded: true });
         } catch (error) {
-            this.setState({
-                errorMsg: 'Sorry, there was an error loading the audio',
-                isError: true
-            });
+            this._errorHandler(
+                error,
+                'Sorry, there was an error loading the audio'
+            );
+        }
+    };
+
+    _onPlaybackStatusUpdate = status => {
+        if (status.didJustFinish) {
+            this._onStopPressed();
         }
     };
 
     _unloadAudio = async () => {
         try {
-            if (this.playbackInstance != null) {
+            if (this.playbackInstance !== null) {
                 await this.playbackInstance.unloadAsync();
                 this.playbackInstance = null;
             }
+            // no throw statement because we want playbackInstance to be null in the end
         } catch (error) {
-            this.setState({
-                errorMsg:
-                    'Sorry, we experienced an error. This may cause future problems. If it does, close out of the app completely and reload it.',
-                isError: true
-            });
+            this._errorHandler(
+                error,
+                'Sorry, we experienced an error. This may cause future problems. If it does, close out of the app completely and reload it.'
+            );
         }
     };
 
     _onPlayPausePressed = async () => {
         if (this.state.isPlaying) {
             try {
-                await this.playbackInstance.pauseAsync();
-                this.timerInstances.forEach(element => element.stop());
-                this.setState({
-                    isPlaying: false,
-                    btnText: 'caretright'
-                });
+                if (
+                    this.playbackInstance !== null &&
+                    this.timerinstances !== null
+                ) {
+                    await this.playbackInstance.pauseAsync();
+                    this.timerInstances.forEach(element => element.stop());
+                    this.setState({
+                        isPlaying: false,
+                        btnText: 'caretright'
+                    });
+                } else {
+                    throw 'playback instance or timer instance is null or undefined';
+                }
             } catch (error) {
-                this.setState({
-                    errorMsg: 'Sorry, there was an error pausing the audio',
-                    isError: true
-                });
+                this._errorHandler(
+                    error,
+                    'Sorry, there was an error pausing the audio'
+                );
             }
         } else {
             try {
-                await this.playbackInstance.playAsync();
-                this.timerInstances.forEach(element => element.start());
-                this.setState({
-                    isPlaying: true,
-                    btnText: 'pause'
-                });
+                if (
+                    this.playbackInstance !== null &&
+                    this.timerinstances !== null
+                ) {
+                    await this.playbackInstance.playAsync();
+                    this.timerInstances.forEach(element => element.start());
+                    this.setState({
+                        isPlaying: true,
+                        btnText: 'pause'
+                    });
+                } else {
+                    throw 'playback instance or timer instance is null or undefined';
+                }
             } catch (error) {
-                this.setState({
-                    errorMsg: 'Sorry, there was an error playing the audio',
-                    isError: true
-                });
+                this._errorHandler(
+                    error,
+                    'Sorry, there was an error playing the audio'
+                );
             }
         }
     };
 
     _onStopPressed = async () => {
         try {
-            await this.playbackInstance.stopAsync();
-            this.timerInstances.forEach(element => element.stop());
-            this.setState({
-                isPlaying: false,
-                btnText: 'Play'
-            });
+            if (
+                this.playbackInstance !== null &&
+                this.timerinstances !== null
+            ) {
+                await this.playbackInstance.stopAsync();
+                this.timerInstances.forEach(element => element.stop());
+                this.setState({
+                    isPlaying: false,
+                    btnText: 'caretright'
+                });
+            } else {
+                throw 'playback instance or timer instance is null or undefined';
+            }
         } catch (error) {
-            this.setState({
-                errorMsg: 'Sorry, there was an error stopping the audio',
-                isError: true
-            });
+            this._errorHandler(
+                error,
+                'Sorry, there was an error stopping the audio'
+            );
         }
     };
 
