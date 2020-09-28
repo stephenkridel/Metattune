@@ -5,10 +5,10 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	Modal,
-	YellowBox,
-	AppState
+	YellowBox
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import BackgroundTimer from 'react-native-background-timer';
 import { Audio } from 'expo-av';
 import {
 	randomizeSoundBites,
@@ -39,13 +39,11 @@ export default class SessionScreen extends Component {
 
 		this.state = {
 			isPlaying: false,
-			hasPlayed: false,
-			// the name for the arror icon is 'caretright'
-			btnText: 'caretright',
+			hasStarted: false,
+			btnText: 'caretright', // the name for the arrow icon is 'caretright'
 			hasLoaded: false,
 			errorMsg: 'Hello',
-			isError: false,
-			AppState: AppState.currentState
+			isError: false
 		};
 
 		// Ignoring a warning for long timers (RN error 12981)
@@ -76,9 +74,21 @@ export default class SessionScreen extends Component {
 
 	_loadAudio = async () => {
 		try {
+			await Audio.setAudioModeAsync({
+				staysActiveInBackground: true,
+				interruptionModeAndroid:
+					Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+				shouldDuckAndroid: true,
+				playThroughEarpieceAndroid: false,
+				allowsRecordingIOS: false,
+				interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DUCK_OTHERS,
+				playsInSilentModeIOS: true
+			});
+
 			const soundObject = new Audio.Sound();
 			soundObject.setOnPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
 			await soundObject.loadAsync(this.source);
+
 			[
 				this.timerInstances,
 				this.soundBitesArray
@@ -122,8 +132,8 @@ export default class SessionScreen extends Component {
 					this.playbackInstance !== null &&
 					this.timerinstances !== null
 				) {
-					await this.playbackInstance.pauseAsync();
 					this.timerInstances.forEach(element => element.stop());
+					await this.playbackInstance.pauseAsync();
 					this.setState({
 						isPlaying: false,
 						btnText: 'caretright'
@@ -144,7 +154,16 @@ export default class SessionScreen extends Component {
 					this.timerinstances !== null
 				) {
 					await this.playbackInstance.playAsync();
+
+					// calling BackgroundTimer for IOS. Checking if the
+					// session has started so that it's never called twice
+					if (!this.state.hasStarted) {
+						BackgroundTimer.start();
+						this.setState({ hasStarted: true });
+					}
+
 					this.timerInstances.forEach(element => element.start());
+
 					this.setState({
 						isPlaying: true,
 						btnText: 'pause'
@@ -167,11 +186,15 @@ export default class SessionScreen extends Component {
 				this.playbackInstance !== null &&
 				this.timerinstances !== null
 			) {
-				await this.playbackInstance.stopAsync();
+				BackgroundTimer.stop(); // calling BackgroundTimer for IOS
 				this.timerInstances.forEach(element => element.stop());
+
+				await this.playbackInstance.stopAsync();
+
 				this.setState({
 					isPlaying: false,
-					btnText: 'caretright'
+					btnText: 'caretright',
+					hasStarted: false
 				});
 			} else {
 				throw 'playback instance or timer instance is null or undefined';
@@ -184,16 +207,8 @@ export default class SessionScreen extends Component {
 		}
 	};
 
-	_handleAppStateChange = () => {
-		this.setState({ isPlaying: true });
-		this._onPlayPausePressed();
-	};
-
 	componentDidMount = () => {
 		this._loadAudio();
-		// listens for the app to go into background or foreground and then runs onPlayPausePressed
-		// with isPlaying always true. This stops the timers so that they dont get off time.
-		AppState.addEventListener('change', this._handleAppStateChange);
 	};
 
 	componentWillUnmount = () => {
@@ -208,9 +223,6 @@ export default class SessionScreen extends Component {
 				element.destroy();
 			});
 		}
-
-		// had an error from using this.pauseAudio() as the second arg instead of this.pauseAudio
-		AppState.removeEventListener('change', this._handleAppStateChange);
 
 		this._unloadAudio();
 	};
@@ -263,7 +275,8 @@ const styles = StyleSheet.create({
 	HeroText: {
 		marginBottom: 30,
 		fontSize: 25,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		color: 'black'
 	},
 	Module: {
 		alignItems: 'center',

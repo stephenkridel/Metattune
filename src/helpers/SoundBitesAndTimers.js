@@ -1,4 +1,4 @@
-import Timer from '../helpers/Timer.js';
+import Timer from './Timer.js';
 import { Audio } from 'expo-av';
 
 const randomizeSoundBites = array => {
@@ -48,7 +48,7 @@ const setupTimers = soundArray => {
 		for (let i = 0; i < soundArray.length; i++) {
 			timerArray[i] = new Timer(function () {
 				soundArray[i].playAsync();
-			}, i * 53000);
+			}, (i + 1) * 53000);
 		}
 		if (timerArray == null || soundArray == null) {
 			reject('error in setupTimers function');

@@ -1,3 +1,5 @@
+import BackgroundTimer from 'react-native-background-timer';
+
 export default class Timer {
 	constructor(callback, delay) {
 		this.delay = delay;
@@ -9,25 +11,29 @@ export default class Timer {
 		this.start = () => {
 			this.startTime = Date.now();
 			this.remaining -= Date.now() - this.startTime;
-			clearTimeout(this.instance);
+			BackgroundTimer.clearTimeout(this.instance);
 			if (this.remaining > 0) {
 				clearTimeout(this.instance);
-				this.instance = setTimeout(this.callback, this.remaining);
+				// calling BackgroundTimer for Android
+				this.instance = BackgroundTimer.setTimeout(
+					this.callback,
+					this.remaining
+				);
 			}
 		};
 
 		this.pause = () => {
 			this.remaining -= Date.now() - this.startTime;
-			clearTimeout(this.instance);
+			BackgroundTimer.clearTimeout(this.instance);
 		};
 
 		this.stop = () => {
 			this.remaining = this.delay;
-			clearTimeout(this.instance);
+			BackgroundTimer.clearTimeout(this.instance);
 		};
 
 		this.destroy = () => {
-			clearTimeout(this.instance);
+			BackgroundTimer.clearTimeout(this.instance);
 			this.instance = null;
 		};
 	}

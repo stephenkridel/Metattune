@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
 	ListText: {
 		fontSize: 25,
 		marginLeft: 40,
-		alignSelf: 'flex-start'
+		marginTop: 10,
+		alignSelf: 'flex-start',
+		color: 'black'
 	},
 	ButtonContainer: {
 		height: 50,
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
 		width: 120,
 		position: 'absolute',
 		right: 40,
-		top: 5
+		top: 12
 	}
 });
 
