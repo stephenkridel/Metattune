@@ -2,6 +2,8 @@ platform :ios, '10.0'
 
 require_relative '../node_modules/react-native-unimodules/cocoapods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+# added next line according to expo unnimodules docs
+require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 
 target 'AttApp' do
   rnPrefix = "../node_modules/react-native"

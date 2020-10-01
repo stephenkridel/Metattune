@@ -20,6 +20,14 @@
 
 @end
 
+/* Added code from expo unimodules docs */
+@interface AppDelegate () <RCTBridgeDelegate>
+ 
+@property (nonatomic, strong) UMModuleRegistryAdapter *moduleRegistryAdapter;
+ 
+@end
+/* end of added code */
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -65,7 +73,9 @@
   return extraModules;
 }
 
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge {
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge 
+/* added space according to expo unimmodules docs */
+{
 #ifdef DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
