@@ -7,7 +7,12 @@ const SelectorModule = props => {
 		<View style={styles.Container}>
 			<Text style={styles.ListText}>{props.info.title}</Text>
 			<View style={styles.ButtonContainer}>
-				<ArrowButton screen={'Session'} info={props.info} />
+				<ArrowButton
+					screen={'Session'}
+					info={props.info}
+					direction={'arrowright'}
+					disable={false}
+				/>
 			</View>
 			<Image source={props.info.image} style={styles.Image} />
 		</View>

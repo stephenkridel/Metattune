@@ -1,22 +1,75 @@
+import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import HomeScreen from './src/screens/HomeScreen';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import SelectorScreen from './src/screens/SelectorScreen';
 import SessionScreen from './src/screens/SessionScreen';
+import {
+	AboutScreen1,
+	AboutScreen2,
+	AboutScreen3
+} from './src/screens/AboutScreen';
+import { AntDesign } from '@expo/vector-icons';
 
-const navigator = createStackNavigator(
+const SessionStack = createStackNavigator(
 	{
-		Home: HomeScreen,
 		Selector: SelectorScreen,
 		Session: SessionScreen
 	},
 	{
-		initialRouteName: 'Home',
+		initialRouteName: 'Selector',
 		defaultNavigationOptions: {
-			cardStyle: { backgroundColor: 'white' },
-			headerShown: false
+			headerShown: false,
+			cardStyle: { backgroundColor: 'white' }
 		}
 	}
 );
 
-export default createAppContainer(navigator);
+const AboutStack = createStackNavigator(
+	{
+		About1: AboutScreen1,
+		About2: AboutScreen2,
+		About3: AboutScreen3
+	},
+	{
+		initialRouteName: 'About1',
+		defaultNavigationOptions: {
+			headerShown: false,
+			cardStyle: { backgroundColor: 'white' }
+		}
+	}
+);
+
+const App = createBottomTabNavigator(
+	{
+		Sessions: SessionStack,
+		About: AboutStack
+	},
+	{
+		defaultNavigationOptions: ({ navigation }) => ({
+			tabBarIcon: ({ tintColor }) => {
+				const { routeName } = navigation.state;
+				let IconComponent = AntDesign;
+				let iconName;
+				if (routeName === 'About') {
+					iconName = 'infocirlceo';
+				} else if (routeName === 'Sessions') {
+					iconName = 'bars';
+				}
+				return (
+					<IconComponent
+						name={iconName}
+						size={25}
+						color={tintColor}
+					/>
+				);
+			}
+		}),
+		tabBarOptions: {
+			activeTintColor: 'rgb(108, 99, 255)',
+			inactiveTintColor: 'gray'
+		}
+	}
+);
+
+export default createAppContainer(App);

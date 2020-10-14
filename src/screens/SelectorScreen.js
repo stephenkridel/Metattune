@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import SessionModule from '../components/SessionModule';
+import { View, StyleSheet, FlatList } from 'react-native';
+import SelectorModule from '../components/SelectorModule';
 import AudioObjects from '../data/AudioObjects.js';
 
 // returns info as an object that contains the list premixedAudioList
@@ -15,8 +15,8 @@ const SelectorScreen = () => {
 					keyExtractor={item => item.title}
 					renderItem={({ item }) => {
 						return (
-							<SessionModule
-								// passes info (.title, .file, .color) to the SessionModule component
+							<SelectorModule
+								// passes info (.title, .file, .color) to the SelectorModule component
 								info={item}
 							/>
 						);

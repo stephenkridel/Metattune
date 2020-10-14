@@ -7,7 +7,7 @@ import {
 	Modal,
 	YellowBox
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 import BackgroundTimer from 'react-native-background-timer';
 import { Audio } from 'expo-av';
 import {
@@ -20,27 +20,33 @@ export default class SessionScreen extends Component {
 	constructor(props) {
 		super(props);
 
-		// collects the file and title props from SessionModule.js
+		// collects the file and title props from SelectorModule.js
 		const info = this.props.navigation.getParam('info');
 
+		// destructuring info
 		this.title = info.title;
-		this.color = info.color;
+		// this.color = info.color;
 		this.source = info.file;
 		this.soundBites = info.soundBites;
 
 		this.playbackInstance = null;
 
+		/* use this for different color play buttons
 		this.colorStyles = {
 			backgroundColor: this.color
 		};
+		*/
 
 		this.soundBitesArray = null;
 		this.timerInstances = null;
 
+		// using this variable to switch between Feather and AntDesign icons
+		this.IconFamily = Feather;
+
 		this.state = {
 			isPlaying: false,
 			hasStarted: false,
-			btnText: 'caretright', // the name for the arrow icon is 'caretright'
+			btnIcon: 'loader',
 			hasLoaded: false,
 			errorMsg: 'Hello',
 			isError: false
@@ -49,6 +55,22 @@ export default class SessionScreen extends Component {
 		// Ignoring a warning for long timers (RN error 12981)
 		YellowBox.ignoreWarnings(['Setting a timer']);
 	}
+
+	_iconNameChange = iconName => {
+		return new Promise(resolve => {
+			this.setState({
+				btnIcon: iconName
+			});
+			resolve();
+		});
+	};
+
+	_iconFamilyChange = IconFamilyName => {
+		return new Promise(resolve => {
+			this.IconFamily = IconFamilyName;
+			resolve();
+		});
+	};
 
 	_errorHandler = (error, message) => {
 		this.setState({
@@ -74,7 +96,7 @@ export default class SessionScreen extends Component {
 
 	_loadAudio = async () => {
 		try {
-			await Audio.setAudioModeAsync({
+			Audio.setAudioModeAsync({
 				staysActiveInBackground: true,
 				interruptionModeAndroid:
 					Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
@@ -85,16 +107,23 @@ export default class SessionScreen extends Component {
 				playsInSilentModeIOS: true
 			});
 
-			const soundObject = new Audio.Sound();
-			soundObject.setOnPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
-			await soundObject.loadAsync(this.source);
+			const { sound, status } = await Audio.Sound.createAsync(
+				this.source,
+				this._onPlaybackStatusUpdate
+			);
+
+			this.playbackInstance = sound;
 
 			[
 				this.timerInstances,
 				this.soundBitesArray
 			] = await this._soundBiteTimerSetup(this.soundBites);
 
-			this.playbackInstance = soundObject;
+			// changing the icon family and name simulataneously
+			Promise.all([
+				this._iconFamilyChange(AntDesign),
+				this._iconNameChange('caretright')
+			]);
 			this.setState({ hasLoaded: true });
 		} catch (error) {
 			this._errorHandler(
@@ -136,7 +165,7 @@ export default class SessionScreen extends Component {
 					await this.playbackInstance.pauseAsync();
 					this.setState({
 						isPlaying: false,
-						btnText: 'caretright'
+						btnIcon: 'caretright'
 					});
 				} else {
 					throw 'playback instance or timer instance is null or undefined';
@@ -166,7 +195,7 @@ export default class SessionScreen extends Component {
 
 					this.setState({
 						isPlaying: true,
-						btnText: 'pause'
+						btnIcon: 'pause'
 					});
 				} else {
 					throw 'playback instance or timer instance is null or undefined';
@@ -193,7 +222,7 @@ export default class SessionScreen extends Component {
 
 				this.setState({
 					isPlaying: false,
-					btnText: 'caretright',
+					btnIcon: 'caretright',
 					hasStarted: false
 				});
 			} else {
@@ -255,8 +284,9 @@ export default class SessionScreen extends Component {
 					// for different colors -> style={[styles.Module, this.colorStyles]}
 					style={styles.Module}
 				>
-					<AntDesign
-						name={this.state.btnText}
+					<this.IconFamily
+						name={this.state.btnIcon}
+						// you can use iconStyle = `{marginRight: #}` for margins
 						size={35}
 						color='white'
 					/>
