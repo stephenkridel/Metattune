@@ -9,6 +9,7 @@ npm-debug.*
 *.orig.*
 *.mp3
 *.png
+*.hprof
 web-build/
 web-report/
 
