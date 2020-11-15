@@ -44,7 +44,7 @@ export default class SessionScreen extends Component {
 		this.iconFamily = AntDesign;
 
 		// hasLoaded is different that status.isLoaded. Tells if everything
-		// needed has loaded like soundbites and timers. isPlaying tells
+		// needed has loaded like soundBites and timers. isPlaying tells
 		// if the user pressed the play button and wants the audio to play. Its
 		// a safeguard against unforseen audio interuptions.
 		this.state = {
@@ -54,7 +54,7 @@ export default class SessionScreen extends Component {
 			btnIcon: 'rest',
 			errorMsg: null,
 			isError: false,
-			soundbiteGotPaused: false,
+			soundBiteGotPaused: false,
 			pausedAt: null
 		};
 
@@ -91,9 +91,9 @@ export default class SessionScreen extends Component {
 						(index === array.length - 1 && element.hasStarted)
 					) {
 						this.soundBitesArray[index].pauseAsync();
-						// used to play the rest of the soundbite if it gets paused midway
+						// used to play the rest of the soundBite if it gets paused midway
 						this.setState({
-							soundbiteGotPaused: true,
+							soundBiteGotPaused: true,
 							pausedAt: index
 						});
 					}
@@ -116,11 +116,11 @@ export default class SessionScreen extends Component {
 				break;
 			case 'startAudio':
 				this.timerInstances.forEach(element => {
-					// used to play the rest of the soundbite if it gets paused midway
-					if (this.state.soundbiteGotPaused) {
+					// used to play the rest of the soundBite if it gets paused midway
+					if (this.state.soundBiteGotPaused) {
 						this.soundBitesArray[this.state.pausedAt].playAsync();
 						this.setState({
-							soundbiteGotPaused: false,
+							soundBiteGotPaused: false,
 							pausedAt: null
 						});
 					}
