@@ -7,7 +7,7 @@ import {
 	Modal,
 	YellowBox
 } from 'react-native';
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import BackgroundTimer from 'react-native-background-timer';
 import { Audio } from 'expo-av';
 import {
@@ -40,37 +40,36 @@ export default class SessionScreen extends Component {
 		this.soundBitesArray = null;
 		this.timerInstances = null;
 
-		// using this variable to switch between Feather and AntDesign icons
-		this.IconFamily = Feather;
+		// using this variable to switch between icon families if needed
+		this.iconFamily = AntDesign;
 
+		// hasLoaded is different that status.isLoaded. Tells if everything
+		// needed has loaded like soundbites and timers. isPlaying tells
+		// if the user pressed the play button and wants the audio to play. Its
+		// a safeguard against unforseen audio interuptions.
 		this.state = {
 			isPlaying: false,
 			hasStarted: false,
-			btnIcon: 'loader',
 			hasLoaded: false,
-			errorMsg: 'Hello',
-			isError: false
+			btnIcon: 'rest',
+			errorMsg: null,
+			isError: false,
+			soundbiteGotPaused: false,
+			pausedAt: null
 		};
 
 		// Ignoring a warning for long timers (RN error 12981)
 		YellowBox.ignoreWarnings(['Setting a timer']);
 	}
 
-	_iconNameChange = iconName => {
+	/* Use this if you want to use different icon families
+	_iconFamilyChange = iconFamilyName => {
 		return new Promise(resolve => {
-			this.setState({
-				btnIcon: iconName
-			});
+			this.iconFamily = iconFamilyName;
 			resolve();
 		});
 	};
-
-	_iconFamilyChange = IconFamilyName => {
-		return new Promise(resolve => {
-			this.IconFamily = IconFamilyName;
-			resolve();
-		});
-	};
+	*/
 
 	_errorHandler = (error, message) => {
 		this.setState({
@@ -78,6 +77,69 @@ export default class SessionScreen extends Component {
 			isError: true
 		});
 		console.log(error);
+	};
+
+	_timerHandler = action => {
+		switch (action) {
+			case 'pauseAudio':
+				// console.log(Date.now());
+				this.timerInstances.forEach((element, index, array) => {
+					if (
+						(index !== array.length - 1 &&
+							element.hasStarted &&
+							!array[index + 1].hasStarted) ||
+						(index === array.length - 1 && element.hasStarted)
+					) {
+						this.soundBitesArray[index].pauseAsync();
+						// used to play the rest of the soundbite if it gets paused midway
+						this.setState({
+							soundbiteGotPaused: true,
+							pausedAt: index
+						});
+					}
+					// console.log(element.remaining);
+					element.pause();
+				});
+				break;
+			case 'stopAudio':
+				this.timerInstances.forEach((element, index, array) => {
+					if (
+						(index !== array.length - 1 &&
+							element.hasStarted &&
+							!array[index + 1].hasStarted) ||
+						(index === array.length - 1 && element.hasStarted)
+					) {
+						this.soundBitesArray[index].stopAsync();
+					}
+					element.stop();
+				});
+				break;
+			case 'startAudio':
+				this.timerInstances.forEach(element => {
+					// used to play the rest of the soundbite if it gets paused midway
+					if (this.state.soundbiteGotPaused) {
+						this.soundBitesArray[this.state.pausedAt].playAsync();
+						this.setState({
+							soundbiteGotPaused: false,
+							pausedAt: null
+						});
+					}
+					element.start();
+				});
+				break;
+			case 'unloadAudio':
+				this.timerInstances.forEach((element, index) => {
+					element.destroy();
+					this.soundBitesArray[index].unloadAsync();
+				});
+				break;
+			default:
+				this._errorHandler(
+					'Invalid case supplied to timerHandler',
+					'Sorry, there was an error loading the audio'
+				);
+				break;
+		}
 	};
 
 	_soundBiteTimerSetup = async array => {
@@ -96,19 +158,13 @@ export default class SessionScreen extends Component {
 
 	_loadAudio = async () => {
 		try {
-			Audio.setAudioModeAsync({
-				staysActiveInBackground: true,
-				interruptionModeAndroid:
-					Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-				shouldDuckAndroid: true,
-				playThroughEarpieceAndroid: false,
-				allowsRecordingIOS: false,
-				interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DUCK_OTHERS,
-				playsInSilentModeIOS: true
-			});
+			this.setState({ hasLoaded: false });
+
+			let initialStatus;
 
 			const { sound, status } = await Audio.Sound.createAsync(
 				this.source,
+				(initialStatus = {}),
 				this._onPlaybackStatusUpdate
 			);
 
@@ -118,13 +174,12 @@ export default class SessionScreen extends Component {
 				this.timerInstances,
 				this.soundBitesArray
 			] = await this._soundBiteTimerSetup(this.soundBites);
-
 			// changing the icon family and name simulataneously
-			Promise.all([
-				this._iconFamilyChange(AntDesign),
-				this._iconNameChange('caretright')
-			]);
-			this.setState({ hasLoaded: true });
+			// this._iconFamilyChange(AntDesign).then(() => this.setState({btnIcon: 'caretright'}))
+			this.setState({
+				btnIcon: 'caretright',
+				hasLoaded: true
+			});
 		} catch (error) {
 			this._errorHandler(
 				error,
@@ -136,6 +191,24 @@ export default class SessionScreen extends Component {
 	_onPlaybackStatusUpdate = status => {
 		if (status.didJustFinish) {
 			this._onStopPressed();
+			this._loadAudio();
+		}
+		if (status.isLoaded) {
+			// this is for when the audio pauses without the user pressing pause
+			// this happens sometimes when other audio interupts the session
+			if (this.state.hasLoaded) {
+				if (status.isPlaying) {
+					this.setState({ btnIcon: 'pause' });
+				} else {
+					if (this.state.isPlaying) {
+						this._timerHandler('pauseAudio');
+					}
+					this.setState({
+						isPlaying: false,
+						btnIcon: 'caretright'
+					});
+				}
+			}
 		}
 	};
 
@@ -159,14 +232,13 @@ export default class SessionScreen extends Component {
 			try {
 				if (
 					this.playbackInstance !== null &&
-					this.timerinstances !== null
+					this.timerInstances !== null &&
+					this.soundBitesArray !== null
 				) {
-					this.timerInstances.forEach(element => element.stop());
 					await this.playbackInstance.pauseAsync();
-					this.setState({
-						isPlaying: false,
-						btnIcon: 'caretright'
-					});
+					// if timers have an issue stopping with the setOnPlaybackStatusUpdate
+					// function, consider setTimeout(() => this.setState, 0) for the next line
+					this.setState({ isPlaying: false });
 				} else {
 					throw 'playback instance or timer instance is null or undefined';
 				}
@@ -180,23 +252,17 @@ export default class SessionScreen extends Component {
 			try {
 				if (
 					this.playbackInstance !== null &&
-					this.timerinstances !== null
+					this.timerInstances !== null
 				) {
 					await this.playbackInstance.playAsync();
-
 					// calling BackgroundTimer for IOS. Checking if the
 					// session has started so that it's never called twice
 					if (!this.state.hasStarted) {
 						BackgroundTimer.start();
 						this.setState({ hasStarted: true });
 					}
-
-					this.timerInstances.forEach(element => element.start());
-
-					this.setState({
-						isPlaying: true,
-						btnIcon: 'pause'
-					});
+					this._timerHandler('startAudio');
+					this.setState({ isPlaying: true });
 				} else {
 					throw 'playback instance or timer instance is null or undefined';
 				}
@@ -213,16 +279,15 @@ export default class SessionScreen extends Component {
 		try {
 			if (
 				this.playbackInstance !== null &&
-				this.timerinstances !== null
+				this.timerInstances !== null
 			) {
 				BackgroundTimer.stop(); // calling BackgroundTimer for IOS
-				this.timerInstances.forEach(element => element.stop());
+				this._timerHandler('stopAudio');
 
 				await this.playbackInstance.stopAsync();
 
 				this.setState({
 					isPlaying: false,
-					btnIcon: 'caretright',
 					hasStarted: false
 				});
 			} else {
@@ -237,22 +302,22 @@ export default class SessionScreen extends Component {
 	};
 
 	componentDidMount = () => {
+		Audio.setAudioModeAsync({
+			staysActiveInBackground: true,
+			interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+			shouldDuckAndroid: true,
+			playThroughEarpieceAndroid: false,
+			allowsRecordingIOS: false,
+			interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+			playsInSilentModeIOS: true
+		});
 		this._loadAudio();
 	};
 
 	componentWillUnmount = () => {
-		if (this.soundBitesArray != null) {
-			this.soundBitesArray.forEach(async element => {
-				element.unloadAsync();
-			});
+		if (this.timerInstances !== null && this.soundBitesArray !== null) {
+			this._timerHandler('unloadAudio');
 		}
-
-		if (this.timerInstances != null) {
-			this.timerInstances.forEach(element => {
-				element.destroy();
-			});
-		}
-
 		this._unloadAudio();
 	};
 
@@ -266,7 +331,7 @@ export default class SessionScreen extends Component {
 							this.setState({ isError: false });
 						}}
 					>
-						<Text>Close</Text>
+						<AntDesign name='close' size={35} color='black' />
 					</TouchableOpacity>
 					<View style={styles.Modal}>
 						<Text style={styles.ModalText}>
@@ -284,7 +349,7 @@ export default class SessionScreen extends Component {
 					// for different colors -> style={[styles.Module, this.colorStyles]}
 					style={styles.Module}
 				>
-					<this.IconFamily
+					<this.iconFamily
 						name={this.state.btnIcon}
 						// you can use iconStyle = `{marginRight: #}` for margins
 						size={35}
@@ -316,23 +381,18 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		backgroundColor: 'black'
 	},
-	ModuleText: {
-		color: 'white',
-		fontSize: 15
-	},
 	Modal: {
 		flex: 1,
 		margin: 20,
-		alignItems: 'center',
 		justifyContent: 'center'
 	},
 	ModalText: {
-		fontSize: 40
+		fontSize: 40,
+		color: 'black'
 	},
 	ModalClose: {
 		marginTop: 30,
 		marginRight: 30,
-		fontSize: 15,
 		alignSelf: 'flex-end'
 	}
 });

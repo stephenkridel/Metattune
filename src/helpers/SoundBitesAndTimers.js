@@ -34,7 +34,7 @@ const loadSoundBiteAudio = array => {
 		} catch (error) {
 			throw 'error loading the audio prompts (expo async error)';
 		}
-		if (array == null) {
+		if (array[0] == null) {
 			reject('error in loadSoundBiteAudio function');
 		} else {
 			resolve(array);
@@ -44,13 +44,15 @@ const loadSoundBiteAudio = array => {
 
 const setupTimers = soundArray => {
 	return new Promise((resolve, reject) => {
-		var timerArray = [];
+		const timerArray = [];
 		for (let i = 0; i < soundArray.length; i++) {
 			timerArray[i] = new Timer(function () {
 				soundArray[i].playAsync();
-			}, (i + 1) * 53000);
+				// used to stop a soundbite when the audio gets paused
+				timerArray[i].hasStarted = true;
+			}, (i + 1) * 10000);
 		}
-		if (timerArray == null || soundArray == null) {
+		if (timerArray[0] == null || soundArray[0] == null) {
 			reject('error in setupTimers function');
 		} else {
 			resolve([timerArray, soundArray]);

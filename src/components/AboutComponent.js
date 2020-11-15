@@ -60,8 +60,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'black'
 	},
 	Image: {
-		width: 275,
-		paddingHorizontal: 50,
+		width: '80%',
 		marginBottom: 10
 	},
 	Controls: {

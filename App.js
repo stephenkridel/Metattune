@@ -10,6 +10,7 @@ import {
 	AboutScreen3
 } from './src/screens/AboutScreen';
 import { AntDesign } from '@expo/vector-icons';
+import 'react-native-console-time-polyfill';
 
 const SessionStack = createStackNavigator(
 	{
