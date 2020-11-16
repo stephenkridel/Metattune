@@ -62,7 +62,7 @@ export default function AudioObjects() {
 			require('../assets/audio4.mp3'),
 			require('../assets/audio5.mp3')
 		],
-		require('../assets/forest.png')
+		require('../assets/rainforest.png')
 	);
 
 	premixedAudioList = [nature, urban, space, rainforest];
