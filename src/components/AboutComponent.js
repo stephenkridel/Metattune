@@ -5,23 +5,19 @@ import ArrowButton from '../components/ArrowButton';
 const AboutComponent = props => {
 	return (
 		<View style={styles.Hero}>
-			<Image
-				resizeMode='contain'
-				source={props.image}
-				style={styles.Image}
-			/>
+			<Image resizeMode='contain' source={props.image} style={styles.Image} />
 			<Text style={styles.Header}>{props.header}</Text>
 			<Text style={styles.Text}>{props.text}</Text>
 			<View style={styles.Controls}>
 				<ArrowButton
 					screen={props.prevScreen}
 					direction={'arrowleft'}
-					disable={props.disableLeft}
+					shouldShow={props.shouldShowLeft}
 				/>
 				<ArrowButton
 					screen={props.nextScreen}
 					direction={'arrowright'}
-					disable={props.disableRight}
+					shouldShow={props.shouldShowRight}
 				/>
 			</View>
 		</View>
@@ -39,7 +35,6 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		marginHorizontal: 10,
 		textAlign: 'center',
-		fontWeight: 'bold',
 		color: 'black'
 	},
 	Text: {
@@ -47,9 +42,8 @@ const styles = StyleSheet.create({
 		marginBottom: 35,
 		marginHorizontal: 10,
 		textAlign: 'center',
-		fontWeight: 'bold',
 		color: 'black',
-		fontFamily: 'sans-serif-thin'
+		fontFamily: 'sans-serif-light'
 	},
 	Button: {
 		height: 50,

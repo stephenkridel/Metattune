@@ -4,8 +4,8 @@ import {
 	Text,
 	StyleSheet,
 	TouchableOpacity,
-	Modal,
-	YellowBox
+	YellowBox,
+	ActivityIndicator
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import BackgroundTimer from 'react-native-background-timer';
@@ -14,7 +14,9 @@ import {
 	randomizeSoundBites,
 	loadSoundBiteAudio,
 	setupTimers
-} from '../helpers/SoundBitesAndTimers.js';
+} from '../helpers/SoundBitesAndTimers';
+import AsyncStorage from '@react-native-community/async-storage';
+import ModalComponent from '../components/ModalComponent';
 
 export default class SessionScreen extends Component {
 	constructor(props) {
@@ -25,17 +27,10 @@ export default class SessionScreen extends Component {
 
 		// destructuring info
 		this.title = info.title;
-		// this.color = info.color;
 		this.source = info.file;
 		this.soundBites = info.soundBites;
 
 		this.playbackInstance = null;
-
-		/* use this for different color play buttons
-		this.colorStyles = {
-			backgroundColor: this.color
-		};
-		*/
 
 		this.soundBitesArray = null;
 		this.timerInstances = null;
@@ -51,25 +46,19 @@ export default class SessionScreen extends Component {
 			isPlaying: false,
 			hasStarted: false,
 			hasLoaded: false,
-			btnIcon: 'rest',
+			btnIcon: 'caretright',
 			errorMsg: null,
 			isError: false,
 			soundBiteGotPaused: false,
-			pausedAt: null
+			pausedAt: null,
+			userExists: false
 		};
+
+		this.userData;
 
 		// Ignoring a warning for long timers (RN error 12981)
 		YellowBox.ignoreWarnings(['Setting a timer']);
 	}
-
-	/* Use this if you want to use different icon families
-	_iconFamilyChange = iconFamilyName => {
-		return new Promise(resolve => {
-			this.iconFamily = iconFamilyName;
-			resolve();
-		});
-	};
-	*/
 
 	_errorHandler = (error, message) => {
 		this.setState({
@@ -82,24 +71,26 @@ export default class SessionScreen extends Component {
 	_timerHandler = action => {
 		switch (action) {
 			case 'pauseAudio':
-				// console.log(Date.now());
-				this.timerInstances.forEach((element, index, array) => {
-					if (
-						(index !== array.length - 1 &&
-							element.hasStarted &&
-							!array[index + 1].hasStarted) ||
-						(index === array.length - 1 && element.hasStarted)
-					) {
-						this.soundBitesArray[index].pauseAsync();
-						// used to play the rest of the soundBite if it gets paused midway
-						this.setState({
-							soundBiteGotPaused: true,
-							pausedAt: index
-						});
-					}
-					// console.log(element.remaining);
-					element.pause();
-				});
+				if (this.state.hasStarted) {
+					// console.log(Date.now());
+					this.timerInstances.forEach((element, index, array) => {
+						if (
+							(index !== array.length - 1 &&
+								element.hasStarted &&
+								!array[index + 1].hasStarted) ||
+							(index === array.length - 1 && element.hasStarted)
+						) {
+							this.soundBitesArray[index].pauseAsync();
+							// used to play the rest of the soundBite if it gets paused midway
+							this.setState({
+								soundBiteGotPaused: true,
+								pausedAt: index
+							});
+						}
+						element.pause();
+						// console.log(element.remaining);
+					});
+				}
 				break;
 			case 'stopAudio':
 				this.timerInstances.forEach((element, index, array) => {
@@ -149,10 +140,21 @@ export default class SessionScreen extends Component {
 			const finalResult = await setupTimers(nextResult);
 			return finalResult;
 		} catch (error) {
-			this._errorHandler(
-				error,
-				'Sorry, there was an error setting up the audio'
-			);
+			this._errorHandler(error, 'Sorry, there was an error setting up the audio');
+		}
+	};
+
+	_getUserToken = async () => {
+		try {
+			const userData = await AsyncStorage.getItem('userToken');
+			if (userData == undefined) {
+				this.setState({ userExists: false });
+			} else {
+				this.setState({ userExists: true });
+				this.userData = JSON.parse(userData);
+			}
+		} catch (error) {
+			this._errorHandler(error, 'Sorry there was an error loading data');
 		}
 	};
 
@@ -160,38 +162,55 @@ export default class SessionScreen extends Component {
 		try {
 			this.setState({ hasLoaded: false });
 
-			let initialStatus;
+			Audio.setAudioModeAsync({
+				staysActiveInBackground: true,
+				interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+				shouldDuckAndroid: true,
+				playThroughEarpieceAndroid: false,
+				allowsRecordingIOS: false,
+				interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+				playsInSilentModeIOS: true
+			});
+
+			let initialStatus = {};
 
 			const { sound, status } = await Audio.Sound.createAsync(
 				this.source,
-				(initialStatus = {}),
+				initialStatus,
 				this._onPlaybackStatusUpdate
 			);
 
 			this.playbackInstance = sound;
 
-			[
-				this.timerInstances,
-				this.soundBitesArray
-			] = await this._soundBiteTimerSetup(this.soundBites);
-			// changing the icon family and name simulataneously
-			// this._iconFamilyChange(AntDesign).then(() => this.setState({btnIcon: 'caretright'}))
+			[this.timerInstances, this.soundBitesArray] = await this._soundBiteTimerSetup(
+				this.soundBites
+			);
+
+			await this._getUserToken();
+
 			this.setState({
+				hasLoaded: true,
 				btnIcon: 'caretright',
-				hasLoaded: true
+				soundBiteGotPaused: false,
+				pausedAt: null
 			});
 		} catch (error) {
-			this._errorHandler(
-				error,
-				'Sorry, there was an error loading the audio'
-			);
+			this._errorHandler(error, 'Sorry, there was an error loading the audio');
 		}
 	};
 
-	_onPlaybackStatusUpdate = status => {
+	_onPlaybackStatusUpdate = async status => {
 		if (status.didJustFinish) {
-			this._onStopPressed();
-			this._loadAudio();
+			if (this.state.userExists) {
+				this.userData.sessionsCompleted += 1;
+			}
+			this._timeListened()
+				.then(() => this._onStopPressed())
+				.then(() => {
+					this._timerHandler('unloadAudio');
+					this._unloadAudio();
+				})
+				.then(() => this._loadAudio());
 		}
 		if (status.isLoaded) {
 			// this is for when the audio pauses without the user pressing pause
@@ -218,7 +237,7 @@ export default class SessionScreen extends Component {
 				await this.playbackInstance.unloadAsync();
 				this.playbackInstance = null;
 			}
-			// no throw statement because we want playbackInstance to be null in the end
+			// no throw statement because we want playbackInstance to be null
 		} catch (error) {
 			this._errorHandler(
 				error,
@@ -243,17 +262,11 @@ export default class SessionScreen extends Component {
 					throw 'playback instance or timer instance is null or undefined';
 				}
 			} catch (error) {
-				this._errorHandler(
-					error,
-					'Sorry, there was an error pausing the audio'
-				);
+				this._errorHandler(error, 'Sorry, there was an error pausing the audio');
 			}
 		} else {
 			try {
-				if (
-					this.playbackInstance !== null &&
-					this.timerInstances !== null
-				) {
+				if (this.playbackInstance !== null && this.timerInstances !== null) {
 					await this.playbackInstance.playAsync();
 					// calling BackgroundTimer for IOS. Checking if the
 					// session has started so that it's never called twice
@@ -267,20 +280,14 @@ export default class SessionScreen extends Component {
 					throw 'playback instance or timer instance is null or undefined';
 				}
 			} catch (error) {
-				this._errorHandler(
-					error,
-					'Sorry, there was an error playing the audio'
-				);
+				this._errorHandler(error, 'Sorry, there was an error playing the audio');
 			}
 		}
 	};
 
 	_onStopPressed = async () => {
 		try {
-			if (
-				this.playbackInstance !== null &&
-				this.timerInstances !== null
-			) {
+			if (this.playbackInstance !== null && this.timerInstances !== null) {
 				BackgroundTimer.stop(); // calling BackgroundTimer for IOS
 				this._timerHandler('stopAudio');
 
@@ -294,29 +301,33 @@ export default class SessionScreen extends Component {
 				throw 'playback instance or timer instance is null or undefined';
 			}
 		} catch (error) {
-			this._errorHandler(
-				error,
-				'Sorry, there was an error stopping the audio'
-			);
+			this._errorHandler(error, 'Sorry, there was an error stopping the audio');
+		}
+	};
+
+	_timeListened = async () => {
+		if (this.state.userExists) {
+			try {
+				this._timerHandler('pauseAudio');
+				if (this.state.hasStarted && this.state.userExists) {
+					let totalTimeListened = this.timerInstances[0].totalTimePlayed / 3600000;
+					// console.log(this.timerInstances[0].totalTimePlayed / 3600000);
+					this.userData.hoursCompleted += Math.round(totalTimeListened * 100) / 100;
+					await AsyncStorage.setItem('userToken', JSON.stringify(this.userData));
+				}
+			} catch (error) {
+				this._errorHandler(error, 'Sorry, we had a problem updating your user statistics');
+			}
 		}
 	};
 
 	componentDidMount = () => {
-		Audio.setAudioModeAsync({
-			staysActiveInBackground: true,
-			interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-			shouldDuckAndroid: true,
-			playThroughEarpieceAndroid: false,
-			allowsRecordingIOS: false,
-			interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-			playsInSilentModeIOS: true
-		});
 		this._loadAudio();
 	};
 
 	componentWillUnmount = () => {
 		if (this.timerInstances !== null && this.soundBitesArray !== null) {
-			this._timerHandler('unloadAudio');
+			this._timeListened().then(() => this._timerHandler('unloadAudio'));
 		}
 		this._unloadAudio();
 	};
@@ -324,21 +335,12 @@ export default class SessionScreen extends Component {
 	render() {
 		return (
 			<View style={styles.Hero}>
-				<Modal visible={this.state.isError} animationType='slide'>
-					<TouchableOpacity
-						style={styles.ModalClose}
-						onPress={() => {
-							this.setState({ isError: false });
-						}}
-					>
-						<AntDesign name='close' size={35} color='black' />
-					</TouchableOpacity>
-					<View style={styles.Modal}>
-						<Text style={styles.ModalText}>
-							{this.state.errorMsg}
-						</Text>
-					</View>
-				</Modal>
+				<ModalComponent
+					isVisible={this.state.isError}
+					message={this.state.errorMsg}
+					onPressX={() => this.setState({ isError: false })}
+					shouldShowButton={false}
+				/>
 				<Text style={styles.HeroText}>{this.title}</Text>
 				<TouchableOpacity
 					onPress={() => {
@@ -349,12 +351,20 @@ export default class SessionScreen extends Component {
 					// for different colors -> style={[styles.Module, this.colorStyles]}
 					style={styles.Module}
 				>
-					<this.iconFamily
-						name={this.state.btnIcon}
-						// you can use iconStyle = `{marginRight: #}` for margins
-						size={35}
-						color='white'
-					/>
+					<View>
+						<ActivityIndicator
+							size='large'
+							hidesWhenStopped={true}
+							color='FFFFFF'
+							animating={this.state.hasLoaded ? false : true}
+						/>
+						<this.iconFamily
+							name={this.state.btnIcon}
+							// you can use iconStyle = `{marginRight: #}` for margins
+							style={this.state.hasLoaded ? styles.ShowIcon : styles.HideIcon}
+							size={35}
+						/>
+					</View>
 				</TouchableOpacity>
 			</View>
 		);
@@ -369,9 +379,9 @@ const styles = StyleSheet.create({
 	},
 	HeroText: {
 		marginBottom: 30,
-		fontSize: 25,
-		fontWeight: 'bold',
-		color: 'black'
+		fontSize: 35,
+		color: 'black',
+		fontFamily: 'sans-serif-light'
 	},
 	Module: {
 		alignItems: 'center',
@@ -381,18 +391,11 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		backgroundColor: 'black'
 	},
-	Modal: {
-		flex: 1,
-		margin: 20,
-		justifyContent: 'center'
+	ShowIcon: {
+		color: 'white',
+		position: 'absolute'
 	},
-	ModalText: {
-		fontSize: 40,
-		color: 'black'
-	},
-	ModalClose: {
-		marginTop: 30,
-		marginRight: 30,
-		alignSelf: 'flex-end'
+	HideIcon: {
+		display: 'none'
 	}
 });

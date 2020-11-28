@@ -4,6 +4,7 @@ import { withNavigation } from 'react-navigation';
 import { AntDesign } from '@expo/vector-icons';
 
 const ArrowButton = props => {
+	const shouldShow = props.shouldShow ? 'flex' : 'none';
 	return (
 		<TouchableOpacity
 			// navigates to the SessionScreen passing info (.title, .file, and .color) to SessionScreen.js
@@ -12,8 +13,7 @@ const ArrowButton = props => {
 					info: props.info
 				})
 			}
-			style={styles.Button}
-			disabled={props.disable}
+			style={[styles.Button, { display: shouldShow }]}
 		>
 			<AntDesign name={props.direction} size={20} style={styles.Icon} />
 		</TouchableOpacity>

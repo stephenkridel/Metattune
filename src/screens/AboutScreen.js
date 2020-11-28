@@ -9,8 +9,8 @@ const AboutScreen1 = () => {
 			header='What is ATT?'
 			prevScreen='About1'
 			nextScreen='About2'
-			disableLeft={true}
-			disableRight={false}
+			shouldShowLeft={false}
+			shouldShowRight={true}
 		/>
 	);
 };
@@ -23,8 +23,8 @@ const AboutScreen2 = () => {
 			header='How does ATT work?'
 			prevScreen='About1'
 			nextScreen='About3'
-			disableLeft={false}
-			disableRight={false}
+			shouldShowLeft={true}
+			shouldShowRight={true}
 		/>
 	);
 };
@@ -37,8 +37,8 @@ const AboutScreen3 = () => {
 			header='How does ATT help?'
 			prevScreen='About2'
 			nextScreen='Selector'
-			disableLeft={false}
-			disableRight={false}
+			shouldShowLeft={true}
+			shouldShowRight={false}
 		/>
 	);
 };

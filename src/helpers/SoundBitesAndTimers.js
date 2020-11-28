@@ -6,19 +6,23 @@ const randomizeSoundBites = array => {
 		// doubling the size of the array
 		array = array.concat(array);
 
-		// Fisher-Yates shuffle
+		// Fisher-Yates shuffle (adapted to not have same elements next to eachother)
 		for (let i = array.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[array[i], array[j]] = [array[j], array[i]];
+			do {
+				const j = Math.floor(Math.random() * (i + 1));
+				[array[i], array[j]] = [array[j], array[i]];
+			} while (array[i] === array[i + 1] || array[0] === array[1]);
 		}
-
 		// null is loosely equivalent to undefined (i.e. null == undefined) so
 		// we get away with only checking for null values with loose equivalence
 		// not great error checking but it can be adapted later
-		if (array == null) {
-			reject('error in randomizeSoundBites function');
-		} else {
-			resolve(array);
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] == null) {
+				reject('error in randomizeSoundBites function');
+				break;
+			} else if (i === array.length - 1) {
+				resolve(array);
+			}
 		}
 	});
 };
@@ -34,10 +38,13 @@ const loadSoundBiteAudio = array => {
 		} catch (error) {
 			throw 'error loading the audio prompts (expo async error)';
 		}
-		if (array[0] == null) {
-			reject('error in loadSoundBiteAudio function');
-		} else {
-			resolve(array);
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] == null) {
+				reject('error in randomizeSoundBites function');
+				break;
+			} else if (i === array.length - 1) {
+				resolve(array);
+			}
 		}
 	});
 };
@@ -50,12 +57,16 @@ const setupTimers = soundArray => {
 				soundArray[i].playAsync();
 				// used to stop a soundbite when the audio gets paused
 				timerArray[i].hasStarted = true;
-			}, (i + 1) * 10000);
+			}, (i + 1) * 5000);
+			timerArray[i].timerId = 'ID - ' + Math.floor(Math.random() * 10000);
 		}
-		if (timerArray[0] == null || soundArray[0] == null) {
-			reject('error in setupTimers function');
-		} else {
-			resolve([timerArray, soundArray]);
+		for (let i = 0; i < timerArray.length; i++) {
+			if (timerArray[i] == null || soundArray[i] == null) {
+				reject('error in setupTimers function');
+				break;
+			} else if (i === timerArray.length - 1) {
+				resolve([timerArray, soundArray]);
+			}
 		}
 	});
 };

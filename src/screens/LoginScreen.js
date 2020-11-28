@@ -1,25 +1,22 @@
 import React, { Component } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	TouchableOpacity,
-	TextInput
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export default class LoginScreen extends Component {
 	constructor() {
 		super();
-
 		this.state = {
 			inputText: ''
 		};
 	}
 
-	_setUserTokenAsync = async value => {
-		await AsyncStorage.setItem('userToken', JSON.stringify(value));
-		this.props.navigation.navigate('User');
+	_setUserToken = async value => {
+		try {
+			await AsyncStorage.setItem('userToken', JSON.stringify(value));
+			this.props.navigation.navigate('User');
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	render() {
@@ -35,7 +32,7 @@ export default class LoginScreen extends Component {
 				<TouchableOpacity
 					style={styles.SubmitButton}
 					onPress={() =>
-						this._setUserTokenAsync({
+						this._setUserToken({
 							userName: this.state.inputText,
 							hoursCompleted: 0,
 							sessionsCompleted: 0
@@ -66,7 +63,7 @@ const styles = StyleSheet.create({
 	SubmitButton: {
 		height: 60,
 		width: '40%',
-		backgroundColor: 'black',
+		backgroundColor: 'rgb(108, 99, 255)',
 		borderRadius: 20,
 		alignItems: 'center',
 		justifyContent: 'center'

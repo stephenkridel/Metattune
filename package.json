@@ -32,7 +32,6 @@
     "babel-jest": "~25.2.6",
     "babel-preset-expo": "~8.1.0",
     "jest": "~25.2.6",
-    "prettier": "^2.1.2",
     "react-test-renderer": "~16.9.0"
   },
   "private": true

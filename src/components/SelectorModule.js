@@ -11,7 +11,7 @@ const SelectorModule = props => {
 					screen={'Session'}
 					info={props.info}
 					direction={'arrowright'}
-					disable={false}
+					shouldShow={true}
 				/>
 			</View>
 			<Image source={props.info.image} style={styles.Image} />
@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
 		marginLeft: 40,
 		marginTop: 10,
 		alignSelf: 'flex-start',
-		color: 'black'
+		color: 'black',
+		fontFamily: 'sans-serif-light'
 	},
 	ButtonContainer: {
 		height: 50,

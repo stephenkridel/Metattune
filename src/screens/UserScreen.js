@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
+import { FontAwesome } from '@expo/vector-icons';
+import ModalComponent from '../components/ModalComponent';
 
 export default class UserScreen extends Component {
 	constructor(props) {
@@ -8,16 +11,21 @@ export default class UserScreen extends Component {
 		this.state = {
 			userName: '',
 			hoursCompleted: null,
-			sessionsCompleted: null
+			sessionsCompleted: null,
+			showWarning: false
 		};
 	}
 
-	_signOutAsync = async () => {
-		await AsyncStorage.clear();
-		this.props.navigation.navigate('Auth');
+	_deleteAccountAsync = async () => {
+		try {
+			await AsyncStorage.clear();
+			this.props.navigation.navigate('Auth');
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
-	_getUserData = async () => {
+	_getUserToken = async () => {
 		try {
 			const retrievedItem = await AsyncStorage.getItem('userToken');
 			const item = JSON.parse(retrievedItem);
@@ -34,55 +42,96 @@ export default class UserScreen extends Component {
 	};
 
 	componentDidMount() {
-		this._getUserData();
+		this._getUserToken();
 	}
 
 	render() {
 		return (
-			<View style={styles.Container}>
-				<Text style={styles.GreetingText}>
-					{`Hello, ${this.state.userName}!`}
-				</Text>
-				<Text style={styles.GreetingText}>
-					{`Your total hours listened is: ${this.state.hoursCompleted}`}
-				</Text>
-				<Text style={styles.GreetingText}>
-					{`Your total sessions completed is: ${this.state.sessionsCompleted}`}
-				</Text>
-				<TouchableOpacity
-					style={styles.SignOutButton}
-					onPress={() => this._signOutAsync()}
-				>
-					<Text style={styles.SignOutText}>Sign Out</Text>
-				</TouchableOpacity>
-			</View>
+			<>
+				<NavigationEvents onDidFocus={() => this._getUserToken()} />
+				<ModalComponent
+					isVisible={this.state.showWarning}
+					onPressX={() => this.setState({ showWarning: false })}
+					onPressDelete={() => {
+						this._deleteAccountAsync();
+					}}
+					message='Are you sure you want to delete your account?'
+					shouldShowButton={true}
+				/>
+				<View style={styles.Container}>
+					<Text style={styles.GreetingText}>{`Hello, ${this.state.userName}!`}</Text>
+					<Text style={styles.SubHeader}>we tracked your statistics for you</Text>
+					<View style={styles.StatisticsContainer}>
+						<Text style={styles.StatisticText}>Hours Listened:</Text>
+						<Text style={styles.StatisticNumber}>{this.state.hoursCompleted}</Text>
+					</View>
+					<View style={styles.StatisticsContainer}>
+						<Text style={styles.StatisticText}>Sessions Completed:</Text>
+						<Text style={styles.StatisticNumber}>{this.state.sessionsCompleted}</Text>
+					</View>
+					<TouchableOpacity
+						style={styles.TrashButton}
+						onPress={() => this.setState({ showWarning: true })}
+					>
+						<FontAwesome name='trash-o' size={40} color='rgb(108, 99, 255)' />
+					</TouchableOpacity>
+				</View>
+			</>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	Container: {
+		display: 'flex',
 		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center'
+		justifyContent: 'center'
 	},
-	SignOutButton: {
-		height: 35,
-		width: '25%',
-		backgroundColor: 'black',
-		borderRadius: 20,
-		alignItems: 'center',
-		justifyContent: 'center',
+	TrashButton: {
 		position: 'absolute',
 		bottom: 10,
 		right: 10
 	},
-	SignOutText: {
-		color: 'white',
-		fontSize: 15
-	},
 	GreetingText: {
-		fontSize: 20,
-		marginBottom: 20
+		position: 'absolute',
+		top: 0,
+		fontSize: 30,
+		color: 'black',
+		marginTop: '15%',
+		marginLeft: '5%',
+		fontFamily: 'sans-serif'
+	},
+	SubHeader: {
+		position: 'absolute',
+		top: 0,
+		fontSize: 17.5,
+		color: 'black',
+		marginTop: '30%',
+		marginLeft: '5%',
+		fontFamily: 'sans-serif-light'
+	},
+	StatisticText: {
+		fontSize: 25,
+		marginBottom: 20,
+		color: 'black',
+		textAlign: 'center',
+		fontFamily: 'sans-serif-light'
+	},
+	StatisticNumber: {
+		fontSize: 25,
+		color: 'white',
+		backgroundColor: 'rgb(108, 99, 255)',
+		padding: 10,
+		textAlign: 'center',
+		fontFamily: 'sans-serif-light',
+		borderRadius: 100,
+		width: '45%'
+	},
+	StatisticsContainer: {
+		height: 75,
+		marginVertical: '10%',
+		alignSelf: 'center',
+		alignItems: 'center',
+		width: '100%'
 	}
 });
