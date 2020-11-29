@@ -23,7 +23,7 @@
 /* Added code from expo unimodules docs */
 @interface AppDelegate () <RCTBridgeDelegate>
  
-@property (nonatomic, strong) UMModuleRegistryAdapter *moduleRegistryAdapter;
+@property (nonatomic, readwrite, strong) UMModuleRegistryAdapter *moduleRegistryAdapter;
  
 @end
 /* end of added code */

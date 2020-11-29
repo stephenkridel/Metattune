@@ -14,7 +14,7 @@
 
 @interface AppDelegate : UMAppDelegateWrapper <RCTBridgeDelegate, EXUpdatesAppControllerDelegate>
 
-@property (nonatomic, strong) UMModuleRegistryAdapter *moduleRegistryAdapter;
+@property (nonatomic, readonly, strong) UMModuleRegistryAdapter *moduleRegistryAdapter;
 @property (nonatomic, strong) UIWindow *window;
 
 @end
