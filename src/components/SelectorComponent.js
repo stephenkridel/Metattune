@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, StyleSheet, Dimensions, View, Image } from 'react-native';
 import ArrowButton from './ArrowButton';
 
-const SelectorModule = props => {
+const SelectorComponent = props => {
 	return (
 		<View style={styles.Container}>
 			<Text style={styles.ListText}>{props.info.title}</Text>
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default SelectorModule;
+export default SelectorComponent;

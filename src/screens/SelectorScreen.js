@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import SelectorModule from '../components/SelectorModule';
+import SelectorComponent from '../components/SelectorComponent';
 import AudioObjects from '../data/AudioObjects.js';
 
 // returns info as an object that contains the list premixedAudioList
@@ -15,7 +15,7 @@ const SelectorScreen = () => {
 					keyExtractor={item => item.title}
 					renderItem={({ item }) => {
 						return (
-							<SelectorModule
+							<SelectorComponent
 								// passes info (.title, .file, .color) to the SelectorModule component
 								info={item}
 							/>
