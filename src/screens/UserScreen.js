@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
 		color: 'black',
 		marginTop: '15%',
 		marginLeft: '5%',
-		fontFamily: 'sans-serif'
+		fontFamily: 'OpenSans-Regular'
 	},
 	SubHeader: {
 		position: 'absolute',
@@ -108,14 +108,14 @@ const styles = StyleSheet.create({
 		color: 'black',
 		marginTop: '30%',
 		marginLeft: '5%',
-		fontFamily: 'sans-serif-light'
+		fontFamily: 'OpenSans-Light'
 	},
 	StatisticText: {
 		fontSize: 25,
 		marginBottom: 20,
 		color: 'black',
 		textAlign: 'center',
-		fontFamily: 'sans-serif-light'
+		fontFamily: 'OpenSans-Light'
 	},
 	StatisticNumber: {
 		fontSize: 25,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgb(108, 99, 255)',
 		padding: 10,
 		textAlign: 'center',
-		fontFamily: 'sans-serif-light',
+		fontFamily: 'OpenSans-Light',
 		borderRadius: 100,
 		width: '45%'
 	},

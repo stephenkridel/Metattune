@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		alignSelf: 'flex-start',
 		color: 'black',
-		fontFamily: 'sans-serif-light'
+		fontFamily: 'OpenSans-Light'
 	},
 	ButtonContainer: {
 		height: 50,

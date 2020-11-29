@@ -381,7 +381,7 @@ const styles = StyleSheet.create({
 		marginBottom: 30,
 		fontSize: 35,
 		color: 'black',
-		fontFamily: 'sans-serif-light'
+		fontFamily: 'OpenSans-Light'
 	},
 	Module: {
 		alignItems: 'center',

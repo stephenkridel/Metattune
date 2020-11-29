@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 		marginHorizontal: 10,
 		textAlign: 'center',
 		color: 'black',
-		fontFamily: 'sans-serif-light'
+		fontFamily: 'OpenSans-Light'
 	},
 	Button: {
 		height: 50,

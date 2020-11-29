@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 	ModalText: {
 		fontSize: 40,
 		color: 'black',
-		fontFamily: 'sans-serif-light',
+		fontFamily: 'OpenSans-Light',
 		marginBottom: '10%'
 	},
 	ModalClose: {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 	DeleteButtonText: {
 		color: 'white',
 		fontSize: 25,
-		fontFamily: 'sans-serif-light'
+		fontFamily: 'OpenSans-Light'
 	}
 });
 
