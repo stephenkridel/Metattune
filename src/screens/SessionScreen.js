@@ -68,19 +68,19 @@ export default class SessionScreen extends Component {
 		console.log(error);
 	};
 
-	_timerHandler = action => {
+	_timerHandler = async action => {
 		switch (action) {
 			case 'pauseAudio':
 				if (this.state.hasStarted) {
 					// console.log(Date.now());
-					this.timerInstances.forEach((element, index, array) => {
+					this.timerInstances.forEach(async (element, index, array) => {
 						if (
 							(index !== array.length - 1 &&
 								element.hasStarted &&
 								!array[index + 1].hasStarted) ||
 							(index === array.length - 1 && element.hasStarted)
 						) {
-							this.soundBitesArray[index].pauseAsync();
+							await this.soundBitesArray[index].pauseAsync();
 							// used to play the rest of the soundBite if it gets paused midway
 							this.setState({
 								soundBiteGotPaused: true,
@@ -93,23 +93,23 @@ export default class SessionScreen extends Component {
 				}
 				break;
 			case 'stopAudio':
-				this.timerInstances.forEach((element, index, array) => {
+				this.timerInstances.forEach(async (element, index, array) => {
 					if (
 						(index !== array.length - 1 &&
 							element.hasStarted &&
 							!array[index + 1].hasStarted) ||
 						(index === array.length - 1 && element.hasStarted)
 					) {
-						this.soundBitesArray[index].stopAsync();
+						await this.soundBitesArray[index].stopAsync();
 					}
 					element.stop();
 				});
 				break;
 			case 'startAudio':
-				this.timerInstances.forEach(element => {
+				this.timerInstances.forEach(async element => {
 					// used to play the rest of the soundBite if it gets paused midway
 					if (this.state.soundBiteGotPaused) {
-						this.soundBitesArray[this.state.pausedAt].playAsync();
+						await this.soundBitesArray[this.state.pausedAt].playAsync();
 						this.setState({
 							soundBiteGotPaused: false,
 							pausedAt: null
@@ -119,9 +119,9 @@ export default class SessionScreen extends Component {
 				});
 				break;
 			case 'unloadAudio':
-				this.timerInstances.forEach((element, index) => {
+				this.timerInstances.forEach(async (element, index) => {
 					element.destroy();
-					this.soundBitesArray[index].unloadAsync();
+					await this.soundBitesArray[index].unloadAsync();
 				});
 				break;
 			default:
@@ -204,13 +204,11 @@ export default class SessionScreen extends Component {
 			if (this.state.userExists) {
 				this.userData.sessionsCompleted += 1;
 			}
-			this._timeListened()
-				.then(() => this._onStopPressed())
-				.then(() => {
-					this._timerHandler('unloadAudio');
-					this._unloadAudio();
-				})
-				.then(() => this._loadAudio());
+			await this._timeListened();
+			await this._onStopPressed();
+			await this._timerHandler('unloadAudio');
+			await this._unloadAudio();
+			await this._loadAudio();
 		}
 		if (status.isLoaded) {
 			// this is for when the audio pauses without the user pressing pause
@@ -220,7 +218,7 @@ export default class SessionScreen extends Component {
 					this.setState({ btnIcon: 'pause' });
 				} else {
 					if (this.state.isPlaying) {
-						this._timerHandler('pauseAudio');
+						await this._timerHandler('pauseAudio');
 					}
 					this.setState({
 						isPlaying: false,
@@ -308,7 +306,7 @@ export default class SessionScreen extends Component {
 	_timeListened = async () => {
 		if (this.state.userExists) {
 			try {
-				this._timerHandler('pauseAudio');
+				await this._timerHandler('pauseAudio');
 				if (this.state.hasStarted && this.state.userExists) {
 					let totalTimeListened = this.timerInstances[0].totalTimePlayed / 3600000;
 					// console.log(this.timerInstances[0].totalTimePlayed / 3600000);

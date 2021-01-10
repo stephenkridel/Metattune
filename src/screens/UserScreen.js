@@ -10,8 +10,8 @@ export default class UserScreen extends Component {
 		super(props);
 		this.state = {
 			userName: '',
-			hoursCompleted: null,
-			sessionsCompleted: null,
+			hoursCompleted: 0,
+			sessionsCompleted: 0,
 			showWarning: false
 		};
 	}

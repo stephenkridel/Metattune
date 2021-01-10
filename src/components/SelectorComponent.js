@@ -21,12 +21,15 @@ const SelectorComponent = props => {
 
 const styles = StyleSheet.create({
 	Container: {
-		width: Dimensions.get('window').width,
+		// width: Dimensions.get('window').width,
+		marginTop: 10,
+		marginHorizontal: 10,
 		height: 150,
 		alignItems: 'center',
 		marginBottom: 20,
 		// if you want different colors use -> props.info.color
-		backgroundColor: 'white'
+		backgroundColor: 'white',
+		elevation: 3
 	},
 	ListText: {
 		fontSize: 25,

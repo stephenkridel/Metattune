@@ -49,6 +49,7 @@ const AuthStack = createStackNavigator(
 		}
 	}
 );
+
 const UserStack = createStackNavigator(
 	{ User: UserScreen },
 	{
