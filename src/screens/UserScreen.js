@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
 		width: '45%'
 	},
 	StatisticsContainer: {
-		height: 75,
-		marginVertical: '10%',
+		height: '20%',
+		marginTop: '10%',
 		alignSelf: 'center',
 		alignItems: 'center',
 		width: '100%'
