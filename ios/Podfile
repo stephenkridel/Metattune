@@ -5,7 +5,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 # added next line according to expo unnimodules docs
 require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 
-target 'AttApp' do
+target 'Attend' do
   rnPrefix = "../node_modules/react-native"
 
   # React Native and its dependencies

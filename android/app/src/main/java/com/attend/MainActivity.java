@@ -1,4 +1,4 @@
-package com.attapp;
+package com.attend;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.attapp.generated;
+package com.attend.generated;
 
 import java.util.Arrays;
 import java.util.List;
