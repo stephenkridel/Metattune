@@ -11,6 +11,8 @@ import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
 import { AntDesign } from '@expo/vector-icons';
 import 'react-native-console-time-polyfill';
 
+const colorOfBackground = 'white';
+
 const SessionStack = createStackNavigator(
 	{
 		Selector: SelectorScreen,
@@ -20,7 +22,7 @@ const SessionStack = createStackNavigator(
 		initialRouteName: 'Selector',
 		defaultNavigationOptions: {
 			headerShown: false,
-			cardStyle: { backgroundColor: 'white' }
+			cardStyle: { backgroundColor: colorOfBackground }
 		}
 	}
 );
@@ -35,7 +37,7 @@ const AboutStack = createStackNavigator(
 		initialRouteName: 'About1',
 		defaultNavigationOptions: {
 			headerShown: false,
-			cardStyle: { backgroundColor: 'white' }
+			cardStyle: { backgroundColor: colorOfBackground }
 		}
 	}
 );
@@ -45,7 +47,7 @@ const AuthStack = createStackNavigator(
 	{
 		defaultNavigationOptions: {
 			headerShown: false,
-			cardStyle: { backgroundColor: 'white' }
+			cardStyle: { backgroundColor: colorOfBackground }
 		}
 	}
 );
@@ -55,7 +57,7 @@ const UserStack = createStackNavigator(
 	{
 		defaultNavigationOptions: {
 			headerShown: false,
-			cardStyle: { backgroundColor: 'white' }
+			cardStyle: { backgroundColor: colorOfBackground }
 		}
 	}
 );
@@ -89,7 +91,8 @@ const App = createBottomTabNavigator(
 			}
 		}),
 		tabBarOptions: {
-			activeTintColor: 'rgb(108, 99, 255)',
+			style: { backgroundColor: 'rgb(30, 27, 57)', borderTopColor: 'rgb(30, 27, 57)' },
+			activeTintColor: 'white',
 			inactiveTintColor: 'gray'
 		}
 	}

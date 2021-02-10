@@ -36,9 +36,7 @@ export default class LoginScreen extends Component {
 					shouldShowButton={false}
 				/>
 				<Text style={styles.Header}>Create an Account</Text>
-				<Text style={styles.SubHeader}>
-					All we require is a name, and we don't store any information externally
-				</Text>
+				<Text style={styles.SubHeader}>All we require is your first name!</Text>
 				<TextInput
 					style={styles.TextInput}
 					onChangeText={text => this.setState({ inputText: text })}
@@ -78,19 +76,20 @@ const styles = StyleSheet.create({
 	},
 	Header: {
 		fontSize: 35,
-		color: 'black',
-		textAlign: 'center'
+		color: 'rgb(30, 27, 57)',
+		textAlign: 'center',
+		fontFamily: 'JosefinSans-Bold'
 	},
 	SubHeader: {
 		fontSize: 17,
-		color: 'black',
-		fontFamily: 'OpenSans-Light',
+		color: 'rgb(30, 27, 57)',
+		fontFamily: 'JosefinSans-Regular',
 		textAlign: 'left',
 		marginBottom: 20,
 		width: '75%'
 	},
 	TextInput: {
-		color: 'black',
+		color: 'rgb(30, 27, 57)',
 		height: 60,
 		width: '75%',
 		backgroundColor: 'transparent',
@@ -100,12 +99,12 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		marginVertical: 20,
 		fontSize: 20,
-		fontFamily: 'OpenSans-Light'
+		fontFamily: 'JosefinSans-Regular'
 	},
 	SubmitButton: {
 		height: 50,
 		width: '75%',
-		backgroundColor: 'rgb(108, 99, 255)',
+		backgroundColor: 'rgb(30, 27, 57)',
 		borderRadius: 20,
 		alignItems: 'center',
 		justifyContent: 'center'
@@ -113,6 +112,6 @@ const styles = StyleSheet.create({
 	ButtonText: {
 		color: 'white',
 		fontSize: 20,
-		fontFamily: 'OpenSans-Light'
+		fontFamily: 'JosefinSans-Regular'
 	}
 });

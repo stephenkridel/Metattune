@@ -23,13 +23,21 @@ const styles = StyleSheet.create({
 	Container: {
 		// width: Dimensions.get('window').width,
 		marginTop: 10,
-		marginHorizontal: 10,
+		marginHorizontal: 20,
 		height: 150,
 		alignItems: 'center',
 		marginBottom: 20,
 		// if you want different colors use -> props.info.color
 		backgroundColor: 'white',
-		elevation: 3
+		elevation: 10,
+		borderRadius: 10,
+		shadowColor: 'black',
+		shadowOffset: {
+			width: 10,
+			height: 10
+		},
+		shadowOpacity: 0.75,
+		shadowRadius: 5
 	},
 	ListText: {
 		fontSize: 25,
@@ -37,7 +45,7 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		alignSelf: 'flex-start',
 		color: 'black',
-		fontFamily: 'OpenSans-Light'
+		fontFamily: 'JosefinSans-Regular'
 	},
 	ButtonContainer: {
 		height: 50,

@@ -73,7 +73,7 @@ export default class UserScreen extends Component {
 						style={styles.TrashButton}
 						onPress={() => this.setState({ showWarning: true })}
 					>
-						<FontAwesome name='trash-o' size={40} color='rgb(108, 99, 255)' />
+						<FontAwesome name='trash-o' size={40} color='rgb(255, 101, 132)' />
 					</TouchableOpacity>
 				</View>
 			</>
@@ -96,34 +96,34 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		top: 0,
 		fontSize: 30,
-		color: 'black',
+		color: 'rgb(30, 27, 57)',
 		marginTop: '15%',
 		marginLeft: '5%',
-		fontFamily: 'OpenSans-Regular'
+		fontFamily: 'JosefinSans-Bold'
 	},
 	SubHeader: {
 		position: 'absolute',
 		top: 0,
 		fontSize: 17.5,
-		color: 'black',
+		color: 'rgb(30, 27, 57)',
 		marginTop: '30%',
 		marginLeft: '5%',
-		fontFamily: 'OpenSans-Light'
+		fontFamily: 'JosefinSans-Regular'
 	},
 	StatisticText: {
 		fontSize: 25,
 		marginBottom: 20,
-		color: 'black',
+		color: 'rgb(30, 27, 57)',
 		textAlign: 'center',
-		fontFamily: 'OpenSans-Light'
+		fontFamily: 'JosefinSans-Regular'
 	},
 	StatisticNumber: {
 		fontSize: 25,
 		color: 'white',
-		backgroundColor: 'rgb(108, 99, 255)',
+		backgroundColor: 'rgb(30, 27, 57)',
 		padding: 10,
 		textAlign: 'center',
-		fontFamily: 'OpenSans-Light',
+		fontFamily: 'JosefinSans-Regular',
 		borderRadius: 100,
 		width: '45%'
 	},

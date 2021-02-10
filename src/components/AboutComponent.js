@@ -6,8 +6,10 @@ const AboutComponent = props => {
 	return (
 		<View style={styles.Hero}>
 			<Image resizeMode='contain' source={props.image} style={styles.Image} />
-			<Text style={styles.Header}>{props.header}</Text>
-			<Text style={styles.Text}>{props.text}</Text>
+			<View style={styles.Info}>
+				<Text style={styles.Header}>{props.header}</Text>
+				<Text style={styles.Text}>{props.text}</Text>
+			</View>
 			<View style={styles.Controls}>
 				<ArrowButton
 					screen={props.prevScreen}
@@ -31,19 +33,18 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	Header: {
-		fontSize: 30,
-		marginBottom: 10,
-		marginHorizontal: 10,
+		fontSize: 28,
 		textAlign: 'center',
-		color: 'black'
+		color: 'rgb(30, 27, 57)',
+		marginBottom: 7.5,
+		fontFamily: 'JosefinSans-Bold'
 	},
 	Text: {
-		fontSize: 20,
-		marginBottom: 35,
-		marginHorizontal: 10,
+		fontSize: 22,
 		textAlign: 'center',
-		color: 'black',
-		fontFamily: 'OpenSans-Light'
+		color: 'rgb(30, 27, 57)',
+		fontFamily: 'JosefinSans-Regular',
+		marginTop: 7.5
 	},
 	Button: {
 		height: 50,
@@ -51,17 +52,40 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'black'
+		backgroundColor: 'rgb(30, 27, 57)'
 	},
 	Image: {
-		width: '80%',
-		marginBottom: 10
+		width: '60%'
 	},
 	Controls: {
 		width: Dimensions.get('window').width,
 		paddingHorizontal: 20,
 		flexDirection: 'row',
-		justifyContent: 'space-around'
+		justifyContent: 'space-around',
+		top: -25
+	},
+	Info: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
+		height: 200,
+		top: -25,
+		paddingHorizontal: 30,
+		marginLeft: 25,
+		elevation: 15,
+		borderRadius: 10,
+		shadowColor: 'black',
+		shadowOffset: {
+			width: 10,
+			height: 10
+		},
+		shadowOpacity: 0.75,
+		shadowRadius: 5,
+		borderTopLeftRadius: 25,
+		borderBottomLeftRadius: 25,
+		marginBottom: 30,
+		backgroundColor: 'white'
 	}
 });
 

@@ -378,8 +378,8 @@ const styles = StyleSheet.create({
 	HeroText: {
 		marginBottom: 30,
 		fontSize: 35,
-		color: 'black',
-		fontFamily: 'OpenSans-Light'
+		color: 'rgb(30, 27, 57)',
+		fontFamily: 'JosefinSans-Regular'
 	},
 	Module: {
 		alignItems: 'center',
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
 		height: 100,
 		width: 100,
 		borderRadius: 50,
-		backgroundColor: 'black'
+		backgroundColor: 'rgb(30, 27, 57)'
 	},
 	ShowIcon: {
 		color: 'white',

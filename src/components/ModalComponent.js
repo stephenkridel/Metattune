@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
 	},
 	ModalText: {
 		fontSize: 40,
-		color: 'black',
-		fontFamily: 'OpenSans-Light',
+		color: 'rgb(30, 27, 57)',
+		fontFamily: 'JosefinSans-Regular',
 		marginBottom: '10%'
 	},
 	ModalClose: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 	DeleteButton: {
 		width: '40%',
 		height: '10%',
-		backgroundColor: 'rgb(108, 99, 255)',
+		backgroundColor: 'rgb(30, 27, 57)',
 		borderRadius: 20,
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 	DeleteButtonText: {
 		color: 'white',
 		fontSize: 25,
-		fontFamily: 'OpenSans-Light'
+		fontFamily: 'JosefinSans-Regular'
 	}
 });
 
