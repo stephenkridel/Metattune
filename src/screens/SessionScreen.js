@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	TouchableOpacity,
-	YellowBox,
-	ActivityIndicator
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, LogBox } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import BackgroundTimer from 'react-native-background-timer';
 import { Audio } from 'expo-av';
@@ -55,9 +48,6 @@ export default class SessionScreen extends Component {
 		};
 
 		this.userData;
-
-		// Ignoring a warning for long timers (RN error 12981)
-		YellowBox.ignoreWarnings(['Setting a timer']);
 	}
 
 	_errorHandler = (error, message) => {
@@ -68,19 +58,19 @@ export default class SessionScreen extends Component {
 		console.log(error);
 	};
 
-	_timerHandler = async action => {
+	_timerHandler = action => {
 		switch (action) {
 			case 'pauseAudio':
 				if (this.state.hasStarted) {
 					// console.log(Date.now());
-					this.timerInstances.forEach(async (element, index, array) => {
+					this.timerInstances.forEach((element, index, array) => {
 						if (
 							(index !== array.length - 1 &&
 								element.hasStarted &&
 								!array[index + 1].hasStarted) ||
 							(index === array.length - 1 && element.hasStarted)
 						) {
-							await this.soundBitesArray[index].pauseAsync();
+							this.soundBitesArray[index].pauseAsync();
 							// used to play the rest of the soundBite if it gets paused midway
 							this.setState({
 								soundBiteGotPaused: true,
@@ -93,23 +83,23 @@ export default class SessionScreen extends Component {
 				}
 				break;
 			case 'stopAudio':
-				this.timerInstances.forEach(async (element, index, array) => {
+				this.timerInstances.forEach((element, index, array) => {
 					if (
 						(index !== array.length - 1 &&
 							element.hasStarted &&
 							!array[index + 1].hasStarted) ||
 						(index === array.length - 1 && element.hasStarted)
 					) {
-						await this.soundBitesArray[index].stopAsync();
+						this.soundBitesArray[index].stopAsync();
 					}
 					element.stop();
 				});
 				break;
 			case 'startAudio':
-				this.timerInstances.forEach(async element => {
+				this.timerInstances.forEach(element => {
 					// used to play the rest of the soundBite if it gets paused midway
 					if (this.state.soundBiteGotPaused) {
-						await this.soundBitesArray[this.state.pausedAt].playAsync();
+						this.soundBitesArray[this.state.pausedAt].playAsync();
 						this.setState({
 							soundBiteGotPaused: false,
 							pausedAt: null
@@ -119,9 +109,9 @@ export default class SessionScreen extends Component {
 				});
 				break;
 			case 'unloadAudio':
-				this.timerInstances.forEach(async (element, index) => {
+				this.timerInstances.forEach((element, index) => {
 					element.destroy();
-					await this.soundBitesArray[index].unloadAsync();
+					this.soundBitesArray[index].unloadAsync();
 				});
 				break;
 			default:
@@ -199,16 +189,16 @@ export default class SessionScreen extends Component {
 		}
 	};
 
-	_onPlaybackStatusUpdate = async status => {
+	_onPlaybackStatusUpdate = status => {
 		if (status.didJustFinish) {
 			if (this.state.userExists) {
 				this.userData.sessionsCompleted += 1;
 			}
-			await this._timeListened();
-			await this._onStopPressed();
-			await this._timerHandler('unloadAudio');
-			await this._unloadAudio();
-			await this._loadAudio();
+			this._timeListened();
+			this._onStopPressed();
+			this._timerHandler('unloadAudio');
+			this._unloadAudio();
+			this._loadAudio();
 		}
 		if (status.isLoaded) {
 			// this is for when the audio pauses without the user pressing pause
@@ -218,7 +208,7 @@ export default class SessionScreen extends Component {
 					this.setState({ btnIcon: 'pause' });
 				} else {
 					if (this.state.isPlaying) {
-						await this._timerHandler('pauseAudio');
+						this._timerHandler('pauseAudio');
 					}
 					this.setState({
 						isPlaying: false,
@@ -306,7 +296,7 @@ export default class SessionScreen extends Component {
 	_timeListened = async () => {
 		if (this.state.userExists) {
 			try {
-				await this._timerHandler('pauseAudio');
+				this._timerHandler('pauseAudio');
 				if (this.state.hasStarted && this.state.userExists) {
 					let totalTimeListened = this.timerInstances[0].totalTimePlayed / 3600000;
 					// console.log(this.timerInstances[0].totalTimePlayed / 3600000);
