@@ -15,6 +15,8 @@ export default class SessionScreen extends Component {
 	constructor(props) {
 		super(props);
 
+		this._isMounted = false;
+
 		// collects the file and title props from SelectorModule.js
 		const info = this.props.navigation.getParam('info');
 
@@ -138,9 +140,9 @@ export default class SessionScreen extends Component {
 		try {
 			const userData = await AsyncStorage.getItem('userToken');
 			if (userData == undefined) {
-				this.setState({ userExists: false });
+				this._isMounted ? this.setState({ userExists: false }) : null;
 			} else {
-				this.setState({ userExists: true });
+				this._isMounted ? this.setState({ userExists: true }) : null;
 				this.userData = JSON.parse(userData);
 			}
 		} catch (error) {
@@ -294,6 +296,7 @@ export default class SessionScreen extends Component {
 	};
 
 	_timeListened = async () => {
+		await this._getUserToken();
 		if (this.state.userExists) {
 			try {
 				this._timerHandler('pauseAudio');
@@ -310,10 +313,12 @@ export default class SessionScreen extends Component {
 	};
 
 	componentDidMount = () => {
+		this._isMounted = true;
 		this._loadAudio();
 	};
 
 	componentWillUnmount = () => {
+		this._isMounted = false;
 		if (this.timerInstances !== null && this.soundBitesArray !== null) {
 			this._timeListened().then(() => this._timerHandler('unloadAudio'));
 		}

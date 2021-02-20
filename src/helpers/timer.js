@@ -9,7 +9,6 @@ export default class Timer {
 		this.startTime = null;
 		this.totalTimePlayed = 0;
 		this.hasStarted = false;
-		this.timerId = 0;
 	}
 
 	start = () => {
