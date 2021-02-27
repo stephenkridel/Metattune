@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
 		marginTop: '10%',
 		alignSelf: 'center',
 		alignItems: 'center',
-		width: '100%'
+		width: '100%',
+		overflow: 'hidden'
 	}
 });

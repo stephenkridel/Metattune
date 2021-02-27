@@ -79,6 +79,9 @@
 		<string>OpenSans-Light.ttf</string>
 		<string>OpenSans-Regular.ttf</string>
 		<string>OpenSans-SemiBold.ttf</string>
+		<string>JosefinSans-Bold.ttf</string>
+		<string>JosefinSans-Regular.ttf</string>
+		<string>JosefinSans-Thin.ttf</string>
 	</array>
 </dict>
 </plist>
