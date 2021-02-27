@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, LogBox } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import BackgroundTimer from 'react-native-background-timer';
 import { Audio } from 'expo-av';
@@ -46,7 +46,8 @@ export default class SessionScreen extends Component {
 			isError: false,
 			soundBiteGotPaused: false,
 			pausedAt: null,
-			userExists: false
+			userExists: false,
+			sessionsCompleted: 0
 		};
 
 		this.userData;
@@ -74,10 +75,9 @@ export default class SessionScreen extends Component {
 						) {
 							this.soundBitesArray[index].pauseAsync();
 							// used to play the rest of the soundBite if it gets paused midway
-							this.setState({
-								soundBiteGotPaused: true,
-								pausedAt: index
-							});
+							this._isMounted
+								? this.setState({ soundBiteGotPaused: true, pausedAt: index })
+								: null;
 						}
 						element.pause();
 						// console.log(element.remaining);
@@ -194,13 +194,17 @@ export default class SessionScreen extends Component {
 	_onPlaybackStatusUpdate = status => {
 		if (status.didJustFinish) {
 			if (this.state.userExists) {
-				this.userData.sessionsCompleted += 1;
+				this.setState(prevState => {
+					return { sessionsCompleted: prevState.sessionsCompleted + 1 };
+				});
 			}
-			this._timeListened();
-			this._onStopPressed();
-			this._timerHandler('unloadAudio');
-			this._unloadAudio();
-			this._loadAudio();
+			(async () => {
+				this._timeListened();
+				this._onStopPressed();
+				this._timerHandler('unloadAudio');
+				await this._unloadAudio();
+				await this._loadAudio();
+			})();
 		}
 		if (status.isLoaded) {
 			// this is for when the audio pauses without the user pressing pause
@@ -236,7 +240,7 @@ export default class SessionScreen extends Component {
 		}
 	};
 
-	_onPlayPausePressed = async () => {
+	_onPlayPausePressed = () => {
 		if (this.state.isPlaying) {
 			try {
 				if (
@@ -244,7 +248,7 @@ export default class SessionScreen extends Component {
 					this.timerInstances !== null &&
 					this.soundBitesArray !== null
 				) {
-					await this.playbackInstance.pauseAsync();
+					this.playbackInstance.pauseAsync();
 					// if timers have an issue stopping with the setOnPlaybackStatusUpdate
 					// function, consider setTimeout(() => this.setState, 0) for the next line
 					this.setState({ isPlaying: false });
@@ -257,7 +261,7 @@ export default class SessionScreen extends Component {
 		} else {
 			try {
 				if (this.playbackInstance !== null && this.timerInstances !== null) {
-					await this.playbackInstance.playAsync();
+					this.playbackInstance.playAsync();
 					// calling BackgroundTimer for IOS. Checking if the
 					// session has started so that it's never called twice
 					if (!this.state.hasStarted) {
@@ -275,13 +279,13 @@ export default class SessionScreen extends Component {
 		}
 	};
 
-	_onStopPressed = async () => {
+	_onStopPressed = () => {
 		try {
 			if (this.playbackInstance !== null && this.timerInstances !== null) {
 				BackgroundTimer.stop(); // calling BackgroundTimer for IOS
 				this._timerHandler('stopAudio');
 
-				await this.playbackInstance.stopAsync();
+				this.playbackInstance.stopAsync();
 
 				this.setState({
 					isPlaying: false,
@@ -304,6 +308,7 @@ export default class SessionScreen extends Component {
 					let totalTimeListened = this.timerInstances[0].totalTimePlayed / 3600000;
 					// console.log(this.timerInstances[0].totalTimePlayed / 3600000);
 					this.userData.hoursCompleted += Math.round(totalTimeListened * 100) / 100;
+					this.userData.sessionsCompleted += this.state.sessionsCompleted;
 					await AsyncStorage.setItem('userToken', JSON.stringify(this.userData));
 				}
 			} catch (error) {

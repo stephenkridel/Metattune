@@ -36,6 +36,7 @@
       android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
       android:launchMode="singleTask"
       android:windowSoftInputMode="adjustResize"
+      android:screenOrientation="portrait"
       android:theme="@style/Theme.App.SplashScreen"
     >
       <intent-filter>

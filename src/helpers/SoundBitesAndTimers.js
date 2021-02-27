@@ -58,7 +58,7 @@ const setupTimers = soundArray => {
 				// used to stop a soundbite when the audio gets paused
 				timerArray[i].hasStarted = true;
 			}, (i + 1) * 5000);
-			timerArray[i].timerId = 'ID - ' + Math.floor(Math.random() * 10000);
+			// timerArray[i].timerId = 'ID - ' + Math.floor(Math.random() * 10000);
 		}
 		for (let i = 0; i < timerArray.length; i++) {
 			if (timerArray[i] == null || soundArray[i] == null) {
