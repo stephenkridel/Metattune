@@ -1,4 +1,4 @@
-package com.attend;
+package com.attune;
 
 import android.os.Bundle;
 

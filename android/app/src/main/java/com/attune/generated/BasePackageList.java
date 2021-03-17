@@ -1,4 +1,4 @@
-package com.attend.generated;
+package com.attune.generated;
 
 import java.util.Arrays;
 import java.util.List;

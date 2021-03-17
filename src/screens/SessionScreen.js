@@ -47,7 +47,7 @@ export default class SessionScreen extends Component {
 			soundBiteGotPaused: false,
 			pausedAt: null,
 			userExists: false,
-			sessionsCompleted: 0
+			completedSession: 0
 		};
 
 		this.userData;
@@ -194,33 +194,27 @@ export default class SessionScreen extends Component {
 	_onPlaybackStatusUpdate = status => {
 		if (status.didJustFinish) {
 			if (this.state.userExists) {
-				this.setState(prevState => {
-					return { sessionsCompleted: prevState.sessionsCompleted + 1 };
-				});
+				this.setState({ completedSession: 1 });
 			}
 			(async () => {
-				this._timeListened();
+				await this._timeListened();
 				this._onStopPressed();
 				this._timerHandler('unloadAudio');
 				await this._unloadAudio();
 				await this._loadAudio();
 			})();
 		}
-		if (status.isLoaded) {
-			// this is for when the audio pauses without the user pressing pause
-			// this happens sometimes when other audio interupts the session
-			if (this.state.hasLoaded) {
-				if (status.isPlaying) {
-					this.setState({ btnIcon: 'pause' });
-				} else {
-					if (this.state.isPlaying) {
-						this._timerHandler('pauseAudio');
-					}
-					this.setState({
-						isPlaying: false,
-						btnIcon: 'caretright'
-					});
-				}
+		// this is for when the audio pauses without the user pressing pause
+		// this happens sometimes when other audio interupts the session
+		if (this.state.hasLoaded && status.isLoaded) {
+			if (status.isPlaying) {
+				this.setState({ btnIcon: 'pause' });
+			} else {
+				this._timerHandler('pauseAudio');
+				this.setState({
+					isPlaying: false,
+					btnIcon: 'caretright'
+				});
 			}
 		}
 	};
@@ -289,7 +283,8 @@ export default class SessionScreen extends Component {
 
 				this.setState({
 					isPlaying: false,
-					hasStarted: false
+					hasStarted: false,
+					completedSession: 0
 				});
 			} else {
 				throw 'playback instance or timer instance is null or undefined';
@@ -301,19 +296,17 @@ export default class SessionScreen extends Component {
 
 	_timeListened = async () => {
 		await this._getUserToken();
-		if (this.state.userExists) {
-			try {
-				this._timerHandler('pauseAudio');
-				if (this.state.hasStarted && this.state.userExists) {
-					let totalTimeListened = this.timerInstances[0].totalTimePlayed / 3600000;
-					// console.log(this.timerInstances[0].totalTimePlayed / 3600000);
-					this.userData.hoursCompleted += Math.round(totalTimeListened * 100) / 100;
-					this.userData.sessionsCompleted += this.state.sessionsCompleted;
-					await AsyncStorage.setItem('userToken', JSON.stringify(this.userData));
-				}
-			} catch (error) {
-				this._errorHandler(error, 'Sorry, we had a problem updating your user statistics');
+		try {
+			this._timerHandler('pauseAudio');
+			if (this.state.hasStarted && this.state.userExists) {
+				let totalTimeListened = this.timerInstances[0].totalTimePlayed / 3600000;
+				// console.log(this.timerInstances[0].totalTimePlayed / 3600000);
+				this.userData.hoursCompleted += Math.round(totalTimeListened * 100) / 100;
+				this.userData.sessionsCompleted += this.state.completedSession;
+				await AsyncStorage.setItem('userToken', JSON.stringify(this.userData));
 			}
+		} catch (error) {
+			this._errorHandler(error, 'Sorry, we had a problem updating your user statistics');
 		}
 	};
 

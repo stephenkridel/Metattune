@@ -29,6 +29,7 @@ export default class UserScreen extends Component {
 		try {
 			const retrievedItem = await AsyncStorage.getItem('userToken');
 			const item = JSON.parse(retrievedItem);
+			item.hoursCompleted = item.hoursCompleted.toFixed(2); // rounds number to 2 decimal places
 			if (item !== null) {
 				this.setState({
 					userName: item.userName,
@@ -124,8 +125,9 @@ const styles = StyleSheet.create({
 		padding: 10,
 		textAlign: 'center',
 		fontFamily: 'JosefinSans-Regular',
-		borderRadius: 100,
-		width: '45%'
+		borderRadius: 20,
+		width: '45%',
+		overflow: 'hidden' // needed on ios to show border radius
 	},
 	StatisticsContainer: {
 		height: '20%',

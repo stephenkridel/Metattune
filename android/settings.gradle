@@ -1,4 +1,4 @@
-rootProject.name = 'Attend'
+rootProject.name = 'Attune'
 
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
 includeUnimodulesProjects()

@@ -12,7 +12,7 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		3DE4DAD41476765101945408 /* libPods-Attend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FF9D506E70904424FA7E9 /* libPods-Attend.a */; };
+		3DE4DAD41476765101945408 /* libPods-Attune.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FF9D506E70904424FA7E9 /* libPods-Attune.a */; };
 		99EC63CFB4B549BBAF093D10 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3ABB89D1E68496EB7D95742 /* SplashScreen.storyboard */; };
 		04CD1B257AFF4216A0D412B2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 523AC3C67D9A41EE91714FC3 /* OpenSans-Bold.ttf */; };
 		028AEC6F0256490DAB907BB5 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BE3D5FF34AD431D9B550889 /* OpenSans-Light.ttf */; };
@@ -22,21 +22,21 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		0731D3B524204D62009CAE85 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Expo.plist; path = Attend/Supporting/Expo.plist; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Attend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Attend.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Attend/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Attend/AppDelegate.m; sourceTree = "<group>"; };
+		0731D3B524204D62009CAE85 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Expo.plist; path = Attune/Supporting/Expo.plist; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Attune.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Attune.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Attune/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Attune/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Attend/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Attend/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Attend/main.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Attune/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Attune/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Attune/main.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B47C5AFCB8BDE514B7D1AC6 /* Pods-Attend.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attend.debug.xcconfig"; path = "Target Support Files/Pods-Attend/Pods-Attend.debug.xcconfig"; sourceTree = "<group>"; };
-		8AC623DBF3A3E2CB072F81F2 /* Pods-Attend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attend.release.xcconfig"; path = "Target Support Files/Pods-Attend/Pods-Attend.release.xcconfig"; sourceTree = "<group>"; };
-		D43FF9D506E70904424FA7E9 /* libPods-Attend.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Attend.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B47C5AFCB8BDE514B7D1AC6 /* Pods-Attune.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attune.debug.xcconfig"; path = "Target Support Files/Pods-Attune/Pods-Attune.debug.xcconfig"; sourceTree = "<group>"; };
+		8AC623DBF3A3E2CB072F81F2 /* Pods-Attune.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attune.release.xcconfig"; path = "Target Support Files/Pods-Attune/Pods-Attune.release.xcconfig"; sourceTree = "<group>"; };
+		D43FF9D506E70904424FA7E9 /* libPods-Attune.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Attune.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		E3ABB89D1E68496EB7D95742 /* SplashScreen.storyboard */ = {isa = PBXFileReference; name = "SplashScreen.storyboard"; path = "Attend/SplashScreen.storyboard"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = file.storyboard; };
+		E3ABB89D1E68496EB7D95742 /* SplashScreen.storyboard */ = {isa = PBXFileReference; name = "SplashScreen.storyboard"; path = "Attune/SplashScreen.storyboard"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = file.storyboard; };
 		523AC3C67D9A41EE91714FC3 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; name = "OpenSans-Bold.ttf"; path = "../src/assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		5BE3D5FF34AD431D9B550889 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; name = "OpenSans-Light.ttf"; path = "../src/assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		978DE83C9A4D4DEFB1C740B0 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; name = "OpenSans-Regular.ttf"; path = "../src/assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -48,14 +48,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DE4DAD41476765101945408 /* libPods-Attend.a in Frameworks */,
+				3DE4DAD41476765101945408 /* libPods-Attune.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B07FAE1A68108700A75B9A /* Attend */ = {
+		13B07FAE1A68108700A75B9A /* Attune */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -68,7 +68,7 @@
 				0731D3B524204D62009CAE85 /* Expo.plist */,
 				E3ABB89D1E68496EB7D95742 /* SplashScreen.storyboard */,
 			);
-			name = Attend;
+			name = Attune;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -77,7 +77,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				D43FF9D506E70904424FA7E9 /* libPods-Attend.a */,
+				D43FF9D506E70904424FA7E9 /* libPods-Attune.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -85,8 +85,8 @@
 		72E5486571395D51695C2A02 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B47C5AFCB8BDE514B7D1AC6 /* Pods-Attend.debug.xcconfig */,
-				8AC623DBF3A3E2CB072F81F2 /* Pods-Attend.release.xcconfig */,
+				3B47C5AFCB8BDE514B7D1AC6 /* Pods-Attune.debug.xcconfig */,
+				8AC623DBF3A3E2CB072F81F2 /* Pods-Attune.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -102,7 +102,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* Attend */,
+				13B07FAE1A68108700A75B9A /* Attune */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -117,7 +117,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Attend.app */,
+				13B07F961A680F5B00A75B9A /* Attune.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,9 +137,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* Attend */ = {
+		13B07F861A680F5B00A75B9A /* Attune */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Attend" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Attune" */;
 			buildPhases = (
 				F8BC737F2AD7A05944D9E2A1 /* [CP] Check Pods Manifest.lock */,
 				FD4C38642228810C00325AF5 /* Start Packager */,
@@ -152,9 +152,9 @@
 			);
 			dependencies = (
 			);
-			name = Attend;
+			name = Attune;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* Attend.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Attune.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -172,7 +172,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Attend" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Attune" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -185,7 +185,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* Attend */,
+				13B07F861A680F5B00A75B9A /* Attune */,
 			);
 		};
 /* End PBXProject section */
@@ -238,7 +238,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Attend-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Attune-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -285,7 +285,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = Attend;
+			path = Attune;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -293,39 +293,39 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B47C5AFCB8BDE514B7D1AC6 /* Pods-Attend.debug.xcconfig */;
+			baseConfigurationReference = 3B47C5AFCB8BDE514B7D1AC6 /* Pods-Attune.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				INFOPLIST_FILE = Attend/Info.plist;
+				INFOPLIST_FILE = Attune/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Attend";
-				PRODUCT_NAME = Attend;
+				PRODUCT_BUNDLE_IDENTIFIER = "Attune";
+				PRODUCT_NAME = Attune;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8AC623DBF3A3E2CB072F81F2 /* Pods-Attend.release.xcconfig */;
+			baseConfigurationReference = 8AC623DBF3A3E2CB072F81F2 /* Pods-Attune.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = Attend/Info.plist;
+				INFOPLIST_FILE = Attune/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Attend";
-				PRODUCT_NAME = Attend;
+				PRODUCT_BUNDLE_IDENTIFIER = "Attune";
+				PRODUCT_NAME = Attune;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -380,8 +380,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				PRODUCT_BUNDLE_IDENTIFIER = "Attend";
-				PRODUCT_NAME = Attend;
+				PRODUCT_BUNDLE_IDENTIFIER = "Attune";
+				PRODUCT_NAME = Attune;
 			};
 			name = Debug;
 		};
@@ -428,15 +428,15 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "Attend";
-				PRODUCT_NAME = Attend;
+				PRODUCT_BUNDLE_IDENTIFIER = "Attune";
+				PRODUCT_NAME = Attune;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Attend" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Attune" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -445,7 +445,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Attend" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Attune" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

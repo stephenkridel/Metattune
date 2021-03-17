@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Attend</string>
+	<string>Attune</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow Attend to use your location</string>
+	<string>Allow Attune to use your location</string>
 	<key>UILaunchStoryboardName</key>
 	<string>SplashScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -54,25 +54,25 @@
 		</dict>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Allow Attend to access your calendar</string>
+	<string>Allow Attune to access your calendar</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow Attend to use the camera</string>
+	<string>Allow Attune to use the camera</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Allow Attend experiences to access your contacts</string>
+	<string>Allow Attune experiences to access your contacts</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow Attend to use your location</string>
+	<string>Allow Attune to use your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow Attend to use your location</string>
+	<string>Allow Attune to use your location</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow Attend to access your microphone</string>
+	<string>Allow Attune to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow Attend to access your device's accelerometer</string>
+	<string>Allow Attune to access your device's accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Give Attend periences permission to save photos</string>
+	<string>Give Attune periences permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Give Attend periences permission to access your photos</string>
+	<string>Give Attune periences permission to access your photos</string>
 	<key>NSRemindersUsageDescription</key>
-	<string>Allow Attend to access your reminders</string>
+	<string>Allow Attune to access your reminders</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Bold.ttf</string>
