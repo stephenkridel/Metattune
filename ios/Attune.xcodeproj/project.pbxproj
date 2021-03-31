@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		028AEC6F0256490DAB907BB5 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BE3D5FF34AD431D9B550889 /* OpenSans-Light.ttf */; };
+		04CD1B257AFF4216A0D412B2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 523AC3C67D9A41EE91714FC3 /* OpenSans-Bold.ttf */; };
+		07003B79A25A4FC5B07029FD /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 978DE83C9A4D4DEFB1C740B0 /* OpenSans-Regular.ttf */; };
 		0731D3B824204D62009CAE85 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0731D3B524204D62009CAE85 /* Expo.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
@@ -14,9 +17,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3DE4DAD41476765101945408 /* libPods-Attune.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FF9D506E70904424FA7E9 /* libPods-Attune.a */; };
 		99EC63CFB4B549BBAF093D10 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3ABB89D1E68496EB7D95742 /* SplashScreen.storyboard */; };
-		04CD1B257AFF4216A0D412B2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 523AC3C67D9A41EE91714FC3 /* OpenSans-Bold.ttf */; };
-		028AEC6F0256490DAB907BB5 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BE3D5FF34AD431D9B550889 /* OpenSans-Light.ttf */; };
-		07003B79A25A4FC5B07029FD /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 978DE83C9A4D4DEFB1C740B0 /* OpenSans-Regular.ttf */; };
+		AAF173B826141BAE002A7D89 /* JosefinSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAF173B526141BAE002A7D89 /* JosefinSans-Thin.ttf */; };
+		AAF173B926141BAF002A7D89 /* JosefinSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAF173B626141BAE002A7D89 /* JosefinSans-Bold.ttf */; };
+		AAF173BA26141BAF002A7D89 /* JosefinSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAF173B726141BAE002A7D89 /* JosefinSans-Regular.ttf */; };
 		CB6433925773458B87060CA8 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94460A8DBD15473894429B36 /* OpenSans-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
@@ -32,15 +35,18 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Attune/main.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B47C5AFCB8BDE514B7D1AC6 /* Pods-Attune.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attune.debug.xcconfig"; path = "Target Support Files/Pods-Attune/Pods-Attune.debug.xcconfig"; sourceTree = "<group>"; };
+		523AC3C67D9A41EE91714FC3 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../src/assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		5BE3D5FF34AD431D9B550889 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../src/assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		8AC623DBF3A3E2CB072F81F2 /* Pods-Attune.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attune.release.xcconfig"; path = "Target Support Files/Pods-Attune/Pods-Attune.release.xcconfig"; sourceTree = "<group>"; };
+		94460A8DBD15473894429B36 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../src/assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		978DE83C9A4D4DEFB1C740B0 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../src/assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		AAF173B526141BAE002A7D89 /* JosefinSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "JosefinSans-Thin.ttf"; path = "../src/assets/fonts/JosefinSans-Thin.ttf"; sourceTree = "<group>"; };
+		AAF173B626141BAE002A7D89 /* JosefinSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "JosefinSans-Bold.ttf"; path = "../src/assets/fonts/JosefinSans-Bold.ttf"; sourceTree = "<group>"; };
+		AAF173B726141BAE002A7D89 /* JosefinSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "JosefinSans-Regular.ttf"; path = "../src/assets/fonts/JosefinSans-Regular.ttf"; sourceTree = "<group>"; };
 		D43FF9D506E70904424FA7E9 /* libPods-Attune.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Attune.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3ABB89D1E68496EB7D95742 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Attune/SplashScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		E3ABB89D1E68496EB7D95742 /* SplashScreen.storyboard */ = {isa = PBXFileReference; name = "SplashScreen.storyboard"; path = "Attune/SplashScreen.storyboard"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = file.storyboard; };
-		523AC3C67D9A41EE91714FC3 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; name = "OpenSans-Bold.ttf"; path = "../src/assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		5BE3D5FF34AD431D9B550889 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; name = "OpenSans-Light.ttf"; path = "../src/assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		978DE83C9A4D4DEFB1C740B0 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; name = "OpenSans-Regular.ttf"; path = "../src/assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		94460A8DBD15473894429B36 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "OpenSans-SemiBold.ttf"; path = "../src/assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,9 @@
 		13B07FAE1A68108700A75B9A /* Attune */ = {
 			isa = PBXGroup;
 			children = (
+				AAF173B626141BAE002A7D89 /* JosefinSans-Bold.ttf */,
+				AAF173B726141BAE002A7D89 /* JosefinSans-Regular.ttf */,
+				AAF173B526141BAE002A7D89 /* JosefinSans-Thin.ttf */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -82,13 +91,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		34A2F888ADAA4F7BB67D0C34 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				523AC3C67D9A41EE91714FC3 /* OpenSans-Bold.ttf */,
+				5BE3D5FF34AD431D9B550889 /* OpenSans-Light.ttf */,
+				978DE83C9A4D4DEFB1C740B0 /* OpenSans-Regular.ttf */,
+				94460A8DBD15473894429B36 /* OpenSans-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		72E5486571395D51695C2A02 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				3B47C5AFCB8BDE514B7D1AC6 /* Pods-Attune.debug.xcconfig */,
 				8AC623DBF3A3E2CB072F81F2 /* Pods-Attune.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -122,18 +141,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		34A2F888ADAA4F7BB67D0C34 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				523AC3C67D9A41EE91714FC3 /* OpenSans-Bold.ttf */,
-				5BE3D5FF34AD431D9B550889 /* OpenSans-Light.ttf */,
-				978DE83C9A4D4DEFB1C740B0 /* OpenSans-Regular.ttf */,
-				94460A8DBD15473894429B36 /* OpenSans-SemiBold.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -165,18 +172,13 @@
 			attributes = {
 				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
-				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
-					};
-				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Attune" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -202,7 +204,10 @@
 				04CD1B257AFF4216A0D412B2 /* OpenSans-Bold.ttf in Resources */,
 				028AEC6F0256490DAB907BB5 /* OpenSans-Light.ttf in Resources */,
 				07003B79A25A4FC5B07029FD /* OpenSans-Regular.ttf in Resources */,
+				AAF173BA26141BAF002A7D89 /* JosefinSans-Regular.ttf in Resources */,
 				CB6433925773458B87060CA8 /* OpenSans-SemiBold.ttf in Resources */,
+				AAF173B826141BAE002A7D89 /* JosefinSans-Thin.ttf in Resources */,
+				AAF173B926141BAF002A7D89 /* JosefinSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +310,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Attune";
+				PRODUCT_BUNDLE_IDENTIFIER = Attune;
 				PRODUCT_NAME = Attune;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -324,7 +329,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Attune";
+				PRODUCT_BUNDLE_IDENTIFIER = Attune;
 				PRODUCT_NAME = Attune;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -379,9 +384,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				PRODUCT_BUNDLE_IDENTIFIER = "Attune";
+				PRODUCT_BUNDLE_IDENTIFIER = Attune;
 				PRODUCT_NAME = Attune;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -426,10 +431,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = Attune;
+				PRODUCT_NAME = Attune;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "Attune";
-				PRODUCT_NAME = Attune;
 			};
 			name = Release;
 		};
