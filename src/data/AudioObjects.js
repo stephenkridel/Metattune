@@ -9,9 +9,9 @@ export default function AudioObjects() {
 		}
 	}
 
-	const nature = new PremixedAudioElement(
-		'Nature',
-		require('../assets/sounds/nature.mp3'),
+	const cafe = new PremixedAudioElement(
+		'Cafe',
+		require('../assets/sounds/cafe.mp3'),
 		'green',
 		[
 			require('../assets/sounds/audio1.mp3'),
@@ -23,9 +23,9 @@ export default function AudioObjects() {
 		require('../assets/images/forest.png')
 	);
 
-	const urban = new PremixedAudioElement(
-		'Urban',
-		require('../assets/sounds/urban.mp3'),
+	const city = new PremixedAudioElement(
+		'City',
+		require('../assets/sounds/city.mp3'),
 		'grey',
 		[
 			require('../assets/sounds/audio1.mp3'),
@@ -37,9 +37,9 @@ export default function AudioObjects() {
 		require('../assets/images/urban.png')
 	);
 
-	const space = new PremixedAudioElement(
-		'Space',
-		require('../assets/sounds/space.mp3'),
+	const beach = new PremixedAudioElement(
+		'Beach',
+		require('../assets/sounds/beach.mp3'),
 		'lightblue',
 		[
 			require('../assets/sounds/audio1.mp3'),
@@ -65,7 +65,7 @@ export default function AudioObjects() {
 		require('../assets/images/rainforest.png')
 	);
 
-	premixedAudioList = [nature, urban, space, rainforest];
+	premixedAudioList = [cafe, city, beach, rainforest];
 
 	return { premixedAudioList };
 }

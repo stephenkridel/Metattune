@@ -57,7 +57,7 @@ const setupTimers = soundArray => {
 				soundArray[i].playAsync();
 				// used to stop a soundbite when the audio gets paused
 				timerArray[i].hasStarted = true;
-			}, (i + 1) * 5000);
+			}, (i + 1) * 100000);
 			// timerArray[i].timerId = 'ID - ' + Math.floor(Math.random() * 10000);
 		}
 		for (let i = 0; i < timerArray.length; i++) {
