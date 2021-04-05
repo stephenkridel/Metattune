@@ -24,10 +24,21 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow Attune to use your location</string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
-	<string>SplashScreen</string>
+	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -40,48 +51,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Allow Attune to access your calendar</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow Attune to use the camera</string>
-	<key>NSContactsUsageDescription</key>
-	<string>Allow Attune experiences to access your contacts</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow Attune to use your location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow Attune to use your location</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow Attune to access your microphone</string>
-	<key>NSMotionUsageDescription</key>
-	<string>Allow Attune to access your device's accelerometer</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Give Attune periences permission to save photos</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Give Attune periences permission to access your photos</string>
-	<key>NSRemindersUsageDescription</key>
-	<string>Allow Attune to access your reminders</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>JosefinSans-Bold.ttf</string>
+		<string>JosefinSans-Regular.ttf</string>
+		<string>JosefinSans-Thin.ttf</string>
 		<string>OpenSans-Bold.ttf</string>
 		<string>OpenSans-Light.ttf</string>
 		<string>OpenSans-Regular.ttf</string>
 		<string>OpenSans-SemiBold.ttf</string>
-		<string>JosefinSans-Bold.ttf</string>
-		<string>JosefinSans-Regular.ttf</string>
-		<string>JosefinSans-Thin.ttf</string>
 	</array>
 </dict>
 </plist>
