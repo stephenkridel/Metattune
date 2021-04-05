@@ -346,7 +346,7 @@ export default class SessionScreen extends Component {
 						<ActivityIndicator
 							size='large'
 							hidesWhenStopped={true}
-							color='FFFFFF'
+							color='#FFFFFF'
 							animating={this.state.hasLoaded ? false : true}
 						/>
 						<this.iconFamily

@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
 			width: 10,
 			height: 10
 		},
-		shadowOpacity: 0.75,
-		shadowRadius: 5,
+		shadowOpacity: 0.40,
+		shadowRadius: 10,
 		borderTopLeftRadius: 25,
 		borderBottomLeftRadius: 25,
 		marginBottom: 30,
