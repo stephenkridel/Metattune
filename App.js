@@ -14,7 +14,6 @@ import {
 import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
 import {AntDesign} from '@expo/vector-icons';
 import 'react-native-console-time-polyfill';
-import SplashScreen from 'react-native-splash-screen';
 
 const colorOfBackground = 'white';
 
@@ -30,6 +29,7 @@ const SessionStack = createStackNavigator(
       cardStyle: {backgroundColor: colorOfBackground},
     },
   },
+  
 );
 
 const AboutStack = createStackNavigator(
