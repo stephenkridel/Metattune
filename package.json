@@ -13,6 +13,7 @@
     "@react-native-community/async-storage": "^1.11.0-alpha.0",
     "@react-native-community/masked-view": "0.1.6",
     "@react-native-firebase/app": "^11.2.0",
+    "@react-native-firebase/storage": "^11.2.0",
     "expo": "~37.0.3",
     "expo-av": "^8.7.0",
     "expo-updates": "~0.2.0",
