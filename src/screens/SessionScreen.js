@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import {AntDesign} from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import BackgroundTimer from 'react-native-background-timer';
-import {Audio} from 'expo-av';
+import { Audio } from 'expo-av';
 import {
   randomizeSoundBites,
   loadSoundBiteAudio,
@@ -16,13 +16,13 @@ import {
 } from '../helpers/SoundBitesAndTimers';
 import AsyncStorage from '@react-native-community/async-storage';
 import ModalComponent from '../components/ModalComponent';
-import {utils} from '@react-native-firebase/app';
-import storage from '@react-native-firebase/storage';
+import fetchMedia from '../helpers/FetchMedia';
 
 export default class SessionScreen extends Component {
   constructor(props) {
     super(props);
 
+    // prevents changing state when the component is unmounted
     this._isMounted = false;
 
     // collects the file and title props from SelectorModule.js
@@ -30,11 +30,10 @@ export default class SessionScreen extends Component {
 
     // destructuring info
     this.title = info.title;
-    this.source = info.file;
-    this.soundBites = info.soundBites;
 
     this.playbackInstance = null;
 
+    // stores soundbites and timers from SoundBitesAndTimers function
     this.soundBitesArray = null;
     this.timerInstances = null;
 
@@ -58,9 +57,8 @@ export default class SessionScreen extends Component {
       completedSession: 0,
     };
 
+    // stores data captured from async storage
     this.userData;
-
-    this.sound = storage().ref('assets/sounds/rainforest.mp3');
   }
 
   _errorHandler = (error, message) => {
@@ -86,7 +84,10 @@ export default class SessionScreen extends Component {
               this.soundBitesArray[index].pauseAsync();
               // used to play the rest of the soundBite if it gets paused midway
               this._isMounted
-                ? this.setState({soundBiteGotPaused: true, pausedAt: index})
+                ? this.setState({
+                    soundBiteGotPaused: true,
+                    pausedAt: index,
+                  })
                 : null;
             }
             element.pause();
@@ -153,9 +154,9 @@ export default class SessionScreen extends Component {
     try {
       const userData = await AsyncStorage.getItem('userToken');
       if (userData == undefined) {
-        this._isMounted ? this.setState({userExists: false}) : null;
+        this._isMounted ? this.setState({ userExists: false }) : null;
       } else {
-        this._isMounted ? this.setState({userExists: true}) : null;
+        this._isMounted ? this.setState({ userExists: true }) : null;
         this.userData = JSON.parse(userData);
       }
     } catch (error) {
@@ -165,7 +166,7 @@ export default class SessionScreen extends Component {
 
   _loadAudio = async () => {
     try {
-      this.setState({hasLoaded: false});
+      this.setState({ hasLoaded: false });
 
       Audio.setAudioModeAsync({
         staysActiveInBackground: true,
@@ -177,29 +178,39 @@ export default class SessionScreen extends Component {
         playsInSilentModeIOS: true,
       });
 
-      let initialStatus = {};
+      const source = await fetchMedia(this.title.toLowerCase());
 
-      const {sound, status} = await Audio.Sound.createAsync(
-        this.source,
-        initialStatus,
+      const { sound, status } = await Audio.Sound.createAsync(
+        { uri: source },
+        {},
         this._onPlaybackStatusUpdate,
       );
 
       this.playbackInstance = sound;
 
+      const soundbites = [];
+
+      for (i = 0; i < 5; i++) {
+        const file = await fetchMedia(`audio${i + 1}`);
+        const fileURI = { uri: file };
+        soundbites.push(fileURI);
+      }
+
       [
         this.timerInstances,
         this.soundBitesArray,
-      ] = await this._soundBiteTimerSetup(this.soundBites);
+      ] = await this._soundBiteTimerSetup(soundbites);
 
       await this._getUserToken();
 
-      this.setState({
-        hasLoaded: true,
-        btnIcon: 'caretright',
-        soundBiteGotPaused: false,
-        pausedAt: null,
-      });
+      if (this._isMounted) {
+        this.setState({
+          hasLoaded: true,
+          btnIcon: 'caretright',
+          soundBiteGotPaused: false,
+          pausedAt: null,
+        });
+      }
     } catch (error) {
       this._errorHandler(error, 'Sorry, there was an error loading the audio');
     }
@@ -208,7 +219,7 @@ export default class SessionScreen extends Component {
   _onPlaybackStatusUpdate = status => {
     if (status.didJustFinish) {
       if (this.state.userExists) {
-        this.setState({completedSession: 1});
+        this.setState({ completedSession: 1 });
       }
       (async () => {
         await this._timeListened();
@@ -216,13 +227,18 @@ export default class SessionScreen extends Component {
         this._timerHandler('unloadAudio');
         await this._unloadAudio();
         await this._loadAudio();
-      })();
+      })().catch(error => {
+        this._errorHandler(
+          error,
+          'Sorry, there was an error reloading the audio. Please close out of the app and reload it',
+        );
+      });
     }
     // this is for when the audio pauses without the user pressing pause
     // this happens sometimes when other audio interupts the session
     if (this.state.hasLoaded && status.isLoaded) {
       if (status.isPlaying) {
-        this.setState({btnIcon: 'pause'});
+        this.setState({ btnIcon: 'pause' });
       } else {
         this._timerHandler('pauseAudio');
         this.setState({
@@ -259,7 +275,7 @@ export default class SessionScreen extends Component {
           this.playbackInstance.pauseAsync();
           // if timers have an issue stopping with the setOnPlaybackStatusUpdate
           // function, consider setTimeout(() => this.setState, 0) for the next line
-          this.setState({isPlaying: false});
+          this.setState({ isPlaying: false });
         } else {
           throw 'playback instance or timer instance is null or undefined';
         }
@@ -277,10 +293,10 @@ export default class SessionScreen extends Component {
           // session has started so that it's never called twice
           if (!this.state.hasStarted) {
             BackgroundTimer.start();
-            this.setState({hasStarted: true});
+            this.setState({ hasStarted: true });
           }
           this._timerHandler('startAudio');
-          this.setState({isPlaying: true});
+          this.setState({ isPlaying: true });
         } else {
           throw 'playback instance or timer instance is null or undefined';
         }
@@ -354,7 +370,7 @@ export default class SessionScreen extends Component {
         <ModalComponent
           isVisible={this.state.isError}
           message={this.state.errorMsg}
-          onPressX={() => this.setState({isError: false})}
+          onPressX={() => this.setState({ isError: false })}
           shouldShowButton={false}
         />
         <Text style={styles.HeroText}>{this.title}</Text>

@@ -2,19 +2,21 @@ import React from 'react';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {AntDesign} from '@expo/vector-icons';
+import 'react-native-console-time-polyfill';
+
 import SelectorScreen from './src/screens/SelectorScreen';
 import SessionScreen from './src/screens/SessionScreen';
 import UserScreen from './src/screens/UserScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
 import {
   AboutScreen1,
   AboutScreen2,
   AboutScreen3,
 } from './src/screens/AboutScreen';
-import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
-import {AntDesign} from '@expo/vector-icons';
-import 'react-native-console-time-polyfill';
 
+// color of background for all navigators
 const colorOfBackground = 'white';
 
 const SessionStack = createStackNavigator(
@@ -29,7 +31,6 @@ const SessionStack = createStackNavigator(
       cardStyle: {backgroundColor: colorOfBackground},
     },
   },
-  
 );
 
 const AboutStack = createStackNavigator(

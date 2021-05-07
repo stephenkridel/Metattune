@@ -1,6 +1,8 @@
-import {utils} from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 
-export default FetchMedia = () => {
-  const ref = storage().ref('/assets/sounds/rainforest.mp3');
+export default fetchMedia = async mediaFile => {
+  let filePath = '/assets/sounds/test/' + mediaFile + '_test.mp3';
+  const media = await storage().ref(filePath).getDownloadURL();
+  console.log(`Loaded ${filePath}`);
+  return media;
 };
