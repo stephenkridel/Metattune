@@ -30,6 +30,7 @@ export default class SessionScreen extends Component {
 
     // destructuring info
     this.title = info.title;
+    this.soundBitesString = info.soundBites;
 
     this.playbackInstance = null;
 
@@ -190,8 +191,8 @@ export default class SessionScreen extends Component {
 
       const soundbites = [];
 
-      for (i = 0; i < 5; i++) {
-        const file = await fetchMedia(`audio${i + 1}`);
+      for (i = 0; i < this.soundBitesString.length; i++) {
+        const file = await fetchMedia(this.soundBitesString[i]);
         const fileURI = { uri: file };
         soundbites.push(fileURI);
       }
