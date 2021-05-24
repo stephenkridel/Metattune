@@ -8,6 +8,13 @@ export default function AudioObjects() {
     }
   }
 
+  const intro = new PremixedAudioElement(
+    'Intro',
+    'gainsboro',
+    require('../assets/images/space.png'),
+    null,
+  );
+
   const cafe = new PremixedAudioElement(
     'Cafe',
     'green',
@@ -36,7 +43,7 @@ export default function AudioObjects() {
     ['Birds', 'Insects', 'Thunder', 'Frogs', 'Left', 'Right', 'Behind'],
   );
 
-  premixedAudioList = [cafe, city, beach, rainforest];
+  premixedAudioList = [intro, cafe, city, beach, rainforest];
 
   return { premixedAudioList };
 }

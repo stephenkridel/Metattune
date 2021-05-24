@@ -71,10 +71,33 @@ export default class SessionScreen extends Component {
   };
 
   _timerHandler = action => {
-    switch (action) {
-      case 'pauseAudio':
-        if (this.state.hasStarted) {
-          // console.log(Date.now());
+    if (this.soundBitesString != null) {
+      switch (action) {
+        case 'pauseAudio':
+          if (this.state.hasStarted) {
+            // console.log(Date.now());
+            this.timerInstances.forEach((element, index, array) => {
+              if (
+                (index !== array.length - 1 &&
+                  element.hasStarted &&
+                  !array[index + 1].hasStarted) ||
+                (index === array.length - 1 && element.hasStarted)
+              ) {
+                this.soundBitesArray[index].pauseAsync();
+                // used to play the rest of the soundBite if it gets paused midway
+                this._isMounted
+                  ? this.setState({
+                      soundBiteGotPaused: true,
+                      pausedAt: index,
+                    })
+                  : null;
+              }
+              element.pause();
+              // console.log(element.remaining);
+            });
+          }
+          break;
+        case 'stopAudio':
           this.timerInstances.forEach((element, index, array) => {
             if (
               (index !== array.length - 1 &&
@@ -82,58 +105,37 @@ export default class SessionScreen extends Component {
                 !array[index + 1].hasStarted) ||
               (index === array.length - 1 && element.hasStarted)
             ) {
-              this.soundBitesArray[index].pauseAsync();
-              // used to play the rest of the soundBite if it gets paused midway
-              this._isMounted
-                ? this.setState({
-                    soundBiteGotPaused: true,
-                    pausedAt: index,
-                  })
-                : null;
+              this.soundBitesArray[index].stopAsync();
             }
-            element.pause();
-            // console.log(element.remaining);
+            element.stop();
           });
-        }
-        break;
-      case 'stopAudio':
-        this.timerInstances.forEach((element, index, array) => {
-          if (
-            (index !== array.length - 1 &&
-              element.hasStarted &&
-              !array[index + 1].hasStarted) ||
-            (index === array.length - 1 && element.hasStarted)
-          ) {
-            this.soundBitesArray[index].stopAsync();
-          }
-          element.stop();
-        });
-        break;
-      case 'startAudio':
-        this.timerInstances.forEach(element => {
-          // used to play the rest of the soundBite if it gets paused midway
-          if (this.state.soundBiteGotPaused) {
-            this.soundBitesArray[this.state.pausedAt].playAsync();
-            this.setState({
-              soundBiteGotPaused: false,
-              pausedAt: null,
-            });
-          }
-          element.start();
-        });
-        break;
-      case 'unloadAudio':
-        this.timerInstances.forEach((element, index) => {
-          element.destroy();
-          this.soundBitesArray[index].unloadAsync();
-        });
-        break;
-      default:
-        this._errorHandler(
-          'Invalid case supplied to timerHandler',
-          'Sorry, there was an error loading the audio',
-        );
-        break;
+          break;
+        case 'startAudio':
+          this.timerInstances.forEach(element => {
+            // used to play the rest of the soundBite if it gets paused midway
+            if (this.state.soundBiteGotPaused) {
+              this.soundBitesArray[this.state.pausedAt].playAsync();
+              this.setState({
+                soundBiteGotPaused: false,
+                pausedAt: null,
+              });
+            }
+            element.start();
+          });
+          break;
+        case 'unloadAudio':
+          this.timerInstances.forEach((element, index) => {
+            element.destroy();
+            this.soundBitesArray[index].unloadAsync();
+          });
+          break;
+        default:
+          this._errorHandler(
+            'Invalid case supplied to timerHandler',
+            'Sorry, there was an error loading the audio',
+          );
+          break;
+      }
     }
   };
 
@@ -191,16 +193,20 @@ export default class SessionScreen extends Component {
 
       const soundbites = [];
 
-      for (i = 0; i < this.soundBitesString.length; i++) {
-        const file = await fetchMedia(this.soundBitesString[i]);
-        const fileURI = { uri: file };
-        soundbites.push(fileURI);
-      }
+      console.log(this.soundBitesString);
 
-      [
-        this.timerInstances,
-        this.soundBitesArray,
-      ] = await this._soundBiteTimerSetup(soundbites);
+      if (this.soundBitesString != null) {
+        for (i = 0; i < this.soundBitesString.length; i++) {
+          const file = await fetchMedia(this.soundBitesString[i]);
+          const fileURI = { uri: file };
+          soundbites.push(fileURI);
+        }
+
+        [
+          this.timerInstances,
+          this.soundBitesArray,
+        ] = await this._soundBiteTimerSetup(soundbites);
+      }
 
       await this._getUserToken();
 
@@ -268,11 +274,7 @@ export default class SessionScreen extends Component {
   _onPlayPausePressed = () => {
     if (this.state.isPlaying) {
       try {
-        if (
-          this.playbackInstance !== null &&
-          this.timerInstances !== null &&
-          this.soundBitesArray !== null
-        ) {
+        if (this.playbackInstance !== null) {
           this.playbackInstance.pauseAsync();
           // if timers have an issue stopping with the setOnPlaybackStatusUpdate
           // function, consider setTimeout(() => this.setState, 0) for the next line
@@ -288,7 +290,7 @@ export default class SessionScreen extends Component {
       }
     } else {
       try {
-        if (this.playbackInstance !== null && this.timerInstances !== null) {
+        if (this.playbackInstance !== null) {
           this.playbackInstance.playAsync();
           // calling BackgroundTimer for IOS. Checking if the
           // session has started so that it's never called twice
@@ -312,7 +314,7 @@ export default class SessionScreen extends Component {
 
   _onStopPressed = () => {
     try {
-      if (this.playbackInstance !== null && this.timerInstances !== null) {
+      if (this.playbackInstance !== null) {
         BackgroundTimer.stop(); // calling BackgroundTimer for IOS
         this._timerHandler('stopAudio');
 
@@ -332,23 +334,28 @@ export default class SessionScreen extends Component {
   };
 
   _timeListened = async () => {
-    await this._getUserToken();
-    try {
-      this._timerHandler('pauseAudio');
-      if (this.state.hasStarted && this.state.userExists) {
-        let totalTimeListened =
-          this.timerInstances[0].totalTimePlayed / 3600000;
-        // console.log(this.timerInstances[0].totalTimePlayed / 3600000);
-        this.userData.hoursCompleted +=
-          Math.round(totalTimeListened * 100) / 100;
-        this.userData.sessionsCompleted += this.state.completedSession;
-        await AsyncStorage.setItem('userToken', JSON.stringify(this.userData));
+    if (this.soundBitesString != null) {
+      await this._getUserToken();
+      try {
+        this._timerHandler('pauseAudio');
+        if (this.state.hasStarted && this.state.userExists) {
+          let totalTimeListened =
+            this.timerInstances[0].totalTimePlayed / 3600000;
+          // console.log(this.timerInstances[0].totalTimePlayed / 3600000);
+          this.userData.hoursCompleted +=
+            Math.round(totalTimeListened * 100) / 100;
+          this.userData.sessionsCompleted += this.state.completedSession;
+          await AsyncStorage.setItem(
+            'userToken',
+            JSON.stringify(this.userData),
+          );
+        }
+      } catch (error) {
+        this._errorHandler(
+          error,
+          'Sorry, we had a problem updating your user statistics',
+        );
       }
-    } catch (error) {
-      this._errorHandler(
-        error,
-        'Sorry, we had a problem updating your user statistics',
-      );
     }
   };
 

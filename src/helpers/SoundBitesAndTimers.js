@@ -11,16 +11,13 @@ const _timerMath = () => {
     let timeInMS = i * 15000 + (10 * 30000 + 5000);
     timers.push(timeInMS);
   }
-  console.log(timers);
   return timers;
 };
 
 const _lengthenArray = array => {
   do {
     array = array.concat(array);
-    console.log(Date.now());
   } while (array.length < 30);
-
   return array;
 };
 
@@ -32,7 +29,6 @@ const _shuffleArray = array => {
       [array[i], array[j]] = [array[j], array[i]];
     } while (array[i] === array[i + 1] || array[0] === array[1]);
   }
-
   return array;
 };
 
