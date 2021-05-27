@@ -7,16 +7,9 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import BackgroundTimer from 'react-native-background-timer';
-import { Audio } from 'expo-av';
-import {
-  randomizeSoundBites,
-  loadSoundBiteAudio,
-  setupTimers,
-} from '../helpers/SoundBitesAndTimers';
-import AsyncStorage from '@react-native-community/async-storage';
+import Session from '../classes/Session';
 import ModalComponent from '../components/ModalComponent';
-import fetchMedia from '../helpers/FetchMedia';
+import BackgroundTimer from 'react-native-background-timer';
 
 export default class SessionScreen extends Component {
   constructor(props) {
@@ -32,11 +25,7 @@ export default class SessionScreen extends Component {
     this.title = info.title;
     this.soundBitesString = info.soundBites;
 
-    this.playbackInstance = null;
-
-    // stores soundbites and timers from SoundBitesAndTimers function
-    this.soundBitesArray = null;
-    this.timerInstances = null;
+    this.Session = new Session(this.title, this.soundBitesString);
 
     // using this variable to switch between icon families if needed
     this.iconFamily = AntDesign;
@@ -57,10 +46,12 @@ export default class SessionScreen extends Component {
       userExists: false,
       completedSession: 0,
     };
-
-    // stores data captured from async storage
-    this.userData;
   }
+
+  _playbackStatusUpdatingState = () => {
+    this.setState({ isPlaying: false, btnIcon: 'caretright' });
+    this.Session.endSession();
+  };
 
   _errorHandler = (error, message) => {
     this.setState({
@@ -70,306 +61,40 @@ export default class SessionScreen extends Component {
     console.log(error);
   };
 
-  _timerHandler = action => {
-    if (this.soundBitesString != null) {
-      switch (action) {
-        case 'pauseAudio':
-          if (this.state.hasStarted) {
-            // console.log(Date.now());
-            this.timerInstances.forEach((element, index, array) => {
-              if (
-                (index !== array.length - 1 &&
-                  element.hasStarted &&
-                  !array[index + 1].hasStarted) ||
-                (index === array.length - 1 && element.hasStarted)
-              ) {
-                this.soundBitesArray[index].pauseAsync();
-                // used to play the rest of the soundBite if it gets paused midway
-                this._isMounted
-                  ? this.setState({
-                      soundBiteGotPaused: true,
-                      pausedAt: index,
-                    })
-                  : null;
-              }
-              element.pause();
-              // console.log(element.remaining);
-            });
-          }
-          break;
-        case 'stopAudio':
-          this.timerInstances.forEach((element, index, array) => {
-            if (
-              (index !== array.length - 1 &&
-                element.hasStarted &&
-                !array[index + 1].hasStarted) ||
-              (index === array.length - 1 && element.hasStarted)
-            ) {
-              this.soundBitesArray[index].stopAsync();
-            }
-            element.stop();
-          });
-          break;
-        case 'startAudio':
-          this.timerInstances.forEach(element => {
-            // used to play the rest of the soundBite if it gets paused midway
-            if (this.state.soundBiteGotPaused) {
-              this.soundBitesArray[this.state.pausedAt].playAsync();
-              this.setState({
-                soundBiteGotPaused: false,
-                pausedAt: null,
-              });
-            }
-            element.start();
-          });
-          break;
-        case 'unloadAudio':
-          this.timerInstances.forEach((element, index) => {
-            element.destroy();
-            this.soundBitesArray[index].unloadAsync();
-          });
-          break;
-        default:
-          this._errorHandler(
-            'Invalid case supplied to timerHandler',
-            'Sorry, there was an error loading the audio',
-          );
-          break;
-      }
+  _onPlayPausePressed = () => {
+    if (!this.state.hasStarted) {
+      BackgroundTimer.start();
+      this.setState({ hasStarted: true });
     }
-  };
 
-  _soundBiteTimerSetup = async array => {
-    try {
-      const result = await randomizeSoundBites(array);
-      const nextResult = await loadSoundBiteAudio(result);
-      const finalResult = await setupTimers(nextResult);
-      return finalResult;
-    } catch (error) {
-      this._errorHandler(
-        error,
-        'Sorry, there was an error setting up the audio',
-      );
-    }
-  };
+    this.state.isPlaying
+      ? this.Session.pauseSession()
+      : this.Session.playSession();
 
-  _getUserToken = async () => {
-    try {
-      const userData = await AsyncStorage.getItem('userToken');
-      if (userData == undefined) {
-        this._isMounted ? this.setState({ userExists: false }) : null;
-      } else {
-        this._isMounted ? this.setState({ userExists: true }) : null;
-        this.userData = JSON.parse(userData);
-      }
-    } catch (error) {
-      this._errorHandler(error, 'Sorry there was an error loading data');
-    }
+    this.state.isPlaying
+      ? this.setState({ isPlaying: false, btnIcon: 'caretright' })
+      : this.setState({ isPlaying: true, btnIcon: 'pause' });
   };
 
   _loadAudio = async () => {
-    try {
-      this.setState({ hasLoaded: false });
-
-      Audio.setAudioModeAsync({
-        staysActiveInBackground: true,
-        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-        shouldDuckAndroid: true,
-        playThroughEarpieceAndroid: false,
-        allowsRecordingIOS: false,
-        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-        playsInSilentModeIOS: true,
-      });
-
-      const source = await fetchMedia(this.title.toLowerCase());
-
-      const { sound, status } = await Audio.Sound.createAsync(
-        { uri: source },
-        {},
-        this._onPlaybackStatusUpdate,
-      );
-
-      this.playbackInstance = sound;
-
-      const soundbites = [];
-
-      console.log(this.soundBitesString);
-
-      if (this.soundBitesString != null) {
-        for (i = 0; i < this.soundBitesString.length; i++) {
-          const file = await fetchMedia(this.soundBitesString[i]);
-          const fileURI = { uri: file };
-          soundbites.push(fileURI);
-        }
-
-        [
-          this.timerInstances,
-          this.soundBitesArray,
-        ] = await this._soundBiteTimerSetup(soundbites);
-      }
-
-      await this._getUserToken();
-
-      if (this._isMounted) {
-        this.setState({
-          hasLoaded: true,
-          btnIcon: 'caretright',
-          soundBiteGotPaused: false,
-          pausedAt: null,
-        });
-      }
-    } catch (error) {
-      this._errorHandler(error, 'Sorry, there was an error loading the audio');
-    }
-  };
-
-  _onPlaybackStatusUpdate = status => {
-    if (status.didJustFinish) {
-      if (this.state.userExists) {
-        this.setState({ completedSession: 1 });
-      }
-      (async () => {
-        await this._timeListened();
-        this._onStopPressed();
-        this._timerHandler('unloadAudio');
-        await this._unloadAudio();
-        await this._loadAudio();
-      })().catch(error => {
-        this._errorHandler(
-          error,
-          'Sorry, there was an error reloading the audio. Please close out of the app and reload it',
-        );
-      });
-    }
-    // this is for when the audio pauses without the user pressing pause
-    // this happens sometimes when other audio interupts the session
-    if (this.state.hasLoaded && status.isLoaded) {
-      if (status.isPlaying) {
-        this.setState({ btnIcon: 'pause' });
-      } else {
-        this._timerHandler('pauseAudio');
-        this.setState({
-          isPlaying: false,
-          btnIcon: 'caretright',
-        });
-      }
-    }
-  };
-
-  _unloadAudio = async () => {
-    try {
-      if (this.playbackInstance !== null) {
-        await this.playbackInstance.unloadAsync();
-        this.playbackInstance = null;
-      }
-      // no throw statement because we want playbackInstance to be null
-    } catch (error) {
-      this._errorHandler(
-        error,
-        'Sorry, we experienced an error. This may cause future problems. If it does, close out of the app completely and reload it.',
-      );
-    }
-  };
-
-  _onPlayPausePressed = () => {
-    if (this.state.isPlaying) {
-      try {
-        if (this.playbackInstance !== null) {
-          this.playbackInstance.pauseAsync();
-          // if timers have an issue stopping with the setOnPlaybackStatusUpdate
-          // function, consider setTimeout(() => this.setState, 0) for the next line
-          this.setState({ isPlaying: false });
-        } else {
-          throw 'playback instance or timer instance is null or undefined';
-        }
-      } catch (error) {
-        this._errorHandler(
-          error,
-          'Sorry, there was an error pausing the audio',
-        );
-      }
-    } else {
-      try {
-        if (this.playbackInstance !== null) {
-          this.playbackInstance.playAsync();
-          // calling BackgroundTimer for IOS. Checking if the
-          // session has started so that it's never called twice
-          if (!this.state.hasStarted) {
-            BackgroundTimer.start();
-            this.setState({ hasStarted: true });
-          }
-          this._timerHandler('startAudio');
-          this.setState({ isPlaying: true });
-        } else {
-          throw 'playback instance or timer instance is null or undefined';
-        }
-      } catch (error) {
-        this._errorHandler(
-          error,
-          'Sorry, there was an error playing the audio',
-        );
-      }
-    }
-  };
-
-  _onStopPressed = () => {
-    try {
-      if (this.playbackInstance !== null) {
-        BackgroundTimer.stop(); // calling BackgroundTimer for IOS
-        this._timerHandler('stopAudio');
-
-        this.playbackInstance.stopAsync();
-
-        this.setState({
-          isPlaying: false,
-          hasStarted: false,
-          completedSession: 0,
-        });
-      } else {
-        throw 'playback instance or timer instance is null or undefined';
-      }
-    } catch (error) {
-      this._errorHandler(error, 'Sorry, there was an error stopping the audio');
-    }
-  };
-
-  _timeListened = async () => {
-    if (this.soundBitesString != null) {
-      await this._getUserToken();
-      try {
-        this._timerHandler('pauseAudio');
-        if (this.state.hasStarted && this.state.userExists) {
-          let totalTimeListened =
-            this.timerInstances[0].totalTimePlayed / 3600000;
-          // console.log(this.timerInstances[0].totalTimePlayed / 3600000);
-          this.userData.hoursCompleted +=
-            Math.round(totalTimeListened * 100) / 100;
-          this.userData.sessionsCompleted += this.state.completedSession;
-          await AsyncStorage.setItem(
-            'userToken',
-            JSON.stringify(this.userData),
-          );
-        }
-      } catch (error) {
-        this._errorHandler(
-          error,
-          'Sorry, we had a problem updating your user statistics',
-        );
-      }
-    }
+    await this.Session.loadSession();
+    console.log('*** APP THINKS IT IS DONE ***');
+    this.setState({ hasLoaded: true });
   };
 
   componentDidMount = () => {
     this._isMounted = true;
+    this.Session.onStateChange = () => {
+      this._playbackStatusUpdatingState();
+    };
     this._loadAudio();
   };
 
   componentWillUnmount = () => {
     this._isMounted = false;
-    if (this.timerInstances !== null && this.soundBitesArray !== null) {
-      this._timeListened().then(() => this._timerHandler('unloadAudio'));
-    }
-    this._unloadAudio();
+    this.BackgroundTimer.stop();
+    this.Session.endSession();
+    this.Session.unloadSession();
   };
 
   render() {
