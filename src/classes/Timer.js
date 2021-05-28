@@ -9,7 +9,13 @@ export default class Timer {
     this.startTime = null;
     this.totalTimePlayed = 0;
     this.hasStarted = false;
+    this.gotPaused = false;
   }
+
+  _callbackFunction = () => {
+    this.callback();
+    this.hasStarted = true;
+  };
 
   startTimer = () => {
     this.startTime = Date.now();
@@ -18,7 +24,10 @@ export default class Timer {
     if (this.remaining > 0) {
       clearTimeout(this.instance);
       // calling BackgroundTimer for Android
-      this.instance = BackgroundTimer.setTimeout(this.callback, this.remaining);
+      this.instance = BackgroundTimer.setTimeout(
+        this._callbackFunction,
+        this.remaining,
+      );
     }
   };
 

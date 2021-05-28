@@ -8,14 +8,25 @@ export default class AudioElement {
     this.Media = null;
   }
 
+  _onError = (error, errorMsg) => {
+    this.onStateChange('error', errorMsg, error);
+  };
+
   _loadFromDevice = async item => {
     let storedFile = await AsyncStorageAPI.getItem(item);
     return storedFile;
   };
 
   _fetchFromFirebase = async item => {
-    let storedFile = await FirebaseFetchAPI.fetchMedia(item.toLowerCase());
-    return storedFile;
+    try {
+      let storedFile = await FirebaseFetchAPI.fetchMedia(item.toLowerCase());
+      return storedFile;
+    } catch (error) {
+      this._onError(
+        error,
+        'There was a problem connecting to our servers, please check your internet connection and try again.',
+      );
+    }
   };
 
   _getAudioFromStoredLocation = async isStoredInDevice => {

@@ -81,8 +81,8 @@ export default class SoundBiteList {
     soundBiteContents = soundBiteContents.slice(0, 30);
     soundBiteContents = this._shuffleArray(soundBiteContents);
 
-    let executionTimes = this._timerMath();
     // setup a short array of SounBite objects to fetch the audio files
+    let executionTimes = this._timerMath();
     let soundBiteArray = await Promise.all(
       soundBiteContents.map(async (element, index) => {
         let soundBite = new SoundBite(
@@ -91,10 +91,24 @@ export default class SoundBiteList {
           element[2],
           executionTimes[index],
         );
+
         await soundBite.setupAudioElement();
         return soundBite;
       }),
     );
+
+    let lastSoundBite = await (async () => {
+      let isDownloaded = await this._checkIfStored('all');
+      let storedFile = await this._getAudioFromStoredLocation(
+        isDownloaded,
+        'all',
+      );
+      let soundBite = new SoundBite('all', storedFile, isDownloaded, 605000);
+      await soundBite.setupAudioElement();
+      return soundBite;
+    })();
+
+    soundBiteArray.push(lastSoundBite);
 
     console.log('Done setting up SoundBiteList');
     this.soundBiteArray = soundBiteArray;
@@ -103,24 +117,35 @@ export default class SoundBiteList {
   startSoundBites = () => {
     if (this.soundBiteArray != null) {
       this.soundBiteArray.forEach(element => {
+        if (element.Timer.gotPaused) {
+          element.Media.playMedia();
+          element.Timer.gotPaused = false;
+        }
         element.Timer.startTimer();
       });
-      console.log('Started SoundBites');
     }
   };
 
   pauseSoundBites = () => {
     if (this.soundBiteArray != null) {
-      this.soundBiteArray.forEach(element => {
+      this.soundBiteArray.forEach((element, index, array) => {
+        if (
+          (index !== array.length - 1 &&
+            element.Timer.hasStarted &&
+            !array[index + 1].hasStarted) ||
+          (index === array.length - 1 && element.Timer.hasStarted)
+        ) {
+          element.Media.pauseMedia();
+          element.Timer.gotPaused = true;
+        }
         element.Timer.pauseTimer();
-        // console.log(`Delay ${element.Timer.delay}`);
-        // console.log(`Remaining ${element.Timer.remaining}`);
       });
     }
   };
 
   stopSoundBites = () => {
     if (this.soundBiteArray != null) {
+      this.pauseSoundBites();
       this.soundBiteArray.forEach(element => {
         element.Timer.stopTimer();
       });

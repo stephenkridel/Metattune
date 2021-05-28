@@ -19,7 +19,7 @@ export default function AudioObjects() {
     'Cafe',
     'green',
     require('../assets/images/forest.png'),
-    ['Espresso', 'Dishes', 'People', 'Left', 'Right', 'Behind'],
+    ['Espresso', 'Dishes', 'People', 'Left', 'Right', 'Behind', 'Music'],
   );
 
   const city = new PremixedAudioElement(

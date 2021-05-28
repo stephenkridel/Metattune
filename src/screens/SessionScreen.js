@@ -48,9 +48,17 @@ export default class SessionScreen extends Component {
     };
   }
 
-  _playbackStatusUpdatingState = () => {
-    this.setState({ isPlaying: false, btnIcon: 'caretright' });
-    this.Session.endSession();
+  _updateState = (option, optionalError, optionalMessage) => {
+    switch (option) {
+      case 'status':
+        this.setState({ isPlaying: false, btnIcon: 'caretright' });
+        this.Session.endSession();
+        break;
+      case 'error':
+        this._errorHandler(optionalError, optionalMessage);
+      default:
+        break;
+    }
   };
 
   _errorHandler = (error, message) => {
@@ -84,15 +92,15 @@ export default class SessionScreen extends Component {
 
   componentDidMount = () => {
     this._isMounted = true;
-    this.Session.onStateChange = () => {
-      this._playbackStatusUpdatingState();
+    this.Session.onStateChange = (option, optionalError, optionalMessage) => {
+      this._updateState(option, optionalError, optionalMessage);
     };
     this._loadAudio();
   };
 
   componentWillUnmount = () => {
     this._isMounted = false;
-    this.BackgroundTimer.stop();
+    BackgroundTimer.stop();
     this.Session.endSession();
     this.Session.unloadSession();
   };

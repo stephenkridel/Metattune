@@ -20,24 +20,36 @@ export default class Media {
 
   _onPlaybackStatusUpdate = status => {
     if (status.didJustFinish) {
-      this.onStateChange();
+      this.onStateChange('status');
     }
+  };
+
+  _onError = (error, errorMsg) => {
+    this.onStateChange('error', errorMsg, error);
   };
 
   loadMedia = async () => {
     // let mediaSource = this.isDownloaded ? this.source : { uri: this.source };
-    let statusUpdate = this.isMainAudio ? this._onPlaybackStatusUpdate : null;
-    let mediaSource = { uri: this.source };
-    const { sound, status } = await Audio.Sound.createAsync(
-      mediaSource,
-      {},
-      statusUpdate,
-    );
-    this.playbackInstance = sound;
+    try {
+      let statusUpdate = this.isMainAudio ? this._onPlaybackStatusUpdate : null;
+      let mediaSource = { uri: this.source };
+      const { sound, status } = await Audio.Sound.createAsync(
+        mediaSource,
+        {},
+        statusUpdate,
+      );
+      this.playbackInstance = sound;
+    } catch (error) {
+      this._onError(error, 'Sorry, there was an error loading the audio');
+    }
   };
 
   playMedia = async () => {
-    await this.playbackInstance.playAsync();
+    try {
+      await this.playbackInstance.playAsync();
+    } catch (error) {
+      this._onError(error, 'Sorry, there was an error playing the audio');
+    }
   };
 
   pauseMedia = async () => {
