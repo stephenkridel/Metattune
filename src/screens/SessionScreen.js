@@ -10,91 +10,101 @@ import { AntDesign } from '@expo/vector-icons';
 import Session from '../classes/Session';
 import ModalComponent from '../components/ModalComponent';
 import BackgroundTimer from 'react-native-background-timer';
+import { connect } from 'react-redux';
+import store from '../store/Store';
+import {
+  resetPlaybackObject,
+  updateBtnIcon,
+  updateDidJustFinish,
+  updateHasLoaded,
+  updateHasStarted,
+  updateIsPlaying,
+} from '../actions/PlaybackObjectActions';
+import ErrorAPI from '../helpers/ErrorAPI';
+import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
 
-export default class SessionScreen extends Component {
+class SessionScreen extends Component {
   constructor(props) {
     super(props);
-
     // prevents changing state when the component is unmounted
     this._isMounted = false;
-
     // collects the file and title props from SelectorModule.js
     const info = this.props.navigation.getParam('info');
-
     // destructuring info
     this.title = info.title;
     this.soundBitesString = info.soundBites;
-
     this.Session = new Session(this.title, this.soundBitesString);
-
     // using this variable to switch between icon families if needed
     this.iconFamily = AntDesign;
-
-    // hasLoaded is different that status.isLoaded. Tells if everything
-    // needed has loaded like soundBites and timers. isPlaying tells
-    // if the user pressed the play button and wants the audio to play. Its
-    // a safeguard against unforseen audio interuptions.
-    this.state = {
-      isPlaying: false,
-      hasStarted: false,
-      hasLoaded: false,
-      btnIcon: 'caretright',
-      errorMsg: null,
-      isError: false,
-      soundBiteGotPaused: false,
-      pausedAt: null,
-      userExists: false,
-      completedSession: 0,
-    };
+    this.unsubscribe = store.subscribe(this._handleSessionFinishing);
   }
 
-  _updateState = (option, optionalError, optionalMessage) => {
-    switch (option) {
-      case 'status':
-        this.setState({ isPlaying: false, btnIcon: 'caretright' });
-        this.Session.endSession();
-        break;
-      case 'error':
-        this._errorHandler(optionalError, optionalMessage);
-      default:
-        break;
+  _handleSessionFinishing = () => {
+    if (this.props.playbackObject.statusDidJustFinish) {
+      store.dispatch(updateDidJustFinish(false));
+      store.dispatch(updateBtnIcon('caretright'));
+      store.dispatch(updateIsPlaying(false));
+      this._updateCompletedSessions();
+      this.Session.endSession();
+      ErrorAPI.errorHandler(
+        'Session was completed',
+        `Congrats! You just completed the ${this.title} session.`,
+      );
     }
   };
 
-  _errorHandler = (error, message) => {
-    this.setState({
-      errorMsg: message,
-      isError: true,
-    });
-    console.log(error);
+  _updateHoursCompleted = async () => {
+    const userData = await AsyncStorageAPI.getItem('userToken');
+    if (userData && this.Session.SoundBiteList) {
+      if (this.Session.SoundBiteList.soundBiteArray) {
+        const timer = this.Session.SoundBiteList.soundBiteArray[0].Timer;
+        timer.pauseTimer();
+        let totalTimePlayedFormatted =
+          Math.round((timer.totalTimePlayed / 3600000) * 100) / 100;
+        let newData = userData;
+        if (totalTimePlayedFormatted < 0.5 && totalTimePlayedFormatted > 0) {
+          newData.hoursCompleted += totalTimePlayedFormatted;
+          await AsyncStorageAPI.saveItem('userToken', newData);
+        }
+      }
+    }
+  };
+
+  _updateCompletedSessions = async () => {
+    const userData = await AsyncStorageAPI.getItem('userToken');
+    if (userData && this.Session.SoundBiteList) {
+      let newData = userData;
+      newData.sessionsCompleted += 1;
+      await AsyncStorageAPI.saveItem('userToken', newData);
+    }
   };
 
   _onPlayPausePressed = () => {
-    if (!this.state.hasStarted) {
+    if (!this.props.playbackObject.hasStarted) {
       BackgroundTimer.start();
-      this.setState({ hasStarted: true });
+      store.dispatch(updateHasStarted(true));
     }
 
-    this.state.isPlaying
-      ? this.Session.pauseSession()
-      : this.Session.playSession();
-
-    this.state.isPlaying
-      ? this.setState({ isPlaying: false, btnIcon: 'caretright' })
-      : this.setState({ isPlaying: true, btnIcon: 'pause' });
+    if (this.props.playbackObject.isPlaying) {
+      this.Session.pauseSession();
+      store.dispatch(updateBtnIcon('caretright'));
+      store.dispatch(updateIsPlaying(false));
+    } else {
+      this.Session.playSession();
+      store.dispatch(updateBtnIcon('pause'));
+      store.dispatch(updateIsPlaying(true));
+    }
   };
 
   _loadAudio = async () => {
     await this.Session.loadSession();
+    store.dispatch(updateHasLoaded(true));
     console.log('*** APP THINKS IT IS DONE ***');
-    this.setState({ hasLoaded: true });
   };
 
   componentDidMount = () => {
     this._isMounted = true;
-    this.Session.onStateChange = (option, optionalError, optionalMessage) => {
-      this._updateState(option, optionalError, optionalMessage);
-    };
+    store.dispatch(resetPlaybackObject());
     this._loadAudio();
   };
 
@@ -103,15 +113,20 @@ export default class SessionScreen extends Component {
     BackgroundTimer.stop();
     this.Session.endSession();
     this.Session.unloadSession();
+    this.unsubscribe();
+    this._updateHoursCompleted();
   };
 
   render() {
     return (
       <View style={styles.Hero}>
         <ModalComponent
-          isVisible={this.state.isError}
-          message={this.state.errorMsg}
-          onPressX={() => this.setState({ isError: false })}
+          isVisible={this.props.error.isError}
+          message={this.props.error.errorMsg}
+          onPressX={() => {
+            ErrorAPI.clearError();
+            this.props.navigation.navigate('Selector');
+          }}
           shouldShowButton={false}
         />
         <Text style={styles.HeroText}>{this.title}</Text>
@@ -120,7 +135,7 @@ export default class SessionScreen extends Component {
             this._onPlayPausePressed();
           }}
           // disables the button if the audio hasn't loaded
-          disabled={this.state.hasLoaded ? false : true}
+          disabled={this.props.playbackObject.hasLoaded ? false : true}
           // for different colors -> style={[styles.Module, this.colorStyles]}
           style={styles.Module}>
           <View>
@@ -128,12 +143,16 @@ export default class SessionScreen extends Component {
               size="large"
               hidesWhenStopped={true}
               color="#FFFFFF"
-              animating={this.state.hasLoaded ? false : true}
+              animating={this.props.playbackObject.hasLoaded ? false : true}
             />
             <this.iconFamily
-              name={this.state.btnIcon}
+              name={this.props.playbackObject.btnIcon}
               // you can use iconStyle = `{marginRight: #}` for margins
-              style={this.state.hasLoaded ? styles.ShowIcon : styles.HideIcon}
+              style={
+                this.props.playbackObject.hasLoaded
+                  ? styles.ShowIcon
+                  : styles.HideIcon
+              }
               size={35}
             />
           </View>
@@ -171,3 +190,10 @@ const styles = StyleSheet.create({
     display: 'none',
   },
 });
+
+const mapStateToProps = state => {
+  const { playbackObject, error } = state;
+  return { playbackObject, error };
+};
+
+export default connect(mapStateToProps)(SessionScreen);

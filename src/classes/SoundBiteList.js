@@ -18,17 +18,16 @@ export default class SoundBiteList {
     return storedFile;
   };
 
-  _getAudioFromStoredLocation = async (isStoredInDevice, item) => {
-    isStoredInDevice = false;
-    let storedFile = isStoredInDevice
+  _getAudioFromStoredLocation = async (isDownloaded, item) => {
+    let storedFile = isDownloaded
       ? await this._loadFromDevice(item)
       : await this._fetchFromFirebase(item);
     return storedFile;
   };
 
   _checkIfStored = async item => {
-    let isStoredInDevice = await AsyncStorageAPI.isStoredInDevice(item);
-    return isStoredInDevice;
+    let isDownloaded = await AsyncStorageAPI.isStoredInDevice(item);
+    return isDownloaded;
   };
 
   _timerMath = () => {
@@ -115,7 +114,7 @@ export default class SoundBiteList {
   };
 
   startSoundBites = () => {
-    if (this.soundBiteArray != null) {
+    if (this.soundBiteArray && this.soundBiteArray.length > 0) {
       this.soundBiteArray.forEach(element => {
         if (element.Timer.gotPaused) {
           element.Media.playMedia();
@@ -127,7 +126,7 @@ export default class SoundBiteList {
   };
 
   pauseSoundBites = () => {
-    if (this.soundBiteArray != null) {
+    if (this.soundBiteArray && this.soundBiteArray.length > 0) {
       this.soundBiteArray.forEach((element, index, array) => {
         if (
           (index !== array.length - 1 &&
@@ -144,7 +143,7 @@ export default class SoundBiteList {
   };
 
   stopSoundBites = () => {
-    if (this.soundBiteArray != null) {
+    if (this.soundBiteArray && this.soundBiteArray.length > 0) {
       this.pauseSoundBites();
       this.soundBiteArray.forEach(element => {
         element.Timer.stopTimer();
@@ -153,8 +152,9 @@ export default class SoundBiteList {
   };
 
   unloadSoundBites = () => {
-    if (this.soundBiteArray != null) {
+    if (this.soundBiteArray && this.soundBiteArray.length > 0) {
       this.soundBiteArray.forEach(element => {
+        element.Media.unloadMedia();
         element.Timer.destroyTimer();
       });
     }

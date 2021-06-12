@@ -11,28 +11,28 @@ export default function AudioObjects() {
   const intro = new PremixedAudioElement(
     'Intro',
     'gainsboro',
-    require('../assets/images/space.png'),
+    require('../assets/images/intro.png'),
     null,
   );
 
   const cafe = new PremixedAudioElement(
     'Cafe',
     'green',
-    require('../assets/images/forest.png'),
+    require('../assets/images/cafe.png'),
     ['Espresso', 'Dishes', 'People', 'Left', 'Right', 'Behind', 'Music'],
   );
 
   const city = new PremixedAudioElement(
     'City',
     'grey',
-    require('../assets/images/urban.png'),
+    require('../assets/images/city.png'),
     ['Cars', 'Construction', 'People', 'Sirens', 'Left', 'Right', 'Behind'],
   );
 
   const beach = new PremixedAudioElement(
     'Beach',
     'lightblue',
-    require('../assets/images/space.png'),
+    require('../assets/images/beach.png'),
     ['Seagulls', 'Ocean', 'Boats', 'Sand', 'Water', 'Left', 'Right', 'Behind'],
   );
 

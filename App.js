@@ -1,10 +1,9 @@
-import React from 'react';
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {AntDesign} from '@expo/vector-icons';
+import React, { Component } from 'react';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { AntDesign } from '@expo/vector-icons';
 import 'react-native-console-time-polyfill';
-
 import SelectorScreen from './src/screens/SelectorScreen';
 import SessionScreen from './src/screens/SessionScreen';
 import UserScreen from './src/screens/UserScreen';
@@ -15,6 +14,8 @@ import {
   AboutScreen2,
   AboutScreen3,
 } from './src/screens/AboutScreen';
+import store from './src/store/Store';
+import { Provider } from 'react-redux';
 
 // color of background for all navigators
 const colorOfBackground = 'white';
@@ -28,7 +29,7 @@ const SessionStack = createStackNavigator(
     initialRouteName: 'Selector',
     defaultNavigationOptions: {
       headerShown: false,
-      cardStyle: {backgroundColor: colorOfBackground},
+      cardStyle: { backgroundColor: colorOfBackground },
     },
   },
 );
@@ -43,27 +44,27 @@ const AboutStack = createStackNavigator(
     initialRouteName: 'About1',
     defaultNavigationOptions: {
       headerShown: false,
-      cardStyle: {backgroundColor: colorOfBackground},
+      cardStyle: { backgroundColor: colorOfBackground },
     },
   },
 );
 
 const AuthStack = createStackNavigator(
-  {Login: LoginScreen},
+  { Login: LoginScreen },
   {
     defaultNavigationOptions: {
       headerShown: false,
-      cardStyle: {backgroundColor: colorOfBackground},
+      cardStyle: { backgroundColor: colorOfBackground },
     },
   },
 );
 
 const UserStack = createStackNavigator(
-  {User: UserScreen},
+  { User: UserScreen },
   {
     defaultNavigationOptions: {
       headerShown: false,
-      cardStyle: {backgroundColor: colorOfBackground},
+      cardStyle: { backgroundColor: colorOfBackground },
     },
   },
 );
@@ -74,16 +75,16 @@ const AccountStack = createSwitchNavigator({
   Auth: AuthStack,
 });
 
-const App = createBottomTabNavigator(
+const RootStack = createBottomTabNavigator(
   {
     Sessions: SessionStack,
     About: AboutStack,
     Account: AccountStack,
   },
   {
-    defaultNavigationOptions: ({navigation}) => ({
-      tabBarIcon: ({tintColor}) => {
-        const {routeName} = navigation.state;
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ tintColor }) => {
+        const { routeName } = navigation.state;
         let IconComponent = AntDesign;
         let iconName;
         if (routeName === 'About') {
@@ -107,4 +108,14 @@ const App = createBottomTabNavigator(
   },
 );
 
-export default createAppContainer(App);
+let Navigation = createAppContainer(RootStack);
+
+export default class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
+    );
+  }
+}

@@ -1,4 +1,7 @@
 import { Audio } from 'expo-av';
+import { updateDidJustFinish } from '../actions/PlaybackObjectActions';
+import ErrorAPI from '../helpers/ErrorAPI';
+import store from '../store/Store';
 
 export default class Media {
   constructor(source, isDownloaded, isMainAudio) {
@@ -20,12 +23,8 @@ export default class Media {
 
   _onPlaybackStatusUpdate = status => {
     if (status.didJustFinish) {
-      this.onStateChange('status');
+      store.dispatch(updateDidJustFinish(true));
     }
-  };
-
-  _onError = (error, errorMsg) => {
-    this.onStateChange('error', errorMsg, error);
   };
 
   loadMedia = async () => {
@@ -40,28 +39,42 @@ export default class Media {
       );
       this.playbackInstance = sound;
     } catch (error) {
-      this._onError(error, 'Sorry, there was an error loading the audio');
+      ErrorAPI.errorHandler(
+        error,
+        'Sorry, there was an error loading the audio. Please check your internet connect, and try closing and reopening the app.',
+      );
     }
   };
 
   playMedia = async () => {
     try {
-      await this.playbackInstance.playAsync();
+      if (this.playbackInstance) {
+        await this.playbackInstance.playAsync();
+      }
     } catch (error) {
-      this._onError(error, 'Sorry, there was an error playing the audio');
+      ErrorAPI.errorHandler(
+        error,
+        'Sorry, there was an error playing the audio. Please close the app and try again.',
+      );
     }
   };
 
   pauseMedia = async () => {
-    await this.playbackInstance.pauseAsync();
+    if (this.playbackInstance) {
+      await this.playbackInstance.pauseAsync();
+    }
   };
 
   stopMedia = async () => {
-    await this.playbackInstance.stopAsync();
+    if (this.playbackInstance) {
+      await this.playbackInstance.stopAsync();
+    }
   };
 
   unloadMedia = async () => {
-    await this.playbackInstance.unloadAsync();
-    this.playbackInstance = null;
+    if (this.playbackInstance) {
+      await this.playbackInstance.unloadAsync();
+      this.playbackInstance = null;
+    }
   };
 }

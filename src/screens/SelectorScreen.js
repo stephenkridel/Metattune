@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, SafeAreaView} from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 import SelectorComponent from '../components/SelectorComponent';
 import AudioObjects from '../data/AudioObjects.js';
 import SplashScreen from 'react-native-splash-screen';
@@ -18,7 +18,7 @@ const SelectorScreen = () => {
       <FlatList
         data={info.premixedAudioList}
         keyExtractor={item => item.title}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
             <SelectorComponent
               // passes info (.title, .file, .color) to the SelectorModule component

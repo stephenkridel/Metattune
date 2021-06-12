@@ -3,14 +3,11 @@ import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
 import FirebaseFetchAPI from '../helpers/FirebaseFetchAPI';
 
 export default class AudioElement {
-  constructor(name) {
+  constructor(name, isMainAudio) {
     this.name = name;
+    this.isMainAudio = isMainAudio;
     this.Media = null;
   }
-
-  _onError = (error, errorMsg) => {
-    this.onStateChange('error', errorMsg, error);
-  };
 
   _loadFromDevice = async item => {
     let storedFile = await AsyncStorageAPI.getItem(item);
@@ -18,34 +15,26 @@ export default class AudioElement {
   };
 
   _fetchFromFirebase = async item => {
-    try {
-      let storedFile = await FirebaseFetchAPI.fetchMedia(item.toLowerCase());
-      return storedFile;
-    } catch (error) {
-      this._onError(
-        error,
-        'There was a problem connecting to our servers, please check your internet connection and try again.',
-      );
-    }
+    let storedFile = await FirebaseFetchAPI.fetchMedia(item.toLowerCase());
+    return storedFile;
   };
 
-  _getAudioFromStoredLocation = async isStoredInDevice => {
-    isStoredInDevice = false;
-    let storedFile = isStoredInDevice
+  _getAudioFromStoredLocation = async isDownloaded => {
+    let storedFile = isDownloaded
       ? await this._loadFromDevice(this.name)
       : await this._fetchFromFirebase(this.name);
     return storedFile;
   };
 
   _checkIfStored = async item => {
-    let isStoredInDevice = await AsyncStorageAPI.isStoredInDevice(item);
-    return isStoredInDevice;
+    let isDownloaded = await AsyncStorageAPI.isStoredInDevice(item);
+    return isDownloaded;
   };
 
   setupAudioElement = async () => {
-    let isDownloaded = this._checkIfStored(this.name);
+    let isDownloaded = await this._checkIfStored(this.name);
     let storedFile = await this._getAudioFromStoredLocation(isDownloaded);
-    this.Media = new Media(storedFile, isDownloaded);
+    this.Media = new Media(storedFile, isDownloaded, this.isMainAudio);
     await this.Media.loadMedia();
   };
 }

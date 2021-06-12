@@ -33,7 +33,9 @@ export default class Timer {
 
   pauseTimer = () => {
     this.remaining -= Date.now() - this.startTime;
-    this.totalTimePlayed = this.delay - this.remaining;
+    if (this.delay != this.remaining) {
+      this.totalTimePlayed = this.delay - this.remaining;
+    }
     BackgroundTimer.clearTimeout(this.instance);
   };
 
