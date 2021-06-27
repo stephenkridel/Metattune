@@ -2,6 +2,7 @@ import SoundBiteList from './SoundBiteList';
 import MainAudio from './MainAudio';
 import store from '../store/Store';
 import { updateHasLoaded } from '../actions/PlaybackObjectActions';
+import { updateProgressMessage } from '../actions/ProgressActions';
 
 export default class Session {
   constructor(name, soundBites) {
@@ -16,31 +17,40 @@ export default class Session {
   }
 
   loadSession = async () => {
+    store.dispatch(updateProgressMessage('Loading Main Audio'));
     console.log('Loading Session...');
     await this.MainAudio.setupAudioElement();
     // if statements around SoundBiteList prevent action if session is the intro track
     if (this.soundBites) {
+      store.dispatch(updateProgressMessage('Loading Vocal Cues'));
       await this.SoundBiteList.setupSoundBites();
     }
+    store.dispatch(updateProgressMessage(''));
   };
 
   playSession = () => {
     console.log('Playing Session...');
-    this.MainAudio.Media.playMedia();
+    if (this.MainAudio.Media) {
+      this.MainAudio.Media.playMedia();
+    }
     if (this.soundBites) {
       this.SoundBiteList.startSoundBites();
     }
   };
 
   pauseSession = () => {
-    this.MainAudio.Media.pauseMedia();
+    if (this.MainAudio.Media) {
+      this.MainAudio.Media.pauseMedia();
+    }
     if (this.soundBites) {
       this.SoundBiteList.pauseSoundBites();
     }
   };
 
   endSession = () => {
-    this.MainAudio.Media.stopMedia();
+    if (this.MainAudio.Media) {
+      this.MainAudio.Media.stopMedia();
+    }
     if (this.soundBites) {
       this.SoundBiteList.stopSoundBites();
     }
@@ -52,11 +62,14 @@ export default class Session {
     a separate function so that it can be used in conjunction with a 
     subscription incase the audio hasn't loaded fully when unload is requested
     */
-    this.MainAudio.Media.unloadMedia();
+    if (this.MainAudio.Media) {
+      this.MainAudio.Media.unloadMedia();
+    }
     if (this.soundBites) {
       console.log('Unloading SoundBites');
       this.SoundBiteList.unloadSoundBites();
     }
+    console.log('Done Unloading Audio');
   };
 
   _unloadAudioSubscription = () => {
@@ -66,11 +79,9 @@ export default class Session {
     immediately after it finishes unloading the audio
     */
     let { playbackObject } = store.getState();
-    console.log('Got state in subscription');
     if (playbackObject.hasLoaded) {
       this._unloadLogic();
       store.dispatch(updateHasLoaded(false));
-      console.log('Done Unloading Audio');
       this.unsubscribe();
     }
   };

@@ -22,6 +22,7 @@ import {
 } from '../actions/PlaybackObjectActions';
 import ErrorAPI from '../helpers/ErrorAPI';
 import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
+import ProgressComponent from '../components/ProgressComponent';
 
 class SessionScreen extends Component {
   constructor(props) {
@@ -99,6 +100,7 @@ class SessionScreen extends Component {
   _loadAudio = async () => {
     await this.Session.loadSession();
     store.dispatch(updateHasLoaded(true));
+    store.dispatch(updateBtnIcon('caretright'));
     console.log('*** APP THINKS IT IS DONE ***');
   };
 
@@ -157,6 +159,7 @@ class SessionScreen extends Component {
             />
           </View>
         </TouchableOpacity>
+        <ProgressComponent messageText={this.props.progress.messageText} />
       </View>
     );
   }
@@ -192,8 +195,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const { playbackObject, error } = state;
-  return { playbackObject, error };
+  const { playbackObject, error, progress } = state;
+  return { playbackObject, error, progress };
 };
 
 export default connect(mapStateToProps)(SessionScreen);

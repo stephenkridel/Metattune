@@ -12,6 +12,7 @@ npm-debug.*
 *.hprof
 web-build/
 web-report/
+keystore.properties
 
 # macOS
 .DS_Store

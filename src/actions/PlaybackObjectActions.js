@@ -28,15 +28,6 @@ export const updateTimeListened = () => ({
   payload: payload,
 });
 
-export const updatePlaybackObjectList = () => ({
-  type: 'playbackObject/playbackObjectList',
-  payload: payload,
-});
-
-export const resetPlaybackObjectList = () => ({
-  type: 'playbackObject/resetPlaybackObjectList',
-});
-
 export const resetPlaybackObject = () => ({
   type: 'playbackObject/reset',
 });

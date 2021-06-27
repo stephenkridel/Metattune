@@ -1,9 +1,15 @@
 import storage from '@react-native-firebase/storage';
+import store from '../store/Store';
+import { updateProgressMessage } from '../actions/ProgressActions';
 
 export default class FirebaseFetchAPI {
   static fetchMedia = async mediaFile => {
     try {
       let filePath = '/assets/sounds/test/' + mediaFile + '_test.mp3';
+      let mediaFileName = mediaFile + '.mp3';
+      store.dispatch(
+        updateProgressMessage(`Loading Media File: ${mediaFileName}`),
+      );
       //let filePath = '/assets/sounds/production/' + mediaFile + '.mp3';
       const media = await storage().ref(filePath).getDownloadURL();
       console.log(`Loaded ${filePath}`);

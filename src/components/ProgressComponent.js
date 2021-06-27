@@ -1,0 +1,25 @@
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+const ProgressComponent = props => {
+  return (
+    <View style={styles.TextBox}>
+      <Text style={styles.Message}>{props.messageText}</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  TextBox: {
+    width: '100%',
+    display: 'flex',
+    marginTop: 20,
+  },
+  Message: {
+    fontSize: 15,
+    color: 'rgba(0,0,0,0.4)',
+    textAlign: 'center',
+  },
+});
+
+export default ProgressComponent;

@@ -1,6 +1,8 @@
 import SoundBite from './SoundBite';
 import FirebaseFetchAPI from '../helpers/FirebaseFetchAPI';
 import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
+import store from '../store/Store';
+import { updateProgressMessage } from '../actions/ProgressActions';
 
 export default class SoundBiteList {
   constructor(listOfSoundBites) {
@@ -52,6 +54,7 @@ export default class SoundBiteList {
 
   _shuffleArray = array => {
     // Fisher-Yates shuffle (adapted to not have same elements next to eachother)
+    store.dispatch(updateProgressMessage('Shuffling Vocal Cues'));
     for (let i = array.length - 1; i > 0; i--) {
       do {
         const j = Math.floor(Math.random() * (i + 1));
