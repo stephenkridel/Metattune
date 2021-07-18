@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Session from '../classes/Session';
@@ -146,10 +147,12 @@ class SessionScreen extends Component {
               hidesWhenStopped={true}
               color="#FFFFFF"
               animating={this.props.playbackObject.hasLoaded ? false : true}
+              // activity indicator on ios was placed weird. probably buggy
+              style={{ marginLeft: Platform.OS === 'ios' ? '3%' : 0 }}
             />
             <this.iconFamily
               name={this.props.playbackObject.btnIcon}
-              // you can use iconStyle = `{marginRight: #}` for margins
+              // you can use iconStyle = `{marginRight: #}` for marginss
               style={
                 this.props.playbackObject.hasLoaded
                   ? styles.ShowIcon

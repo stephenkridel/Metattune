@@ -75,12 +75,12 @@ class UserScreen extends Component {
               {this.props.user.sessionsCompleted}
             </Text>
           </View>
-          <TouchableOpacity
-            style={styles.TrashButton}
-            onPress={() => store.dispatch(updateShowWarning(true))}>
-            <FontAwesome name="trash-o" size={40} color="rgb(255, 101, 132)" />
-          </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={styles.TrashButton}
+          onPress={() => store.dispatch(updateShowWarning(true))}>
+          <FontAwesome name="trash-o" size={40} color="rgb(255, 101, 132)" />
+        </TouchableOpacity>
       </>
     );
   }
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
+    margin: '10%',
   },
   TrashButton: {
     position: 'absolute',
@@ -116,14 +117,14 @@ const styles = StyleSheet.create({
     fontFamily: 'JosefinSans-Regular',
   },
   StatisticText: {
-    fontSize: 25,
+    fontSize: 30,
     marginBottom: 20,
     color: 'rgb(30, 27, 57)',
     textAlign: 'center',
     fontFamily: 'JosefinSans-Regular',
   },
   StatisticNumber: {
-    fontSize: 25,
+    fontSize: 27.5,
     color: 'white',
     backgroundColor: 'rgb(30, 27, 57)',
     padding: 10,
