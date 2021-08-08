@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
-    margin: '10%',
+    marginVertical: '2.5%',
   },
   TrashButton: {
     position: 'absolute',
@@ -135,10 +135,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden', // needed on ios to show border radius
   },
   StatisticsContainer: {
-    height: '20%',
-    marginTop: '10%',
+    height: '25%',
     alignSelf: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
     overflow: 'hidden',
   },

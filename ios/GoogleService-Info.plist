@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>739939746780-r7lk8dacfanc1ih895i0a1p74iut9tt6.apps.googleusercontent.com</string>
+	<string>739939746780-s7poqqq93qoo29t8e22nl7e31gpuptpi.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.739939746780-r7lk8dacfanc1ih895i0a1p74iut9tt6</string>
+	<string>com.googleusercontent.apps.739939746780-s7poqqq93qoo29t8e22nl7e31gpuptpi</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>739939746780-gom5trd0vh17anqjbgburb13s4obcnlp.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.attune</string>
+	<string>com.attuneattapp</string>
 	<key>PROJECT_ID</key>
 	<string>attune-10372</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:739939746780:ios:21ee97f4d51760890dc519</string>
+	<string>1:739939746780:ios:3c8e161ffdb500200dc519</string>
 </dict>
 </plist>
