@@ -12,6 +12,7 @@ import {
 } from '../actions/UserActions';
 import { connect } from 'react-redux';
 import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
+import LinearGradient from 'react-native-linear-gradient';
 
 class UserScreen extends Component {
   constructor(props) {
@@ -55,6 +56,10 @@ class UserScreen extends Component {
           message="Are you sure you want to delete your account?"
           shouldShowButton={true}
         />
+        <View style={styles.CircleOne}></View>
+        <View style={styles.CircleTwo}></View>
+        <View style={styles.CircleThree}></View>
+        <View style={styles.CircleFour}></View>
         <View style={styles.Container}>
           <Text
             style={
@@ -63,18 +68,26 @@ class UserScreen extends Component {
           <Text style={styles.SubHeader}>
             we tracked your statistics for you
           </Text>
-          <View style={styles.StatisticsContainer}>
+          <LinearGradient
+            colors={['rgb(207, 159, 237)', 'rgb(255, 101, 132)']}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={styles.StatisticsContainer}>
             <Text style={styles.StatisticText}>Hours Listened:</Text>
             <Text style={styles.StatisticNumber}>
               {this.props.user.hoursCompleted}
             </Text>
-          </View>
-          <View style={styles.StatisticsContainer}>
+          </LinearGradient>
+          <LinearGradient
+            colors={['rgb(207, 159, 237)', 'rgb(255, 101, 132)']}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={styles.StatisticsContainer}>
             <Text style={styles.StatisticText}>Sessions Completed:</Text>
             <Text style={styles.StatisticNumber}>
               {this.props.user.sessionsCompleted}
             </Text>
-          </View>
+          </LinearGradient>
         </View>
         <TouchableOpacity
           style={styles.TrashButton}
@@ -91,7 +104,42 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
-    marginVertical: '2.5%',
+  },
+  CircleOne: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    position: 'absolute',
+    left: '5%',
+    top: '80%',
+    backgroundColor: 'rgba(30, 27, 57, 0.075)',
+  },
+  CircleTwo: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    position: 'absolute',
+    left: '80%',
+    top: '50%',
+    backgroundColor: 'rgba(30, 27, 57, 0.075)',
+  },
+  CircleThree: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    position: 'absolute',
+    left: '30%',
+    top: '20%',
+    backgroundColor: 'rgba(30, 27, 57, 0.075)',
+  },
+  CircleFour: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    position: 'absolute',
+    left: '70%',
+    top: '80%',
+    backgroundColor: 'rgba(30, 27, 57, 0.075)',
   },
   TrashButton: {
     position: 'absolute',
@@ -101,7 +149,7 @@ const styles = StyleSheet.create({
   GreetingText: {
     position: 'absolute',
     top: 0,
-    fontSize: 30,
+    fontSize: 35,
     color: 'rgb(30, 27, 57)',
     marginTop: '15%',
     marginLeft: '5%',
@@ -110,37 +158,38 @@ const styles = StyleSheet.create({
   SubHeader: {
     position: 'absolute',
     top: 0,
-    fontSize: 17.5,
+    fontSize: 20,
     color: 'rgb(30, 27, 57)',
     marginTop: '30%',
     marginLeft: '5%',
     fontFamily: 'JosefinSans-Regular',
   },
   StatisticText: {
-    fontSize: 30,
-    marginBottom: 20,
-    color: 'rgb(30, 27, 57)',
-    textAlign: 'center',
+    fontSize: 25,
+    color: 'white',
+    textAlign: 'left',
+    marginLeft: 10,
     fontFamily: 'JosefinSans-Regular',
   },
   StatisticNumber: {
-    fontSize: 27.5,
+    fontSize: 60,
     color: 'white',
-    backgroundColor: 'rgb(30, 27, 57)',
-    padding: 10,
-    textAlign: 'center',
+    textAlign: 'left',
     fontFamily: 'JosefinSans-Regular',
-    borderRadius: 20,
-    width: '45%',
+    marginLeft: 10,
     overflow: 'hidden', // needed on ios to show border radius
   },
   StatisticsContainer: {
-    height: '25%',
-    alignSelf: 'center',
-    alignItems: 'center',
+    height: '20%',
+    alignSelf: 'flex-end',
+    alignItems: 'flex-start',
     justifyContent: 'center',
-    width: '100%',
+    width: '80%',
     overflow: 'hidden',
+    marginVertical: 10,
+    borderTopStartRadius: 20,
+    borderBottomStartRadius: 20,
+    elevation: 10,
   },
 });
 

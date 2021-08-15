@@ -14,6 +14,9 @@ import {
   AboutScreen2,
   AboutScreen3,
 } from './src/screens/AboutScreen';
+import InfoScreen from './src/screens/InfoScreen';
+import SupportScreen from './src/screens/SupportScreen';
+import ReleaseScreen from './src/screens/ReleaseScreen';
 import store from './src/store/Store';
 import { Provider } from 'react-redux';
 
@@ -42,6 +45,22 @@ const AboutStack = createStackNavigator(
   },
   {
     initialRouteName: 'About1',
+    defaultNavigationOptions: {
+      headerShown: false,
+      cardStyle: { backgroundColor: colorOfBackground },
+    },
+  },
+);
+
+const InfoStack = createStackNavigator(
+  {
+    Info: InfoScreen,
+    About: AboutStack,
+    Support: SupportScreen,
+    Release: ReleaseScreen,
+  },
+  {
+    initialRouteName: 'Info',
     defaultNavigationOptions: {
       headerShown: false,
       cardStyle: { backgroundColor: colorOfBackground },
@@ -78,7 +97,7 @@ const AccountStack = createSwitchNavigator({
 const RootStack = createBottomTabNavigator(
   {
     Sessions: SessionStack,
-    About: AboutStack,
+    Info: InfoStack,
     Account: AccountStack,
   },
   {
@@ -87,7 +106,7 @@ const RootStack = createBottomTabNavigator(
         const { routeName } = navigation.state;
         let IconComponent = AntDesign;
         let iconName;
-        if (routeName === 'About') {
+        if (routeName === 'Info') {
           iconName = 'infocirlceo';
         } else if (routeName === 'Sessions') {
           iconName = 'bars';

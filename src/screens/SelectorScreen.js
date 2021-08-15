@@ -21,7 +21,7 @@ const SelectorScreen = () => {
         renderItem={({ item }) => {
           return (
             <SelectorComponent
-              // passes info (.title, .file, .color) to the SelectorModule component
+              // passes info (.title, .file, .color) to the SelectorComponent
               info={item}
             />
           );

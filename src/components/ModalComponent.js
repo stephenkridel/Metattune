@@ -41,10 +41,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   DeleteButton: {
-    width: '40%',
+    width: '50%',
     height: '10%',
     backgroundColor: 'rgb(30, 27, 57)',
-    borderRadius: 20,
+    borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',

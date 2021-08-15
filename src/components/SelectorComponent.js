@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, StyleSheet, View, Image } from 'react-native';
+import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import ArrowButton from './ArrowButton';
+import { withNavigation } from 'react-navigation';
 
 const SelectorComponent = props => {
   return (
@@ -14,7 +15,15 @@ const SelectorComponent = props => {
           shouldShow={true}
         />
       </View>
-      <Image source={props.info.image} style={styles.Image} />
+      <TouchableOpacity
+        onPress={() =>
+          props.navigation.navigate('Session', {
+            info: props.info,
+          })
+        }
+        style={styles.ImageButton}>
+        <Image source={props.info.image} style={styles.Image} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -44,14 +53,13 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginTop: 10,
     alignSelf: 'flex-start',
-    color: 'black',
+    color: 'rgb(30, 27, 57)',
     fontFamily: 'JosefinSans-Regular',
   },
   ButtonContainer: {
     height: 50,
     width: 50,
     borderRadius: 50,
-    backgroundColor: 'black',
     alignSelf: 'flex-start',
     marginTop: 30,
     marginLeft: 40,
@@ -59,10 +67,15 @@ const styles = StyleSheet.create({
   Image: {
     height: 120,
     width: 120,
+  },
+  ImageButton: {
+    height: 120,
+    width: 120,
     position: 'absolute',
     right: 40,
     top: 12,
+    borderRadius: 60,
   },
 });
 
-export default SelectorComponent;
+export default withNavigation(SelectorComponent);
