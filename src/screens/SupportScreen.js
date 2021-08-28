@@ -15,10 +15,10 @@ const ReleaseScreen = () => {
         <Text style={styles.Text}>
           First off, thank you for using our app. Attune is produced by us, two
           brothers from Ohio. We believe in developing accessible tools to
-          improve mental health, and because we want Attune to be accessible, we
+          improve mental health. Because we want Attune to be accessible, we
           chose to not charge for it. The usage of Attune does cost us money, so
           if you have the ability and would like to support the development and
-          maintenance of Attune, please donate by tapping on the logo :)
+          maintenance of Attune, please donate by tapping on the logo below :)
         </Text>
         <TouchableOpacity
           onPress={() => {

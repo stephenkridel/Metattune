@@ -61,6 +61,8 @@
 		<string>OpenSans-Regular.ttf</string>
 		<string>OpenSans-SemiBold.ttf</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app uses packages that require access to your microphone</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
