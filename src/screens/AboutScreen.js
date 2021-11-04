@@ -5,7 +5,7 @@ const AboutScreen1 = () => {
   return (
     <AboutComponent
       image={require('../assets/images/about1.png')}
-      text="ATT Stands for Attention Training Technique, an alternative to other forms of mindfulness training, like meditation."
+      text="ATT stands for Attention Training Technique, an alternative to other forms of mindfulness training, like meditation."
       header="What is ATT?"
       prevScreen="About1"
       nextScreen="About2"

@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   btnIcon: 'caretright',
   hasStarted: false,
   timeListened: 0,
+  hasFinished: false,
   instanceList: [],
 };
 
@@ -41,8 +42,13 @@ const playbackObjectReducer = (state = INITIAL_STATE, action) => {
       timeListened = action.payload;
       newState = { ...state, timeListened };
       return newState;
+    case 'playbackObject/hasFinished':
+      var { hasFinished } = state;
+      hasFinished = action.payload;
+      newState = { ...state, hasFinished };
+      return newState;
     case 'playbackObject/reset':
-      newState = { INITIAL_STATE };
+      newState = INITIAL_STATE;
       return newState;
     default:
       return state;

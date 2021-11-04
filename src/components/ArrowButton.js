@@ -13,24 +13,32 @@ const ArrowButton = props => {
           info: props.info,
         })
       }
-      style={[styles.Button, { display: shouldShow }]}>
-      <AntDesign name={props.direction} size={20} style={styles.Icon} />
+      style={[
+        styles.Button,
+        {
+          display: shouldShow,
+          backgroundColor:
+            props.backgroundColor == null
+              ? 'transparent'
+              : props.backgroundColor,
+        },
+      ]}>
+      <AntDesign
+        name={props.direction}
+        size={25}
+        style={[styles.Icon, { color: props.color }]}
+      />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  Icon: {
-    color: 'white',
-    position: 'absolute',
-    top: 15,
-    left: 15,
-  },
   Button: {
     height: 50,
     width: 50,
     borderRadius: 50,
-    backgroundColor: 'rgb(30, 27, 57)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

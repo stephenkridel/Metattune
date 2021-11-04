@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
-import { FontAwesome } from '@expo/vector-icons';
 import ModalComponent from '../components/ModalComponent';
 import store from '../store/Store';
 import {
@@ -9,10 +8,18 @@ import {
   updateSessionsCompleted,
   updateUserName,
   updateShowWarning,
+  updateShowAvatarModal,
+  updateSelectedAvatar,
+  updateResetUser,
+  updateDayStreak,
+  updateFavoriteSession,
 } from '../actions/UserActions';
 import { connect } from 'react-redux';
 import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
-import LinearGradient from 'react-native-linear-gradient';
+import StatisticsComponent from '../components/StatisticsComponent';
+import AvatarComponent from '../components/AvatarComponent';
+import AvatarModalComponent from '../components/AvatarModalComponent';
+import LinesImageComponent from '../components/LinesImageComponent';
 
 class UserScreen extends Component {
   constructor(props) {
@@ -21,7 +28,9 @@ class UserScreen extends Component {
 
   _deleteAccountAsync = async () => {
     try {
+      store.dispatch(updateShowAvatarModal(false));
       await AsyncStorageAPI.deleteItem('userToken');
+      store.dispatch(updateResetUser());
       this.props.navigation.navigate('Auth');
     } catch (error) {
       console.log(error);
@@ -36,6 +45,9 @@ class UserScreen extends Component {
         store.dispatch(updateUserName(item.userName));
         store.dispatch(updateHoursCompleted(item.hoursCompleted));
         store.dispatch(updateSessionsCompleted(item.sessionsCompleted));
+        store.dispatch(updateDayStreak(item.dayStreak));
+        store.dispatch(updateFavoriteSession(item.favoriteSession));
+        store.dispatch(updateSelectedAvatar(item.selectedAvatar));
       }
     } catch (error) {
       console.log(error);
@@ -45,6 +57,7 @@ class UserScreen extends Component {
   render() {
     return (
       <>
+        <LinesImageComponent imageLocation={'top-right'} />
         <NavigationEvents onDidFocus={() => this._getUserToken()} />
         <ModalComponent
           isVisible={this.props.user.showWarning}
@@ -56,44 +69,54 @@ class UserScreen extends Component {
           message="Are you sure you want to delete your account?"
           shouldShowButton={true}
         />
-        <View style={styles.CircleOne}></View>
-        <View style={styles.CircleTwo}></View>
-        <View style={styles.CircleThree}></View>
-        <View style={styles.CircleFour}></View>
+        <AvatarModalComponent
+          isVisible={this.props.user.showAvatarModal}
+          onPressX={() => store.dispatch(updateShowAvatarModal(false))}
+        />
         <View style={styles.Container}>
-          <Text
-            style={
-              styles.GreetingText
-            }>{`Hello, ${this.props.user.userName}!`}</Text>
-          <Text style={styles.SubHeader}>
-            we tracked your statistics for you
-          </Text>
-          <LinearGradient
-            colors={['rgb(207, 159, 237)', 'rgb(255, 101, 132)']}
-            start={{ x: 1, y: 0 }}
-            end={{ x: 0, y: 1 }}
-            style={styles.StatisticsContainer}>
-            <Text style={styles.StatisticText}>Hours Listened:</Text>
-            <Text style={styles.StatisticNumber}>
-              {this.props.user.hoursCompleted}
-            </Text>
-          </LinearGradient>
-          <LinearGradient
-            colors={['rgb(207, 159, 237)', 'rgb(255, 101, 132)']}
-            start={{ x: 1, y: 0 }}
-            end={{ x: 0, y: 1 }}
-            style={styles.StatisticsContainer}>
-            <Text style={styles.StatisticText}>Sessions Completed:</Text>
-            <Text style={styles.StatisticNumber}>
-              {this.props.user.sessionsCompleted}
-            </Text>
-          </LinearGradient>
+          <View style={styles.HeaderContainer}>
+            <TouchableOpacity
+              onPress={() => store.dispatch(updateShowAvatarModal(true))}>
+              <AvatarComponent
+                AvatarObject={this.props.user.selectedAvatar}
+                avatarWidth={'30%'}
+              />
+            </TouchableOpacity>
+            <View style={styles.TextContainer}>
+              <Text
+                style={
+                  styles.GreetingText
+                }>{`Hello, ${this.props.user.userName}!`}</Text>
+              <Text style={styles.SubHeader}>
+                we tracked your statistics for you
+              </Text>
+            </View>
+          </View>
+          <View style={styles.StatisticsContainer}>
+            <StatisticsComponent
+              iconName={'headphones'}
+              header={'Hours Listened'}
+              statistic={this.props.user.hoursCompleted}
+            />
+            <StatisticsComponent
+              iconName={'check'}
+              header={'Finished Sessions'}
+              statistic={this.props.user.sessionsCompleted}
+            />
+            <StatisticsComponent
+              iconName={'star'}
+              header={'Favorite Session'}
+              statistic={this.props.user.favoriteSession.title}
+              //statistic={this.props.user.hoursCompleted}
+            />
+            <StatisticsComponent
+              iconName={'calendar-check'}
+              header={'Day Streak'}
+              statistic={this.props.user.dayStreak}
+              //statistic={this.props.user.hoursCompleted}
+            />
+          </View>
         </View>
-        <TouchableOpacity
-          style={styles.TrashButton}
-          onPress={() => store.dispatch(updateShowWarning(true))}>
-          <FontAwesome name="trash-o" size={40} color="rgb(255, 101, 132)" />
-        </TouchableOpacity>
       </>
     );
   }
@@ -104,92 +127,38 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
+    paddingHorizontal: '5%',
   },
-  CircleOne: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    position: 'absolute',
-    left: '5%',
-    top: '80%',
-    backgroundColor: 'rgba(30, 27, 57, 0.075)',
+  HeaderContainer: {
+    width: '100%',
+    height: '30%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
-  CircleTwo: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    position: 'absolute',
-    left: '80%',
-    top: '50%',
-    backgroundColor: 'rgba(30, 27, 57, 0.075)',
-  },
-  CircleThree: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    position: 'absolute',
-    left: '30%',
-    top: '20%',
-    backgroundColor: 'rgba(30, 27, 57, 0.075)',
-  },
-  CircleFour: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    position: 'absolute',
-    left: '70%',
-    top: '80%',
-    backgroundColor: 'rgba(30, 27, 57, 0.075)',
-  },
-  TrashButton: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
+  TextContainer: {
+    justifyContent: 'flex-start',
+    alignContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '100%',
   },
   GreetingText: {
-    position: 'absolute',
-    top: 0,
-    fontSize: 35,
+    fontSize: 27.5,
     color: 'rgb(30, 27, 57)',
-    marginTop: '15%',
-    marginLeft: '5%',
     fontFamily: 'JosefinSans-Bold',
   },
   SubHeader: {
-    position: 'absolute',
-    top: 0,
     fontSize: 20,
     color: 'rgb(30, 27, 57)',
-    marginTop: '30%',
-    marginLeft: '5%',
     fontFamily: 'JosefinSans-Regular',
-  },
-  StatisticText: {
-    fontSize: 25,
-    color: 'white',
-    textAlign: 'left',
-    marginLeft: 10,
-    fontFamily: 'JosefinSans-Regular',
-  },
-  StatisticNumber: {
-    fontSize: 60,
-    color: 'white',
-    textAlign: 'left',
-    fontFamily: 'JosefinSans-Regular',
-    marginLeft: 10,
-    overflow: 'hidden', // needed on ios to show border radius
+    lineHeight: 22,
   },
   StatisticsContainer: {
-    height: '20%',
-    alignSelf: 'flex-end',
-    alignItems: 'flex-start',
+    width: '100%',
+    height: '65%',
+    flexWrap: 'wrap',
+    alignContent: 'center',
     justifyContent: 'center',
-    width: '80%',
-    overflow: 'hidden',
-    marginVertical: 10,
-    borderTopStartRadius: 20,
-    borderBottomStartRadius: 20,
-    elevation: 10,
   },
 });
 

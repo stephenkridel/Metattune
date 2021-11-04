@@ -123,6 +123,7 @@ const RootStack = createBottomTabNavigator(
       },
       activeTintColor: 'white',
       inactiveTintColor: 'gray',
+      showLabel: false,
     },
   },
 );

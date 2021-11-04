@@ -23,8 +23,13 @@ export const updateHasStarted = payload => ({
   payload: payload,
 });
 
-export const updateTimeListened = () => ({
+export const updateTimeListened = payload => ({
   type: 'playbackObject/timeListened',
+  payload: payload,
+});
+
+export const updateHasFinished = payload => ({
+  type: 'playbackObject/hasFinished',
   payload: payload,
 });
 

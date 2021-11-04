@@ -20,33 +20,40 @@ import {
   updateHasLoaded,
   updateHasStarted,
   updateIsPlaying,
+  updateHasFinished,
 } from '../actions/PlaybackObjectActions';
 import ErrorAPI from '../helpers/ErrorAPI';
-import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
 import ProgressComponent from '../components/ProgressComponent';
+import UserStatistics from '../helpers/UserStatistics';
+import CircularTimerComponent from '../components/CircularTimerComponent';
 
 class SessionScreen extends Component {
   constructor(props) {
     super(props);
     // prevents changing state when the component is unmounted
     this._isMounted = false;
-    // collects the file and title props from SelectorModule.js
     const info = this.props.navigation.getParam('info');
     // destructuring info
     this.title = info.title;
     this.soundBitesString = info.soundBites;
+    this.duration = info.duration;
     this.Session = new Session(this.title, this.soundBitesString);
     // using this variable to switch between icon families if needed
     this.iconFamily = AntDesign;
     this.unsubscribe = store.subscribe(this._handleSessionFinishing);
+
+    this.state = {
+      // used for the CircularTimerComponent
+      timerIsRunning: true,
+    };
   }
 
   _handleSessionFinishing = () => {
     if (this.props.playbackObject.statusDidJustFinish) {
       store.dispatch(updateDidJustFinish(false));
+      store.dispatch(updateHasFinished(true));
       store.dispatch(updateBtnIcon('caretright'));
       store.dispatch(updateIsPlaying(false));
-      this._updateCompletedSessions();
       this.Session.endSession();
       ErrorAPI.errorHandler(
         'Session was completed',
@@ -55,29 +62,19 @@ class SessionScreen extends Component {
     }
   };
 
-  _updateHoursCompleted = async () => {
-    const userData = await AsyncStorageAPI.getItem('userToken');
-    if (userData && this.Session.SoundBiteList) {
+  _updateStatistics = async () => {
+    if (this.Session.SoundBiteList) {
       if (this.Session.SoundBiteList.soundBiteArray) {
         const timer = this.Session.SoundBiteList.soundBiteArray[0].Timer;
         timer.pauseTimer();
-        let totalTimePlayedFormatted =
-          Math.round((timer.totalTimePlayed / 3600000) * 100) / 100;
-        let newData = userData;
-        if (totalTimePlayedFormatted < 0.5 && totalTimePlayedFormatted > 0) {
-          newData.hoursCompleted += totalTimePlayedFormatted;
-          await AsyncStorageAPI.saveItem('userToken', newData);
+        await UserStatistics.updateHoursCompleted(timer.totalTimePlayed);
+        await UserStatistics.updateDayStreak();
+        if (this.props.playbackObject.hasFinished) {
+          await UserStatistics.updateCompletedSessions();
+          await UserStatistics.updateFavoriteSession(this.title);
+          store.dispatch(updateHasFinished(false));
         }
       }
-    }
-  };
-
-  _updateCompletedSessions = async () => {
-    const userData = await AsyncStorageAPI.getItem('userToken');
-    if (userData && this.Session.SoundBiteList) {
-      let newData = userData;
-      newData.sessionsCompleted += 1;
-      await AsyncStorageAPI.saveItem('userToken', newData);
     }
   };
 
@@ -91,10 +88,12 @@ class SessionScreen extends Component {
       this.Session.pauseSession();
       store.dispatch(updateBtnIcon('caretright'));
       store.dispatch(updateIsPlaying(false));
+      this.setState({ timerIsRunning: true });
     } else {
       this.Session.playSession();
       store.dispatch(updateBtnIcon('pause'));
       store.dispatch(updateIsPlaying(true));
+      this.setState({ timerIsRunning: false });
     }
   };
 
@@ -103,6 +102,7 @@ class SessionScreen extends Component {
     store.dispatch(updateHasLoaded(true));
     store.dispatch(updateBtnIcon('caretright'));
     console.log('*** APP THINKS IT IS DONE ***');
+    console.log(this.props.playbackObject.hasFinished);
   };
 
   componentDidMount = () => {
@@ -117,7 +117,7 @@ class SessionScreen extends Component {
     this.Session.endSession();
     this.Session.unloadSession();
     this.unsubscribe();
-    this._updateHoursCompleted();
+    this._updateStatistics();
   };
 
   render() {
@@ -133,41 +133,53 @@ class SessionScreen extends Component {
           shouldShowButton={false}
         />
         <Text style={styles.HeroText}>{this.title}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            this._onPlayPausePressed();
-          }}
-          // disables the button if the audio hasn't loaded
-          disabled={this.props.playbackObject.hasLoaded ? false : true}
-          // for different colors -> style={[styles.Module, this.colorStyles]}
-          style={styles.Module}>
-          <View>
-            <ActivityIndicator
-              size="large"
-              hidesWhenStopped={true}
-              color="#FFFFFF"
-              animating={this.props.playbackObject.hasLoaded ? false : true}
-              // activity indicator on ios was placed weird. probably buggy
-              style={{ marginLeft: Platform.OS === 'ios' ? '3%' : 0 }}
-            />
-            <this.iconFamily
-              name={this.props.playbackObject.btnIcon}
-              // you can use iconStyle = `{marginRight: #}` for marginss
-              style={
-                this.props.playbackObject.hasLoaded
-                  ? styles.ShowIcon
-                  : styles.HideIcon
-              }
-              size={35}
-            />
-          </View>
-        </TouchableOpacity>
+        <View style={styles.ButtonAndTimer}>
+          <TouchableOpacity
+            onPress={() => {
+              this._onPlayPausePressed();
+            }}
+            // disables the button if the audio hasn't loaded
+            disabled={this.props.playbackObject.hasLoaded ? false : true}
+            // for different colors -> style={[styles.Module, this.colorStyles]}
+            style={styles.Module}>
+            <View>
+              <ActivityIndicator
+                size="large"
+                hidesWhenStopped={true}
+                color="#FFFFFF"
+                animating={this.props.playbackObject.hasLoaded ? false : true}
+                // activity indicator on ios was placed weird. probably buggy
+                style={{ marginLeft: Platform.OS === 'ios' ? '3%' : 0 }}
+              />
+              <this.iconFamily
+                name={this.props.playbackObject.btnIcon}
+                // you can use iconStyle = `{marginRight: #}` for marginss
+                style={
+                  this.props.playbackObject.hasLoaded
+                    ? styles.ShowIcon
+                    : styles.HideIcon
+                }
+                size={35}
+              />
+            </View>
+          </TouchableOpacity>
+          <CircularTimerComponent
+            style={styles.Timer}
+            duration={this.duration}
+            timerIsRunning={this.state.timerIsRunning}
+          />
+        </View>
         <ProgressComponent messageText={this.props.progress.messageText} />
       </View>
     );
   }
 }
-
+/*
+<CircularTimerComponent
+style={styles.Timer}
+duration={this.duration}
+/>
+*/
 const styles = StyleSheet.create({
   Hero: {
     flex: 1,
@@ -194,6 +206,10 @@ const styles = StyleSheet.create({
   },
   HideIcon: {
     display: 'none',
+  },
+  ButtonAndTimer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

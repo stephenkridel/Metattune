@@ -15,11 +15,15 @@ const AboutComponent = props => {
           screen={props.prevScreen}
           direction={'arrowleft'}
           shouldShow={props.shouldShowLeft}
+          color={'white'}
+          backgroundColor={'rgb(255, 101, 132)'}
         />
         <ArrowButton
           screen={props.nextScreen}
           direction={'arrowright'}
           shouldShow={props.shouldShowRight}
+          color={'white'}
+          backgroundColor={'rgb(255, 101, 132)'}
         />
       </View>
     </View>
@@ -34,14 +38,15 @@ const styles = StyleSheet.create({
   },
   Header: {
     fontSize: 28,
-    textAlign: 'center',
+    textAlign: 'left',
     color: 'rgb(30, 27, 57)',
     marginBottom: 7.5,
     fontFamily: 'JosefinSans-Bold',
   },
   Text: {
-    fontSize: 22,
-    textAlign: 'center',
+    fontSize: 21,
+    lineHeight: 25,
+    textAlign: 'left',
     color: 'rgb(30, 27, 57)',
     fontFamily: 'JosefinSans-Regular',
     marginTop: 7.5,
