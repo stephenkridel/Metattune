@@ -45,7 +45,7 @@ const CircularTimerComponent = props => {
       }}>
       <AnimatedCircle
         fill={'none'}
-        stroke={'rgb(255, 101, 132)'}
+        stroke={'white'}
         strokeWidth={strokeWidth}
         r={radius}
         cx={cx}
@@ -55,7 +55,7 @@ const CircularTimerComponent = props => {
       />
       <Circle
         fill={'none'}
-        stroke={'rgba(255, 101, 132, 0.25)'}
+        stroke={'rgba(255, 255, 255, 0.25)'}
         strokeWidth={strokeWidth}
         r={radius}
         cx={cx}

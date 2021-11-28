@@ -25,7 +25,7 @@ const ArrowButton = props => {
       ]}>
       <AntDesign
         name={props.direction}
-        size={25}
+        size={30}
         style={[styles.Icon, { color: props.color }]}
       />
     </TouchableOpacity>

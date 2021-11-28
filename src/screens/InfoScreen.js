@@ -1,43 +1,56 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import InfoComponent from '../components/InfoComponent';
-import LinesImageComponent from '../components/LinesImageComponent';
+import LargeInfoComponent from '../components/LargeInfoComponent';
+import ScreenHeaderComponent from '../components/ScreenHeaderComponent';
 
 const InfoScreen = () => {
   return (
     <>
-      <LinesImageComponent imageLocation={'top'} />
       <View style={styles.Container}>
-        <View style={styles.HeaderContainer}>
-          <Text style={styles.Header}>About This App</Text>
-          <Text style={styles.BodyText}>
-            Find information about ATT, our team, and the app's development
-            below.
-          </Text>
-        </View>
-        <View style={styles.SelectorContainer}>
-          <InfoComponent
-            header="About ATT"
-            iconName="brain"
-            screen="About"
-            text="Learn about ATT and its benefits"
-            color="rgb(111, 98, 255)"
+        <ScrollView>
+          <ScreenHeaderComponent
+            header={'About This App'}
+            subHeader={
+              "Find information about ATT, our team, and the app's development below"
+            }
           />
-          <InfoComponent
-            header="Support"
-            iconName="heart"
-            screen="Support"
-            text="Support the development of the app"
-            color="rgb(30, 27, 57)"
-          />
-          <InfoComponent
-            header="Release Notes"
-            iconName="bug"
-            screen="Release"
-            text="See what's been updated since the last release"
-            color="rgb(255, 177, 62)"
-          />
-        </View>
+          <View style={styles.SelectorContainer}>
+            <InfoComponent
+              header="About ATT"
+              iconName="brain"
+              screen="About"
+              text="Learn about ATT and its benefits"
+              color="rgb(111, 98, 255)"
+              iconColor="rgb(255, 177, 62)"
+            />
+            <LargeInfoComponent
+              header="Support"
+              iconName="hands-helping"
+              screen="Support"
+              text="Support the development of the app"
+              color="rgb(111, 98, 255)"
+              image={require('../assets/images/brothers-image.png')}
+            />
+            <InfoComponent
+              header="Attribution"
+              iconName="creative-commons"
+              screen="Attribution"
+              text="See who's work we used to build this app"
+              color="rgb(111, 98, 255)"
+              iconColor="rgb(255, 177, 62)"
+            />
+            <LargeInfoComponent
+              header="Release Info"
+              iconName="bug"
+              screen="Release"
+              text="See what's been updated since the last release"
+              color="rgb(111, 98, 255)"
+              image={require('../assets/images/tech-image.png')}
+            />
+          </View>
+          <View style={{ height: 50 }}></View>
+        </ScrollView>
       </View>
     </>
   );
@@ -46,15 +59,11 @@ const InfoScreen = () => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    padding: '5%',
-  },
-  HeaderContainer: {
-    marginTop: '10%',
-    justifyContent: 'center',
   },
   SelectorContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: '5%',
+    marginTop: '5%',
   },
   Header: {
     fontFamily: 'JosefinSans-Bold',
@@ -66,7 +75,7 @@ const styles = StyleSheet.create({
     fontFamily: 'JosefinSans-Regular',
     color: 'rgb(30, 27, 57)',
     marginBottom: 5,
-    fontSize: 17.5,
+    fontSize: 20,
     lineHeight: 24,
   },
 });

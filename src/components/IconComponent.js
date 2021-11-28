@@ -10,7 +10,7 @@ const IconComponent = props => {
       start={{ x: 1, y: 0 }}
       end={{ x: 0, y: 1 }}
       style={styles.Container}>
-      <FontAwesome5 name={props.iconName} size={30} color="white" />
+      <FontAwesome5 name={props.iconName} size={props.iconSize} color="white" />
     </LinearGradient>
   );
 };

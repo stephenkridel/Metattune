@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Platform,
+  Image,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Session from '../classes/Session';
@@ -26,6 +27,7 @@ import ErrorAPI from '../helpers/ErrorAPI';
 import ProgressComponent from '../components/ProgressComponent';
 import UserStatistics from '../helpers/UserStatistics';
 import CircularTimerComponent from '../components/CircularTimerComponent';
+import LinearGradient from 'react-native-linear-gradient';
 
 class SessionScreen extends Component {
   constructor(props) {
@@ -36,7 +38,9 @@ class SessionScreen extends Component {
     // destructuring info
     this.title = info.title;
     this.soundBitesString = info.soundBites;
+    this.color = info.color;
     this.duration = info.duration;
+    this.realisticImage = info.realisticImage;
     this.Session = new Session(this.title, this.soundBitesString);
     // using this variable to switch between icon families if needed
     this.iconFamily = AntDesign;
@@ -122,7 +126,7 @@ class SessionScreen extends Component {
 
   render() {
     return (
-      <View style={styles.Hero}>
+      <View style={[styles.Hero, { backgroundColor: this.color }]}>
         <ModalComponent
           isVisible={this.props.error.isError}
           message={this.props.error.errorMsg}
@@ -164,7 +168,6 @@ class SessionScreen extends Component {
             </View>
           </TouchableOpacity>
           <CircularTimerComponent
-            style={styles.Timer}
             duration={this.duration}
             timerIsRunning={this.state.timerIsRunning}
           />
@@ -189,7 +192,7 @@ const styles = StyleSheet.create({
   HeroText: {
     marginBottom: 30,
     fontSize: 35,
-    color: 'rgb(30, 27, 57)',
+    color: 'white',
     fontFamily: 'JosefinSans-Regular',
   },
   Module: {

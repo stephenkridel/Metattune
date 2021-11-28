@@ -13,6 +13,7 @@ const StatisticsComponent = props => {
       <View style={styles.TopContainer}>
         <IconComponent
           iconName={props.iconName}
+          iconSize={30}
           colors={['rgb(255, 177, 62)', 'rgb(255, 109, 123)']}
         />
       </View>
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     padding: 15,
     borderRadius: 20,
-    elevation: 10,
+    //elevation: 10,
     shadowColor: 'black',
     shadowOffset: {
       width: 10,

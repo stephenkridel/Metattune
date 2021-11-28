@@ -7,14 +7,17 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import LinesImageComponent from './LinesImageComponent';
 
 const TextInfoComponent = props => {
   return (
     <View style={styles.Container}>
-      <LinesImageComponent imageLocation={'right'} />
-      <LinesImageComponent imageLocation={'left'} />
-      <Image resizeMode={'contain'} source={props.image} style={styles.Image} />
+      <View style={styles.ImageContainer}>
+        <Image
+          resizeMode={'contain'}
+          source={props.image}
+          style={styles.Image}
+        />
+      </View>
       <View style={styles.TextContainer}>
         <Text style={styles.HeaderText}>{props.headerText}</Text>
         <Text style={styles.Text}>{props.infoText}</Text>
@@ -33,20 +36,34 @@ const TextInfoComponent = props => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: 'rgb(134, 92, 255)',
+  },
+  ImageContainer: {
+    height: '50%',
     alignItems: 'center',
-    padding: '5%',
+    justifyContent: 'center',
+    position: 'absolute',
+    alignSelf: 'center',
+    top: '5%',
   },
   Image: {
-    height: '30%',
+    height: '110%',
     marginBottom: 20,
   },
   TextContainer: {
-    borderRadius: 20,
     width: '100%',
+    paddingTop: '10%',
+    paddingBottom: '5%',
+    paddingHorizontal: '5%',
+    backgroundColor: 'white',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    justifyContent: 'space-between',
+    position: 'absolute',
+    bottom: 0,
   },
   HeaderText: {
-    fontSize: 30,
+    fontSize: 25,
     color: 'rgb(30, 27, 57)',
     fontFamily: 'JosefinSans-Bold',
     marginBottom: 10,
@@ -54,7 +71,7 @@ const styles = StyleSheet.create({
     //backgroundColor: 'rgb(255, 201, 211)',
   },
   Text: {
-    fontSize: 20,
+    fontSize: 19,
     lineHeight: 25,
     color: 'rgb(30, 27, 57)',
     fontFamily: 'JosefinSans-Regular',
@@ -69,6 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginTop: 20,
+    elevation: 10,
   },
   ButtonText: {
     color: 'white',

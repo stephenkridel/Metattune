@@ -5,28 +5,28 @@ import IconComponent from './IconComponent';
 
 const InfoComponent = props => {
   return (
-    <View style={[{ backgroundColor: props.color }, styles.Container]}>
-      <TouchableOpacity
-        style={styles.Button}
-        onPress={() => props.navigation.navigate(props.screen)}>
-        <IconComponent
-          iconName={props.iconName}
-          colors={['rgb(207, 159, 237)', 'rgb(255, 101, 132)']}
-          style={{ backgroundColor: 'white' }}
-        />
-        <View style={styles.ContentContainer}>
-          <Text style={styles.Header}>{props.header}</Text>
-          <Text style={styles.BodyText}>{props.text}</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      onPress={() => props.navigation.navigate(props.screen)}
+      style={[{ backgroundColor: props.color }, styles.Container]}>
+      <IconComponent
+        iconName={props.iconName}
+        iconSize={40}
+        colors={['rgb(207, 159, 237)', 'rgb(255, 101, 132)']}
+        style={{ backgroundColor: 'white' }}
+      />
+      <View style={styles.ContentContainer}>
+        <Text style={styles.Header}>{props.header}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
+
+// <Text style={styles.BodyText}>{props.text}</Text>
 
 const styles = StyleSheet.create({
   Container: {
     width: '100%',
-    height: '25%',
+    height: '17%',
     borderRadius: 20,
     elevation: 10,
     shadowColor: 'black',
@@ -36,33 +36,23 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.4,
     shadowRadius: 10,
-    marginBottom: '5%',
+    marginBottom: '7.5%',
+    alignSelf: 'center',
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   ContentContainer: {
     width: '80%',
     marginLeft: '15%',
   },
-  BodyText: {
-    fontFamily: 'JosefinSans-Regular',
-    fontSize: 17.5,
-    lineHeight: 22,
-    color: 'white',
-  },
   Header: {
-    fontSize: 21,
+    fontSize: 22,
     color: 'white',
     fontFamily: 'JosefinSans-Bold',
     marginBottom: 10,
-  },
-  Button: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    justifyContent: 'space-around',
-    alignItems: 'center',
   },
 });
 

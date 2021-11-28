@@ -17,19 +17,11 @@ import AvatarSelectorComponent from './AvatarSelectorComponent';
 const AvatarModalComponent = props => {
   return (
     <Modal visible={props.isVisible} animationType="slide">
-      <TouchableOpacity
-        style={styles.TrashButton}
-        onPress={() => store.dispatch(updateShowWarning(true))}>
-        <FontAwesome name="trash-o" size={40} color="rgb(255, 101, 132)" />
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{ marginTop: 30, marginRight: 30, alignSelf: 'flex-end' }}
-        onPress={props.onPressX}>
-        <AntDesign name="close" size={35} color="rgb(255, 101, 132)" />
-      </TouchableOpacity>
       <View style={styles.Modal}>
-        <Text style={styles.ModalText}>Choose Your Avatar</Text>
         <FlatList
+          ListHeaderComponent={
+            <Text style={styles.ModalText}>Choose Your Avatar</Text>
+          }
           horizontal={false}
           numColumns={3}
           data={AvatarList}
@@ -38,6 +30,15 @@ const AvatarModalComponent = props => {
             return <AvatarSelectorComponent AvatarObject={item} />;
           }}
         />
+      </View>
+      <View style={styles.Buttons}>
+        <TouchableOpacity
+          onPress={() => store.dispatch(updateShowWarning(true))}>
+          <FontAwesome name="trash-o" size={40} color='"rgb(255, 101, 132)"' />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={props.onPressX}>
+          <AntDesign name="close" size={35} color="white" />
+        </TouchableOpacity>
       </View>
     </Modal>
   );
@@ -51,20 +52,19 @@ const styles = StyleSheet.create({
   },
   ModalText: {
     fontSize: 25,
+    alignSelf: 'center',
     color: 'rgb(30, 27, 57)',
-    fontFamily: 'JosefinSans-Regular',
+    fontFamily: 'JosefinSans-Bold',
     marginVertical: '5%',
     lineHeight: 40,
   },
-  ModalClose: {
-    marginTop: 30,
-    marginRight: 30,
-    alignSelf: 'flex-end',
-  },
-  TrashButton: {
-    position: 'absolute',
-    top: 30,
-    left: 30,
+  Buttons: {
+    paddingVertical: '3%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    backgroundColor: 'rgb(30, 27, 57)',
   },
 });
 

@@ -17,6 +17,7 @@ import {
 import InfoScreen from './src/screens/InfoScreen';
 import SupportScreen from './src/screens/SupportScreen';
 import ReleaseScreen from './src/screens/ReleaseScreen';
+import AttribuitonScreen from './src/screens/AttributionScreen';
 import store from './src/store/Store';
 import { Provider } from 'react-redux';
 
@@ -58,6 +59,7 @@ const InfoStack = createStackNavigator(
     About: AboutStack,
     Support: SupportScreen,
     Release: ReleaseScreen,
+    Attribution: AttribuitonScreen,
   },
   {
     initialRouteName: 'Info',

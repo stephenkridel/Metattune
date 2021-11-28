@@ -19,7 +19,6 @@ import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
 import StatisticsComponent from '../components/StatisticsComponent';
 import AvatarComponent from '../components/AvatarComponent';
 import AvatarModalComponent from '../components/AvatarModalComponent';
-import LinesImageComponent from '../components/LinesImageComponent';
 
 class UserScreen extends Component {
   constructor(props) {
@@ -57,7 +56,6 @@ class UserScreen extends Component {
   render() {
     return (
       <>
-        <LinesImageComponent imageLocation={'top-right'} />
         <NavigationEvents onDidFocus={() => this._getUserToken()} />
         <ModalComponent
           isVisible={this.props.user.showWarning}
@@ -143,9 +141,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   GreetingText: {
-    fontSize: 27.5,
+    fontSize: 25,
     color: 'rgb(30, 27, 57)',
     fontFamily: 'JosefinSans-Bold',
+    marginBottom: 10,
   },
   SubHeader: {
     fontSize: 20,

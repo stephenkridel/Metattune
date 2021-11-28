@@ -1,8 +1,5 @@
 import { Audio } from 'expo-av';
-import {
-  updateDidJustFinish,
-  updateInstanceList,
-} from '../actions/PlaybackObjectActions';
+import { updateDidJustFinish } from '../actions/PlaybackObjectActions';
 import ErrorAPI from '../helpers/ErrorAPI';
 import store from '../store/Store';
 

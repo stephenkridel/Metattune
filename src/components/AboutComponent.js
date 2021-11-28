@@ -15,15 +15,15 @@ const AboutComponent = props => {
           screen={props.prevScreen}
           direction={'arrowleft'}
           shouldShow={props.shouldShowLeft}
-          color={'white'}
-          backgroundColor={'rgb(255, 101, 132)'}
+          color={'rgb(255, 101, 132)'}
+          backgroundColor={'transparent'}
         />
         <ArrowButton
           screen={props.nextScreen}
           direction={'arrowright'}
           shouldShow={props.shouldShowRight}
-          color={'white'}
-          backgroundColor={'rgb(255, 101, 132)'}
+          color={'rgb(255, 101, 132)'}
+          backgroundColor={'transparent'}
         />
       </View>
     </View>
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginLeft: 25,
     elevation: 15,
-    borderRadius: 10,
     shadowColor: 'black',
     shadowOffset: {
       width: 10,
@@ -87,8 +86,8 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.4,
     shadowRadius: 10,
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
     marginBottom: 30,
     backgroundColor: 'white',
   },

@@ -94,11 +94,6 @@ const avatar17 = new Avatar(
   require('../assets/images/avatars/avatar-17.png'),
 );
 
-const avatar18 = new Avatar(
-  'avatar18',
-  require('../assets/images/avatars/avatar-18.png'),
-);
-
 AvatarList = [
   avatar0,
   avatar1,
@@ -118,7 +113,6 @@ AvatarList = [
   avatar15,
   avatar16,
   avatar17,
-  avatar18,
 ];
 
 export default AvatarList;
