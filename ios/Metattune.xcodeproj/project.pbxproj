@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* AttuneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AttuneTests.m */; };
+		00E356F31AD99517003FC87E /* MetattuneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MetattuneTests.m */; };
 		1080F6DDF0134237A518F32A /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CD8AFD0FAA84857B05B717B /* OpenSans-SemiBold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3F0192426E6841E88D54E695 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8E1BABB69E0454BBBFFFAE7 /* OpenSans-Bold.ttf */; };
-		56AC56FCBAC005C1719680CC /* libPods-Attune-AttuneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7E58F788C3DE573216C670 /* libPods-Attune-AttuneTests.a */; };
+		56AC56FCBAC005C1719680CC /* libPods-Metattune-MetattuneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7E58F788C3DE573216C670 /* libPods-Metattune-MetattuneTests.a */; };
 		77F97C636A234DA0BAF65C1F /* JosefinSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CF5315EBA3E4F8C87B9A038 /* JosefinSans-Bold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		AADBDF6E261E99B10032227B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AADBDF6D261E99B10032227B /* GoogleService-Info.plist */; };
@@ -21,7 +21,7 @@
 		B7A50D5173384CCA9531EBF3 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8425C9CCBA4541CABE17B029 /* OpenSans-Regular.ttf */; };
 		E5055D422E674EC996F1845A /* JosefinSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A1A0A9A8BC44B4886159D3D /* JosefinSans-Thin.ttf */; };
 		E51849D4F42D49EB9A16806A /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6B3BB93E24244818BC552E3 /* OpenSans-Light.ttf */; };
-		F0155034562E70E02C5B7A93 /* libPods-Attune.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 063235CE14EAFFBC109C999E /* libPods-Attune.a */; };
+		F0155034562E70E02C5B7A93 /* libPods-Metattune.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 063235CE14EAFFBC109C999E /* libPods-Metattune.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,36 +30,36 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = Attune;
+			remoteInfo = Metattune;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* AttuneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AttuneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* MetattuneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetattuneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* AttuneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttuneTests.m; sourceTree = "<group>"; };
-		063235CE14EAFFBC109C999E /* libPods-Attune.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Attune.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* Attune.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Attune.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Attune/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Attune/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Attune/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Attune/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Attune/main.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* MetattuneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MetattuneTests.m; sourceTree = "<group>"; };
+		063235CE14EAFFBC109C999E /* libPods-Metattune.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Metattune.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Metattune.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metattune.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Metattune/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Metattune/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Metattune/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Metattune/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Metattune/main.m; sourceTree = "<group>"; };
 		2CD8AFD0FAA84857B05B717B /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../src/assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		2CF5315EBA3E4F8C87B9A038 /* JosefinSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Bold.ttf"; path = "../src/assets/fonts/JosefinSans-Bold.ttf"; sourceTree = "<group>"; };
 		3A1A0A9A8BC44B4886159D3D /* JosefinSans-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Thin.ttf"; path = "../src/assets/fonts/JosefinSans-Thin.ttf"; sourceTree = "<group>"; };
-		47C9088444BBDF640602E60C /* Pods-Attune-AttuneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attune-AttuneTests.release.xcconfig"; path = "Target Support Files/Pods-Attune-AttuneTests/Pods-Attune-AttuneTests.release.xcconfig"; sourceTree = "<group>"; };
+		47C9088444BBDF640602E60C /* Pods-Metattune-MetattuneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metattune-MetattuneTests.release.xcconfig"; path = "Target Support Files/Pods-Metattune-MetattuneTests/Pods-Metattune-MetattuneTests.release.xcconfig"; sourceTree = "<group>"; };
 		645A721DC85C4C2C9156CA6B /* JosefinSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Regular.ttf"; path = "../src/assets/fonts/JosefinSans-Regular.ttf"; sourceTree = "<group>"; };
-		7CB62CC53F3DDB44B41BCEAB /* Pods-Attune.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attune.debug.xcconfig"; path = "Target Support Files/Pods-Attune/Pods-Attune.debug.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Attune/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7CB62CC53F3DDB44B41BCEAB /* Pods-Metattune.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metattune.debug.xcconfig"; path = "Target Support Files/Pods-Metattune/Pods-Metattune.debug.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Metattune/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8425C9CCBA4541CABE17B029 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../src/assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		AADBDF6D261E99B10032227B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		AE68E55B65DBCBCF6B9D8D59 /* Pods-Attune-AttuneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attune-AttuneTests.debug.xcconfig"; path = "Target Support Files/Pods-Attune-AttuneTests/Pods-Attune-AttuneTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B2962930C97B44D1A4947858 /* Pods-Attune.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attune.release.xcconfig"; path = "Target Support Files/Pods-Attune/Pods-Attune.release.xcconfig"; sourceTree = "<group>"; };
+		AE68E55B65DBCBCF6B9D8D59 /* Pods-Metattune-MetattuneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metattune-MetattuneTests.debug.xcconfig"; path = "Target Support Files/Pods-Metattune-MetattuneTests/Pods-Metattune-MetattuneTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B2962930C97B44D1A4947858 /* Pods-Metattune.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Metattune.release.xcconfig"; path = "Target Support Files/Pods-Metattune/Pods-Metattune.release.xcconfig"; sourceTree = "<group>"; };
 		E6B3BB93E24244818BC552E3 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../src/assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		E8E1BABB69E0454BBBFFFAE7 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../src/assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EF7E58F788C3DE573216C670 /* libPods-Attune-AttuneTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Attune-AttuneTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF7E58F788C3DE573216C670 /* libPods-Metattune-MetattuneTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Metattune-MetattuneTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56AC56FCBAC005C1719680CC /* libPods-Attune-AttuneTests.a in Frameworks */,
+				56AC56FCBAC005C1719680CC /* libPods-Metattune-MetattuneTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,20 +75,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0155034562E70E02C5B7A93 /* libPods-Attune.a in Frameworks */,
+				F0155034562E70E02C5B7A93 /* libPods-Metattune.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* AttuneTests */ = {
+		00E356EF1AD99517003FC87E /* MetattuneTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* AttuneTests.m */,
+				00E356F21AD99517003FC87E /* MetattuneTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = AttuneTests;
+			path = MetattuneTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -113,7 +113,7 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* Attune */ = {
+		13B07FAE1A68108700A75B9A /* Metattune */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -123,15 +123,15 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = Attune;
+			name = Metattune;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				063235CE14EAFFBC109C999E /* libPods-Attune.a */,
-				EF7E58F788C3DE573216C670 /* libPods-Attune-AttuneTests.a */,
+				063235CE14EAFFBC109C999E /* libPods-Metattune.a */,
+				EF7E58F788C3DE573216C670 /* libPods-Metattune-MetattuneTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -139,10 +139,10 @@
 		4CC8B74DBFB46ED712205069 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7CB62CC53F3DDB44B41BCEAB /* Pods-Attune.debug.xcconfig */,
-				B2962930C97B44D1A4947858 /* Pods-Attune.release.xcconfig */,
-				AE68E55B65DBCBCF6B9D8D59 /* Pods-Attune-AttuneTests.debug.xcconfig */,
-				47C9088444BBDF640602E60C /* Pods-Attune-AttuneTests.release.xcconfig */,
+				7CB62CC53F3DDB44B41BCEAB /* Pods-Metattune.debug.xcconfig */,
+				B2962930C97B44D1A4947858 /* Pods-Metattune.release.xcconfig */,
+				AE68E55B65DBCBCF6B9D8D59 /* Pods-Metattune-MetattuneTests.debug.xcconfig */,
+				47C9088444BBDF640602E60C /* Pods-Metattune-MetattuneTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -158,9 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				AADBDF6D261E99B10032227B /* GoogleService-Info.plist */,
-				13B07FAE1A68108700A75B9A /* Attune */,
+				13B07FAE1A68108700A75B9A /* Metattune */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* AttuneTests */,
+				00E356EF1AD99517003FC87E /* MetattuneTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				0A711015BC0D4ABCBE12CBD8 /* Resources */,
@@ -174,8 +174,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Attune.app */,
-				00E356EE1AD99517003FC87E /* AttuneTests.xctest */,
+				13B07F961A680F5B00A75B9A /* Metattune.app */,
+				00E356EE1AD99517003FC87E /* MetattuneTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,9 +183,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* AttuneTests */ = {
+		00E356ED1AD99517003FC87E /* MetattuneTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AttuneTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MetattuneTests" */;
 			buildPhases = (
 				9033E7E62FB6C96935EDD06E /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -199,14 +199,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = AttuneTests;
-			productName = AttuneTests;
-			productReference = 00E356EE1AD99517003FC87E /* AttuneTests.xctest */;
+			name = MetattuneTests;
+			productName = MetattuneTests;
+			productReference = 00E356EE1AD99517003FC87E /* MetattuneTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* Attune */ = {
+		13B07F861A680F5B00A75B9A /* Metattune */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Attune" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Metattune" */;
 			buildPhases = (
 				33935F32859207548EA53E6D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -221,9 +221,9 @@
 			);
 			dependencies = (
 			);
-			name = Attune;
-			productName = Attune;
-			productReference = 13B07F961A680F5B00A75B9A /* Attune.app */;
+			name = Metattune;
+			productName = Metattune;
+			productReference = 13B07F961A680F5B00A75B9A /* Metattune.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -243,7 +243,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Attune" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Metattune" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -256,8 +256,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* Attune */,
-				00E356ED1AD99517003FC87E /* AttuneTests */,
+				13B07F861A680F5B00A75B9A /* Metattune */,
+				00E356ED1AD99517003FC87E /* MetattuneTests */,
 			);
 		};
 /* End PBXProject section */
@@ -310,15 +310,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Attune/Pods-Attune-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Metattune/Pods-Metattune-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Attune/Pods-Attune-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Metattune/Pods-Metattune-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Attune/Pods-Attune-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Metattune/Pods-Metattune-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		33935F32859207548EA53E6D /* [CP] Check Pods Manifest.lock */ = {
@@ -336,7 +336,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Attune-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Metattune-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -349,15 +349,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Attune/Pods-Attune-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Metattune/Pods-Metattune-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Attune/Pods-Attune-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Metattune/Pods-Metattune-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Attune/Pods-Attune-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Metattune/Pods-Metattune-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8ADB76807008A0F99549F564 /* [CP] Copy Pods Resources */ = {
@@ -366,15 +366,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Attune-AttuneTests/Pods-Attune-AttuneTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Metattune-MetattuneTests/Pods-Metattune-MetattuneTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Attune-AttuneTests/Pods-Attune-AttuneTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Metattune-MetattuneTests/Pods-Metattune-MetattuneTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Attune-AttuneTests/Pods-Attune-AttuneTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Metattune-MetattuneTests/Pods-Metattune-MetattuneTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9033E7E62FB6C96935EDD06E /* [CP] Check Pods Manifest.lock */ = {
@@ -392,7 +392,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Attune-AttuneTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Metattune-MetattuneTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -405,15 +405,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Attune-AttuneTests/Pods-Attune-AttuneTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Metattune-MetattuneTests/Pods-Metattune-MetattuneTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Attune-AttuneTests/Pods-Attune-AttuneTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Metattune-MetattuneTests/Pods-Metattune-MetattuneTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Attune-AttuneTests/Pods-Attune-AttuneTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Metattune-MetattuneTests/Pods-Metattune-MetattuneTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -442,7 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* AttuneTests.m in Sources */,
+				00E356F31AD99517003FC87E /* MetattuneTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,7 +460,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* Attune */;
+			target = 13B07F861A680F5B00A75B9A /* Metattune */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -468,14 +468,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AE68E55B65DBCBCF6B9D8D59 /* Pods-Attune-AttuneTests.debug.xcconfig */;
+			baseConfigurationReference = AE68E55B65DBCBCF6B9D8D59 /* Pods-Metattune-MetattuneTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = AttuneTests/Info.plist;
+				INFOPLIST_FILE = MetattuneTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -489,17 +489,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Attune.app/Attune";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metattune.app/Metattune";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47C9088444BBDF640602E60C /* Pods-Attune-AttuneTests.release.xcconfig */;
+			baseConfigurationReference = 47C9088444BBDF640602E60C /* Pods-Metattune-MetattuneTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = AttuneTests/Info.plist;
+				INFOPLIST_FILE = MetattuneTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -513,19 +513,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Attune.app/Attune";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metattune.app/Metattune";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7CB62CC53F3DDB44B41BCEAB /* Pods-Attune.debug.xcconfig */;
+			baseConfigurationReference = 7CB62CC53F3DDB44B41BCEAB /* Pods-Metattune.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = Attune/Info.plist;
+				INFOPLIST_FILE = Metattune/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -536,7 +536,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Attune;
+				PRODUCT_NAME = Metattune;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -545,12 +545,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2962930C97B44D1A4947858 /* Pods-Attune.release.xcconfig */;
+			baseConfigurationReference = B2962930C97B44D1A4947858 /* Pods-Metattune.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = Attune/Info.plist;
+				INFOPLIST_FILE = Metattune/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -561,7 +561,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Attune;
+				PRODUCT_NAME = Metattune;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -693,7 +693,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AttuneTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MetattuneTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -702,7 +702,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Attune" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Metattune" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -711,7 +711,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Attune" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Metattune" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
