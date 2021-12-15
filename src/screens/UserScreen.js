@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import ModalComponent from '../components/ModalComponent';
 import store from '../store/Store';
@@ -55,7 +61,7 @@ class UserScreen extends Component {
 
   render() {
     return (
-      <>
+      <SafeAreaView style={styles.Container}>
         <NavigationEvents onDidFocus={() => this._getUserToken()} />
         <ModalComponent
           isVisible={this.props.user.showWarning}
@@ -71,52 +77,50 @@ class UserScreen extends Component {
           isVisible={this.props.user.showAvatarModal}
           onPressX={() => store.dispatch(updateShowAvatarModal(false))}
         />
-        <View style={styles.Container}>
-          <View style={styles.HeaderContainer}>
-            <TouchableOpacity
-              onPress={() => store.dispatch(updateShowAvatarModal(true))}
-              style={styles.AvatarButton}>
-              <AvatarComponent
-                AvatarObject={this.props.user.selectedAvatar}
-                avatarWidth={'100%'}
-              />
-            </TouchableOpacity>
-            <View style={styles.TextContainer}>
-              <Text
-                style={
-                  styles.GreetingText
-                }>{`Hello, ${this.props.user.userName}!`}</Text>
-              <Text style={styles.SubHeader}>
-                we tracked your statistics for you
-              </Text>
-            </View>
-          </View>
-          <View style={styles.StatisticsContainer}>
-            <StatisticsComponent
-              iconName={'headphones'}
-              header={'Hours Listened'}
-              statistic={this.props.user.hoursCompleted}
+        <View style={styles.HeaderContainer}>
+          <TouchableOpacity
+            onPress={() => store.dispatch(updateShowAvatarModal(true))}
+            style={styles.AvatarButton}>
+            <AvatarComponent
+              AvatarObject={this.props.user.selectedAvatar}
+              avatarWidth={'100%'}
             />
-            <StatisticsComponent
-              iconName={'check'}
-              header={'Finished Sessions'}
-              statistic={this.props.user.sessionsCompleted}
-            />
-            <StatisticsComponent
-              iconName={'star'}
-              header={'Favorite Session'}
-              statistic={this.props.user.favoriteSession.title}
-              //statistic={this.props.user.hoursCompleted}
-            />
-            <StatisticsComponent
-              iconName={'calendar-check'}
-              header={'Day Streak'}
-              statistic={this.props.user.dayStreak}
-              //statistic={this.props.user.hoursCompleted}
-            />
+          </TouchableOpacity>
+          <View style={styles.TextContainer}>
+            <Text
+              style={
+                styles.GreetingText
+              }>{`Hello, ${this.props.user.userName}!`}</Text>
+            <Text style={styles.SubHeader}>
+              we tracked your statistics for you
+            </Text>
           </View>
         </View>
-      </>
+        <View style={styles.StatisticsContainer}>
+          <StatisticsComponent
+            iconName={'headphones'}
+            header={'Hours Listened'}
+            statistic={this.props.user.hoursCompleted}
+          />
+          <StatisticsComponent
+            iconName={'check'}
+            header={'Finished Sessions'}
+            statistic={this.props.user.sessionsCompleted}
+          />
+          <StatisticsComponent
+            iconName={'star'}
+            header={'Favorite Session'}
+            statistic={this.props.user.favoriteSession.title}
+            //statistic={this.props.user.hoursCompleted}
+          />
+          <StatisticsComponent
+            iconName={'calendar-check'}
+            header={'Day Streak'}
+            statistic={this.props.user.dayStreak}
+            //statistic={this.props.user.hoursCompleted}
+          />
+        </View>
+      </SafeAreaView>
     );
   }
 }
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: '5%',
+    marginHorizontal: '5%',
   },
   HeaderContainer: {
     height: '30%',

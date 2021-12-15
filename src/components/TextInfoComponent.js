@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     alignSelf: 'center',
-    top: '5%',
+    top: '10%',
   },
   Image: {
     height: '110%',
