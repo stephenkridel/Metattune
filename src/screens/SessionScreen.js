@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Platform,
-  Image,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Session from '../classes/Session';
@@ -27,7 +26,6 @@ import ErrorAPI from '../helpers/ErrorAPI';
 import ProgressComponent from '../components/ProgressComponent';
 import UserStatistics from '../helpers/UserStatistics';
 import CircularTimerComponent from '../components/CircularTimerComponent';
-import LinearGradient from 'react-native-linear-gradient';
 
 class SessionScreen extends Component {
   constructor(props) {
@@ -45,14 +43,10 @@ class SessionScreen extends Component {
     // using this variable to switch between icon families if needed
     this.iconFamily = AntDesign;
     this.unsubscribe = store.subscribe(this._handleSessionFinishing);
-
-    this.state = {
-      // used for the CircularTimerComponent
-      timerIsRunning: true,
-    };
   }
 
   _handleSessionFinishing = () => {
+    console.log('_handleSessionFinishing');
     if (this.props.playbackObject.statusDidJustFinish) {
       store.dispatch(updateDidJustFinish(false));
       store.dispatch(updateHasFinished(true));
@@ -88,16 +82,18 @@ class SessionScreen extends Component {
       store.dispatch(updateHasStarted(true));
     }
 
+    // a function is passed into the setState function so that the circular
+    // timer stops or starts before all the other functions.
     if (this.props.playbackObject.isPlaying) {
+      this.child.stopTimer();
       this.Session.pauseSession();
       store.dispatch(updateBtnIcon('caretright'));
       store.dispatch(updateIsPlaying(false));
-      this.setState({ timerIsRunning: true });
     } else {
+      this.child.startTimer();
       this.Session.playSession();
       store.dispatch(updateBtnIcon('pause'));
       store.dispatch(updateIsPlaying(true));
-      this.setState({ timerIsRunning: false });
     }
   };
 
@@ -106,7 +102,6 @@ class SessionScreen extends Component {
     store.dispatch(updateHasLoaded(true));
     store.dispatch(updateBtnIcon('caretright'));
     console.log('*** APP THINKS IT IS DONE ***');
-    console.log(this.props.playbackObject.hasFinished);
   };
 
   componentDidMount = () => {
@@ -118,7 +113,6 @@ class SessionScreen extends Component {
   componentWillUnmount = () => {
     this._isMounted = false;
     BackgroundTimer.stop();
-    this.Session.endSession();
     this.Session.unloadSession();
     this.unsubscribe();
     this._updateStatistics();
@@ -168,8 +162,10 @@ class SessionScreen extends Component {
             </View>
           </TouchableOpacity>
           <CircularTimerComponent
+            ref={child => {
+              this.child = child;
+            }}
             duration={this.duration}
-            timerIsRunning={this.state.timerIsRunning}
           />
         </View>
         <ProgressComponent messageText={this.props.progress.messageText} />
@@ -177,12 +173,7 @@ class SessionScreen extends Component {
     );
   }
 }
-/*
-<CircularTimerComponent
-style={styles.Timer}
-duration={this.duration}
-/>
-*/
+
 const styles = StyleSheet.create({
   Hero: {
     flex: 1,

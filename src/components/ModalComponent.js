@@ -6,9 +6,7 @@ const ModalComponent = props => {
   const shouldShowButton = props.shouldShowButton ? 'flex' : 'none';
   return (
     <Modal visible={props.isVisible} animationType="slide">
-      <TouchableOpacity
-        style={{ marginTop: 30, marginRight: 30, alignSelf: 'flex-end' }}
-        onPress={props.onPressX}>
+      <TouchableOpacity style={styles.XButton} onPress={props.onPressX}>
         <AntDesign name="close" size={35} color="rgb(255, 101, 132)" />
       </TouchableOpacity>
       <View style={styles.Modal}>
@@ -32,12 +30,15 @@ const ModalComponent = props => {
 const styles = StyleSheet.create({
   Modal: {
     flex: 1,
-    margin: 20,
     justifyContent: 'center',
+    backgroundColor: 'rgb(30, 27, 57)',
+    width: '100%',
+    height: '100%',
+    padding: '5%',
   },
   ModalText: {
     fontSize: 25,
-    color: 'rgb(30, 27, 57)',
+    color: 'white',
     fontFamily: 'JosefinSans-Regular',
     marginBottom: '10%',
     lineHeight: 40,
@@ -60,6 +61,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 22.5,
     fontFamily: 'JosefinSans-Regular',
+  },
+  XButton: {
+    top: 30,
+    right: 30,
+    position: 'absolute',
+    zIndex: 1,
   },
 });
 

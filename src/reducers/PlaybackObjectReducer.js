@@ -6,7 +6,6 @@ const INITIAL_STATE = {
   hasStarted: false,
   timeListened: 0,
   hasFinished: false,
-  instanceList: [],
 };
 
 const playbackObjectReducer = (state = INITIAL_STATE, action) => {

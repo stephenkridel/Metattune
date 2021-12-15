@@ -35,13 +35,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 25,
   },
   Header: {
     fontSize: 28,
     textAlign: 'left',
     color: 'rgb(30, 27, 57)',
-    marginBottom: 7.5,
+    marginBottom: 15,
     fontFamily: 'JosefinSans-Bold',
+    width: '100%',
   },
   Text: {
     fontSize: 21,
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: 'rgb(30, 27, 57)',
     fontFamily: 'JosefinSans-Regular',
-    marginTop: 7.5,
+    width: '100%',
   },
   Button: {
     height: 50,
@@ -67,7 +69,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    top: -25,
   },
   Info: {
     display: 'flex',
@@ -75,8 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height: 200,
-    top: -25,
-    paddingHorizontal: 30,
+    paddingHorizontal: 40,
     marginLeft: 25,
     elevation: 15,
     shadowColor: 'black',

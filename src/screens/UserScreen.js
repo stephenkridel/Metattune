@@ -74,10 +74,11 @@ class UserScreen extends Component {
         <View style={styles.Container}>
           <View style={styles.HeaderContainer}>
             <TouchableOpacity
-              onPress={() => store.dispatch(updateShowAvatarModal(true))}>
+              onPress={() => store.dispatch(updateShowAvatarModal(true))}
+              style={styles.AvatarButton}>
               <AvatarComponent
                 AvatarObject={this.props.user.selectedAvatar}
-                avatarWidth={'30%'}
+                avatarWidth={'100%'}
               />
             </TouchableOpacity>
             <View style={styles.TextContainer}>
@@ -128,17 +129,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: '5%',
   },
   HeaderContainer: {
-    width: '100%',
     height: '30%',
-    flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  AvatarButton: {
+    width: '30%',
+    alignSelf: 'center',
   },
   TextContainer: {
     justifyContent: 'flex-start',
     alignContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: '100%',
   },
   GreetingText: {
     fontSize: 25,
@@ -153,7 +155,6 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   StatisticsContainer: {
-    width: '100%',
     height: '65%',
     flexWrap: 'wrap',
     alignContent: 'center',

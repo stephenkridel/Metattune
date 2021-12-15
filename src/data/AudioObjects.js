@@ -13,7 +13,7 @@ const intro = new PremixedAudioElement(
   'Intro',
   'rgb(30, 27, 57)',
   require('../assets/images/intro.png'),
-  45000,
+  107000,
   '1 min',
   null,
 );
@@ -23,7 +23,7 @@ const cafe = new PremixedAudioElement(
   'rgb(108, 99, 255)',
   require('../assets/images/cafe.png'),
   670000,
-  '10 min',
+  '11 min',
   ['Espresso', 'Dishes', 'People', 'Left', 'Right', 'Behind', 'Music'],
 );
 
@@ -32,7 +32,7 @@ const city = new PremixedAudioElement(
   'rgb(108, 99, 255)',
   require('../assets/images/city.png'),
   670000,
-  '10 min',
+  '11 min',
   ['Cars', 'Construction', 'People', 'Sirens', 'Left', 'Right', 'Behind'],
 );
 
@@ -41,7 +41,7 @@ const beach = new PremixedAudioElement(
   'rgb(255, 101, 132)',
   require('../assets/images/beach.png'),
   670000,
-  '10 min',
+  '11 min',
   ['Seagulls', 'Ocean', 'Boats', 'Sand', 'Water', 'Left', 'Right', 'Behind'],
 );
 
@@ -50,7 +50,7 @@ const rainforest = new PremixedAudioElement(
   'rgb(30, 27, 57)',
   require('../assets/images/rainforest.png'),
   670000,
-  '10 min',
+  '11 min',
   ['Birds', 'Insects', 'Thunder', 'Frogs', 'Left', 'Right', 'Behind'],
 );
 

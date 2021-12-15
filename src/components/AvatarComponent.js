@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   AvatarImage: {
-    flex: 1,
+    width: '100%',
   },
 });
 

@@ -52,11 +52,16 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
   },
   RightContainer: {
-    width: '100%',
-    paddingLeft: '10%',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-around',
+    right: '17.5%',
+  },
+  LeftContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: '27.5%',
   },
   Header: {
     fontSize: 23,
@@ -80,13 +85,6 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 50,
     right: 12,
-  },
-  LeftContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '40%',
-    marginRight: '5%',
   },
   ImageButton: {
     borderRadius: 60,
