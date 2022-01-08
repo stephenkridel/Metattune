@@ -132,13 +132,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginHorizontal: '5%',
   },
-  HeaderContainer: {
-    height: '30%',
-    justifyContent: 'space-between',
-  },
   AvatarButton: {
     width: '30%',
     alignSelf: 'center',
+    marginBottom: 10,
   },
   TextContainer: {
     justifyContent: 'flex-start',
@@ -161,7 +158,7 @@ const styles = StyleSheet.create({
   StatisticsContainer: {
     height: '65%',
     flexWrap: 'wrap',
-    alignContent: 'center',
+    alignContent: 'space-around',
     justifyContent: 'center',
   },
 });

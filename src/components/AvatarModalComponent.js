@@ -6,6 +6,7 @@ import {
   Modal,
   TouchableOpacity,
   FlatList,
+  SafeAreaView,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -17,7 +18,7 @@ import AvatarSelectorComponent from './AvatarSelectorComponent';
 const AvatarModalComponent = props => {
   return (
     <Modal visible={props.isVisible} animationType="slide">
-      <View style={styles.Modal}>
+      <SafeAreaView style={styles.Modal}>
         <FlatList
           ListHeaderComponent={
             <Text style={styles.ModalText}>Choose Your Avatar</Text>
@@ -30,7 +31,7 @@ const AvatarModalComponent = props => {
             return <AvatarSelectorComponent AvatarObject={item} />;
           }}
         />
-      </View>
+      </SafeAreaView>
       <View style={styles.Buttons}>
         <TouchableOpacity
           onPress={() => store.dispatch(updateShowWarning(true))}>

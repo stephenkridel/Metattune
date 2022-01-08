@@ -6,11 +6,12 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  SafeAreaView,
 } from 'react-native';
 
 const TextInfoComponent = props => {
   return (
-    <View style={styles.Container}>
+    <SafeAreaView style={styles.Container}>
       <View style={styles.ImageContainer}>
         <Image
           resizeMode={'contain'}
@@ -29,7 +30,7 @@ const TextInfoComponent = props => {
           <Text style={styles.ButtonText}>{props.buttonText}</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -44,21 +45,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     alignSelf: 'center',
-    top: '10%',
   },
   Image: {
-    height: '110%',
-    marginBottom: 20,
+    height: '100%',
   },
   TextContainer: {
     width: '100%',
-    paddingTop: '10%',
-    paddingBottom: '5%',
     paddingHorizontal: '5%',
     backgroundColor: 'white',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    justifyContent: 'space-between',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    height: '55%',
     position: 'absolute',
     bottom: 0,
   },
@@ -66,7 +65,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'rgb(30, 27, 57)',
     fontFamily: 'JosefinSans-Bold',
-    marginBottom: 10,
     textAlign: 'left',
     //backgroundColor: 'rgb(255, 201, 211)',
   },
@@ -85,7 +83,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    marginTop: 20,
     elevation: 10,
   },
   ButtonText: {

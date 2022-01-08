@@ -7,9 +7,7 @@ const SelectorComponent = props => {
   return (
     <View style={[styles.Container, { backgroundColor: props.info.color }]}>
       <View style={styles.LeftContainer}>
-        <View style={styles.ImageButton}>
-          <Image source={props.info.image} style={styles.Image} />
-        </View>
+        <Image source={props.info.image} style={styles.Image} />
       </View>
       <View style={styles.RightContainer}>
         <Text style={styles.Header}>{props.info.title}</Text>
@@ -34,6 +32,7 @@ const styles = StyleSheet.create({
   Container: {
     // width: Dimensions.get('window').width,
     flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 20,
     marginHorizontal: 20,
     height: 165,
@@ -55,13 +54,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-around',
-    right: '17.5%',
+    width: '35%',
+    paddingRight: 10,
   },
   LeftContainer: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
-    right: '27.5%',
+    right: 40,
   },
   Header: {
     fontSize: 23,
@@ -85,9 +85,6 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 50,
     right: 12,
-  },
-  ImageButton: {
-    borderRadius: 60,
   },
   Image: {
     height: 230,
