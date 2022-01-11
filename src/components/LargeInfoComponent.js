@@ -24,7 +24,6 @@ const LargeInfoComponent = props => {
 const styles = StyleSheet.create({
   Container: {
     flexDirection: 'row',
-    marginBottom: 30,
     overflow: 'hidden',
     width: '100%',
     borderRadius: 20,

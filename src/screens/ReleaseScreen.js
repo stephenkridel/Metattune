@@ -5,11 +5,11 @@ const ReleaseScreen = () => {
   return (
     <TextInfoComponent
       infoText={
-        "This release is one of the first beta releases, yay! It may have bugs. Okay, it'll have bugs. But we are working on fixing them and improving the app. Tap on the logo below to submit feedback!"
+        'This version is our first app store release! We are always working on fixing bugs and improving the app to give users the best experience. Tap on the button below to submit feedback!'
       }
       image={require('../assets/images/tech-image.png')}
-      URL={'https://forms.gle/GjmXt3Z82NFvTBvc6'}
-      headerText={'Release Version: 0.1.0'}
+      URL={'https://forms.gle/ZsWwqdkVyKuidjNB8'}
+      headerText={'Release Version: 0.1.1'}
       buttonText={'Give Feedback'}
     />
   );

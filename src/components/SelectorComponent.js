@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-around',
     width: '35%',
-    paddingRight: 10,
+    marginRight: '10%',
   },
   LeftContainer: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    right: 40,
+    right: 35,
   },
   Header: {
     fontSize: 23,

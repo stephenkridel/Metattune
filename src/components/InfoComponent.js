@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.4,
     shadowRadius: 10,
-    marginBottom: '7.5%',
     alignSelf: 'center',
     paddingHorizontal: 30,
     paddingVertical: 10,

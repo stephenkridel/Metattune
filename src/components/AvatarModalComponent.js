@@ -35,7 +35,7 @@ const AvatarModalComponent = props => {
       <View style={styles.Buttons}>
         <TouchableOpacity
           onPress={() => store.dispatch(updateShowWarning(true))}>
-          <FontAwesome name="trash-o" size={40} color='"rgb(255, 101, 132)"' />
+          <FontAwesome name="trash-o" size={40} color="rgb(255, 101, 132)" />
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onPressX}>
           <AntDesign name="close" size={35} color="white" />

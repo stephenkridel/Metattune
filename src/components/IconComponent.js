@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

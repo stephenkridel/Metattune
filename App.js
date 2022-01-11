@@ -14,6 +14,7 @@ import {
   AboutScreen2,
   AboutScreen3,
 } from './src/screens/AboutScreen';
+import PDFScreen from './src/screens/PDFScreen';
 import InfoScreen from './src/screens/InfoScreen';
 import SupportScreen from './src/screens/SupportScreen';
 import ReleaseScreen from './src/screens/ReleaseScreen';
@@ -60,6 +61,7 @@ const InfoStack = createStackNavigator(
     Support: SupportScreen,
     Release: ReleaseScreen,
     Attribution: AttribuitonScreen,
+    Pdf: PDFScreen,
   },
   {
     initialRouteName: 'Info',

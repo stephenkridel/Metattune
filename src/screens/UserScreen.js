@@ -96,29 +96,33 @@ class UserScreen extends Component {
             </Text>
           </View>
         </View>
-        <View style={styles.StatisticsContainer}>
-          <StatisticsComponent
-            iconName={'headphones'}
-            header={'Hours Listened'}
-            statistic={this.props.user.hoursCompleted}
-          />
-          <StatisticsComponent
-            iconName={'check'}
-            header={'Finished Sessions'}
-            statistic={this.props.user.sessionsCompleted}
-          />
-          <StatisticsComponent
-            iconName={'star'}
-            header={'Favorite Session'}
-            statistic={this.props.user.favoriteSession.title}
-            //statistic={this.props.user.hoursCompleted}
-          />
-          <StatisticsComponent
-            iconName={'calendar-check'}
-            header={'Day Streak'}
-            statistic={this.props.user.dayStreak}
-            //statistic={this.props.user.hoursCompleted}
-          />
+        <View style={styles.StatisticsOuterContainer}>
+          <View style={styles.StatisticsInnerContainer}>
+            <StatisticsComponent
+              iconName={'headphones'}
+              header={'Hours Listened'}
+              statistic={this.props.user.hoursCompleted}
+            />
+            <StatisticsComponent
+              iconName={'check'}
+              header={'Finished Sessions'}
+              statistic={this.props.user.sessionsCompleted}
+            />
+          </View>
+          <View style={styles.StatisticsInnerContainer}>
+            <StatisticsComponent
+              iconName={'star'}
+              header={'Favorite Session'}
+              statistic={this.props.user.favoriteSession.title}
+              //statistic={this.props.user.hoursCompleted}
+            />
+            <StatisticsComponent
+              iconName={'calendar-check'}
+              header={'Day Streak'}
+              statistic={this.props.user.dayStreak}
+              //statistic={this.props.user.hoursCompleted}
+            />
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -129,13 +133,16 @@ const styles = StyleSheet.create({
   Container: {
     display: 'flex',
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+  },
+  HeaderContainer: {
     marginHorizontal: '5%',
+    height: '35%',
+    justifyContent: 'space-evenly',
   },
   AvatarButton: {
-    width: '30%',
+    width: '27.5%',
     alignSelf: 'center',
-    marginBottom: 10,
   },
   TextContainer: {
     justifyContent: 'flex-start',
@@ -155,11 +162,15 @@ const styles = StyleSheet.create({
     fontFamily: 'JosefinSans-Regular',
     lineHeight: 22,
   },
-  StatisticsContainer: {
+  StatisticsOuterContainer: {
     height: '65%',
-    flexWrap: 'wrap',
-    alignContent: 'space-around',
-    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  StatisticsInnerContainer: {
+    flexDirection: 'row',
+    marginHorizontal: '2.5%',
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
   },
 });
 

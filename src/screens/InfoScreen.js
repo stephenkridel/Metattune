@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
+import IconComponentPressable from '../components/IconComponentPressable';
+import IconComponent from '../components/IconComponent';
 import InfoComponent from '../components/InfoComponent';
 import LargeInfoComponent from '../components/LargeInfoComponent';
 import ScreenHeaderComponent from '../components/ScreenHeaderComponent';
@@ -21,7 +23,7 @@ const InfoScreen = () => {
             screen="About"
             text="Learn about ATT and its benefits"
             color="rgb(111, 98, 255)"
-            iconColor="rgb(255, 177, 62)"
+            iconColor="rgb(255, 101, 132)"
           />
           <LargeInfoComponent
             header="Support"
@@ -37,7 +39,7 @@ const InfoScreen = () => {
             screen="Attribution"
             text="See who's work we used to build this app"
             color="rgb(111, 98, 255)"
-            iconColor="rgb(255, 177, 62)"
+            iconColor="rgb(255, 101, 132)"
           />
           <LargeInfoComponent
             header="Release Info"
@@ -48,7 +50,32 @@ const InfoScreen = () => {
             image={require('../assets/images/tech-image.png')}
           />
         </View>
-        <View style={{ height: 50 }}></View>
+        <View style={styles.ExtraInfo}>
+          <IconComponentPressable
+            colors={['rgb(255, 101, 132)', 'rgb(255, 101, 132)']}
+            iconName={'creative-commons-by'}
+            iconSize={40}
+            source={{
+              uri: 'bundle-assets://legal/Attributions_Metattune.pdf',
+            }}
+          />
+          <IconComponentPressable
+            colors={['rgb(255, 101, 132)', 'rgb(255, 101, 132)']}
+            iconName={'user-lock'}
+            iconSize={40}
+            source={{
+              uri: 'bundle-assets://legal/Privacy_Policy_Metattune.pdf',
+            }}
+          />
+          <IconComponentPressable
+            colors={['rgb(255, 101, 132)', 'rgb(255, 101, 132)']}
+            iconName={'exclamation-circle'}
+            iconSize={40}
+            source={{
+              uri: 'bundle-assets://legal/Disclaimer_Metattune.pdf',
+            }}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -59,9 +86,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   SelectorContainer: {
-    width: '100%',
     paddingHorizontal: '5%',
-    marginTop: '5%',
+    justifyContent: 'space-between',
   },
   Header: {
     fontFamily: 'JosefinSans-Bold',
@@ -75,6 +101,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 20,
     lineHeight: 24,
+  },
+  ExtraInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: '5%',
+    height: 225,
+    marginTop: 25,
   },
 });
 
