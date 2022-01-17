@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View, Image, Dimensions } from 'react-native';
 import ArrowButton from './ArrowButton';
 import { withNavigation } from 'react-navigation';
+
+const width = Dimensions.get('window').width;
 
 const SelectorComponent = props => {
   return (
@@ -32,9 +34,8 @@ const styles = StyleSheet.create({
   Container: {
     // width: Dimensions.get('window').width,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     marginTop: 20,
-    marginHorizontal: 20,
     height: 165,
     marginBottom: 20,
     // if you want different colors use -> props.info.color
@@ -49,19 +50,21 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.4,
     shadowRadius: 10,
+    width: width > 400 ? '87.5%' : '90%',
+    alignSelf: 'center',
   },
   RightContainer: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-around',
-    width: '35%',
-    marginRight: '10%',
+    width: width > 389 ? '35%' : '45%',
+    right: '5%'
   },
   LeftContainer: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    right: 35,
+    right: '25%',
   },
   Header: {
     fontSize: 23,

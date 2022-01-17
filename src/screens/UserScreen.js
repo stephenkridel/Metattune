@@ -133,12 +133,12 @@ const styles = StyleSheet.create({
   Container: {
     display: 'flex',
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
   },
   HeaderContainer: {
     marginHorizontal: '5%',
-    height: '35%',
-    justifyContent: 'space-evenly',
+    height: '27%',
+    justifyContent: 'space-between',
   },
   AvatarButton: {
     width: '27.5%',
@@ -163,7 +163,6 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   StatisticsOuterContainer: {
-    height: '65%',
     flexDirection: 'column',
   },
   StatisticsInnerContainer: {

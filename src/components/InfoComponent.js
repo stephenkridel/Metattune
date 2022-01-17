@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     alignSelf: 'center',
     paddingHorizontal: 30,
-    paddingVertical: 10,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -51,7 +50,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'white',
     fontFamily: 'JosefinSans-Bold',
-    marginBottom: 10,
   },
 });
 

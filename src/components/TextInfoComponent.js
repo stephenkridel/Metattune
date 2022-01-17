@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   SafeAreaView,
+  Platform
 } from 'react-native';
 
 const TextInfoComponent = props => {
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     alignSelf: 'center',
+    paddingTop: Platform.OS === 'ios' ? 50 : 0
   },
   Image: {
     height: '100%',

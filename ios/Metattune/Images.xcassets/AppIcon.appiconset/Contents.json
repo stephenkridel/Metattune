@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Attune-Logo-MS-Paint-Edit-20@2x.png",
+      "filename" : "Attune-Logo-MS-Paint-Edit-20@2x-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
@@ -13,7 +13,13 @@
       "size" : "20x20"
     },
     {
-      "filename" : "Attune-Logo-MS-Paint-Edit-29@2x.png",
+      "filename" : "Attune-Logo-MS-Paint-Edit-30.png",
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "Attune-Logo-MS-Paint-Edit-29@2x-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
@@ -25,7 +31,7 @@
       "size" : "29x29"
     },
     {
-      "filename" : "Attune-Logo-MS-Paint-Edit-40@2x.png",
+      "filename" : "Attune-Logo-MS-Paint-Edit-40@2x-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
@@ -47,60 +53,6 @@
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-20.png",
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "size" : "20x20"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-20@2x.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "20x20"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-29.png",
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "size" : "29x29"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-29@2x.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "29x29"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-40.png",
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-40@2x.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-76.png",
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "size" : "76x76"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-76@2x.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "76x76"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-83.5@2x.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
-      "size" : "83.5x83.5"
     },
     {
       "filename" : "Attune-Logo-MS-Paint-Edit-1024.png",

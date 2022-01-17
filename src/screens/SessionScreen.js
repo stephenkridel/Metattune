@@ -147,7 +147,7 @@ class SessionScreen extends Component {
                 color="#FFFFFF"
                 animating={this.props.playbackObject.hasLoaded ? false : true}
                 // activity indicator on ios was placed weird. probably buggy
-                style={{ marginLeft: Platform.OS === 'ios' ? '3%' : 0 }}
+                style={{ left: Platform.OS === 'ios' ? '2%' : 0, top: Platform.OS === 'ios' ? '2.5%' : 0 }}
               />
               <this.iconFamily
                 name={this.props.playbackObject.btnIcon}
@@ -181,10 +181,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   HeroText: {
-    marginBottom: 30,
+    marginBottom: 25,
     fontSize: 35,
     color: 'white',
     fontFamily: 'JosefinSans-Regular',
+    lineHeight: 40
   },
   Module: {
     alignItems: 'center',

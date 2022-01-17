@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   BottomContainer: {
     width: '100%',
     height: '50%',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'flex-start',
     flexDirection: 'column',
   },

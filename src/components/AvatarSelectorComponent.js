@@ -36,11 +36,10 @@ const styles = StyleSheet.create({
       width: 10,
       height: 10,
     },
-    borderRadius: 200,
     shadowOpacity: 0.4,
     shadowRadius: 10,
-    width: '30%',
     aspectRatio: 1,
+    width: '30%'
   },
 });
 

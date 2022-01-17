@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     marginTop: 20,
+    height: 20
   },
   Message: {
     fontSize: 15,
