@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, View, Image, Dimensions } from 'react-native';
 import ArrowButton from './ArrowButton';
-import { withNavigation } from 'react-navigation';
 
 const width = Dimensions.get('window').width;
 
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-around',
     width: width > 389 ? '35%' : '45%',
-    right: '5%'
+    right: '5%',
   },
   LeftContainer: {
     display: 'flex',
@@ -95,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(SelectorComponent);
+export default SelectorComponent;

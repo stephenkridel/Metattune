@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, View } from 'react-native';
 import Pdf from 'react-native-pdf';
 
 const PDFScreen = props => {
-  const source = props.navigation.getParam('source');
+  const { source } = props.route.params;
   return (
     <View style={styles.container}>
       <Pdf

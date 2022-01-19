@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Animated } from 'react-native';
-import { Easing } from 'react-native-reanimated';
+import { Animated, Easing } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
 class CircularTimerComponent extends Component {
@@ -75,34 +74,3 @@ class CircularTimerComponent extends Component {
 }
 
 export default CircularTimerComponent;
-
-/*
-
-const [duration, setDuration] = useState(props.duration);
-const [time, setTime] = useState(0);
-
-const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-
-const radius = 52.5;
-const circumference = 2 * radius * 3.14159;
-const cx = 57.5;
-const cy = 57.5;
-const strokeWidth = 5;
-const size = radius * 2 + strokeWidth * 2;
-
-const startTimer = () => {
-  setTime(Date.now());
-  Animated.timing(progress, {
-    toValue: -circumference,
-    duration: duration,
-    useNativeDriver: true,
-    easing: Easing.linear,
-  }).start();
-};
-
-const stopTimer = () => {
-  let timeDifference = Date.now() - time;
-  setDuration(timeDifference);
-  Animated.timing(progress).stop();
-};
-*/

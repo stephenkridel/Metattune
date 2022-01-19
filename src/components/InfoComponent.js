@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 import IconComponent from './IconComponent';
 
 const InfoComponent = props => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate(props.screen)}
+      onPress={() => navigation.navigate(props.screen)}
       style={[{ backgroundColor: props.color }, styles.Container]}>
       <IconComponent
         iconName={props.iconName}
@@ -53,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(InfoComponent);
+export default InfoComponent;

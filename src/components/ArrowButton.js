@@ -1,15 +1,16 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { withNavigation } from 'react-navigation';
-import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const ArrowButton = props => {
   const shouldShow = props.shouldShow ? 'flex' : 'none';
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       // navigates to the SessionScreen passing info (.title, .file, and .color) to SessionScreen.js
       onPress={() =>
-        props.navigation.navigate(props.screen, {
+        navigation.navigate(props.screen, {
           info: props.info,
         })
       }
@@ -42,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(ArrowButton);
+export default ArrowButton;

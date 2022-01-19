@@ -6,7 +6,6 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
 import ModalComponent from '../components/ModalComponent';
 import store from '../store/Store';
 import {
@@ -36,7 +35,7 @@ class UserScreen extends Component {
       store.dispatch(updateShowAvatarModal(false));
       await AsyncStorageAPI.deleteItem('userToken');
       store.dispatch(updateResetUser());
-      this.props.navigation.navigate('Auth');
+      this.props.navigation.navigate('Login');
     } catch (error) {
       console.log(error);
     }
@@ -59,10 +58,13 @@ class UserScreen extends Component {
     }
   };
 
+  componentDidMount = () => {
+    this._getUserToken();
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.Container}>
-        <NavigationEvents onDidFocus={() => this._getUserToken()} />
         <ModalComponent
           isVisible={this.props.user.showWarning}
           onPressX={() => store.dispatch(updateShowWarning(false))}

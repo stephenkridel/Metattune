@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ModalComponent from '../components/ModalComponent';
-import { AntDesign } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default class LoginScreen extends Component {
   constructor() {

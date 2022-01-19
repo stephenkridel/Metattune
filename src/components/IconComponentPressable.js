@@ -1,13 +1,14 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import IconComponent from './IconComponent';
-import { withNavigation } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 
 const IconComponentPressable = props => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={() =>
-        props.navigation.navigate('Pdf', {
+        navigation.navigate('Pdf', {
           source: props.source,
         })
       }>
@@ -20,4 +21,4 @@ const IconComponentPressable = props => {
   );
 };
 
-export default withNavigation(IconComponentPressable);
+export default IconComponentPressable;

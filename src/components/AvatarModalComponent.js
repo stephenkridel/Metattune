@@ -8,8 +8,8 @@ import {
   FlatList,
   SafeAreaView,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import store from '../store/Store';
 import { updateShowWarning } from '../actions/UserActions';
 import AvatarList from '../data/Avatars';

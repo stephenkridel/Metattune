@@ -1,68 +1,38 @@
 {
   "images" : [
     {
-      "filename" : "Attune-Logo-MS-Paint-Edit-20@2x-1.png",
       "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "20x20"
+      "size" : "29x29",
+      "scale" : "2x"
     },
     {
-      "filename" : "Attune-Logo-MS-Paint-Edit-20@3x.png",
       "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "20x20"
+      "size" : "29x29",
+      "scale" : "3x"
     },
     {
-      "filename" : "Attune-Logo-MS-Paint-Edit-30.png",
       "idiom" : "iphone",
-      "scale" : "1x",
-      "size" : "29x29"
+      "size" : "40x40",
+      "scale" : "2x"
     },
     {
-      "filename" : "Attune-Logo-MS-Paint-Edit-29@2x-1.png",
       "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "29x29"
+      "size" : "40x40",
+      "scale" : "3x"
     },
     {
-      "filename" : "Attune-Logo-MS-Paint-Edit-29@3x.png",
       "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "29x29"
+      "size" : "60x60",
+      "scale" : "2x"
     },
     {
-      "filename" : "Attune-Logo-MS-Paint-Edit-40@2x-1.png",
       "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-40@3x.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-60@2x.png",
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "60x60"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-60@3x.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "60x60"
-    },
-    {
-      "filename" : "Attune-Logo-MS-Paint-Edit-1024.png",
-      "idiom" : "ios-marketing",
-      "scale" : "1x",
-      "size" : "1024x1024"
+      "size" : "60x60",
+      "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }

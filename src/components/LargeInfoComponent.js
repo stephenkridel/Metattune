@@ -1,15 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 
 const LargeInfoComponent = props => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={[
         { backgroundColor: props.color, borderColor: props.color },
         styles.Container,
       ]}
-      onPress={() => props.navigation.navigate(props.screen)}>
+      onPress={() => navigation.navigate(props.screen)}>
       <View style={styles.LeftContainer}>
         <Image source={props.image} style={styles.Image} />
       </View>
@@ -68,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(LargeInfoComponent);
+export default LargeInfoComponent;

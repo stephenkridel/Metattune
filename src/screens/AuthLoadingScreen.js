@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, StatusBar, ActivityIndicator } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Screen extends Component {
   constructor() {
@@ -17,7 +17,7 @@ export default class Screen extends Component {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? 'User' : 'Auth');
+    this.props.navigation.navigate(userToken ? 'User' : 'Login');
   };
 
   render() {

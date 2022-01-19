@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Platform,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Session from '../classes/Session';
 import ModalComponent from '../components/ModalComponent';
 import BackgroundTimer from 'react-native-background-timer';
@@ -28,17 +28,16 @@ import UserStatistics from '../helpers/UserStatistics';
 import CircularTimerComponent from '../components/CircularTimerComponent';
 
 class SessionScreen extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, route) {
+    super(props, route);
     // prevents changing state when the component is unmounted
     this._isMounted = false;
-    const info = this.props.navigation.getParam('info');
+    const { info } = props.route.params;
     // destructuring info
     this.title = info.title;
     this.soundBitesString = info.soundBites;
     this.color = info.color;
     this.duration = info.duration;
-    this.realisticImage = info.realisticImage;
     this.Session = new Session(this.title, this.soundBitesString);
     // using this variable to switch between icon families if needed
     this.iconFamily = AntDesign;
@@ -147,7 +146,10 @@ class SessionScreen extends Component {
                 color="#FFFFFF"
                 animating={this.props.playbackObject.hasLoaded ? false : true}
                 // activity indicator on ios was placed weird. probably buggy
-                style={{ left: Platform.OS === 'ios' ? '2%' : 0, top: Platform.OS === 'ios' ? '2.5%' : 0 }}
+                style={{
+                  left: Platform.OS === 'ios' ? '2%' : 0,
+                  top: Platform.OS === 'ios' ? '2.5%' : 0,
+                }}
               />
               <this.iconFamily
                 name={this.props.playbackObject.btnIcon}
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: 'white',
     fontFamily: 'JosefinSans-Regular',
-    lineHeight: 40
+    lineHeight: 40,
   },
   Module: {
     alignItems: 'center',

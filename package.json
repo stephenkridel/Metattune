@@ -1,5 +1,5 @@
 {
-  "name": "Metattune",
+  "name": "metattune",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,41 +9,36 @@
     "test": "jest",
     "lint": "eslint ."
   },
+  "expo": {
+    "autolinking": {
+      "exclude": [
+        "expo-file-system"
+      ]
+    }
+  },
   "dependencies": {
-    "@dicebear/avatars": "^4.9.1",
-    "@dicebear/big-ears-neutral": "^4.9.1",
-    "@dicebear/croodles": "^4.9.1",
-    "@dicebear/micah": "^4.9.1",
-    "@dicebear/pixel-art": "^4.9.1",
-    "@react-native-community/async-storage": "^1.11.0-alpha.0",
-    "@react-native-community/masked-view": "0.1.6",
-    "@react-native-firebase/app": "^11.2.0",
-    "@react-native-firebase/storage": "^11.2.0",
-    "expo": "~37.0.3",
-    "expo-av": "^8.7.0",
-    "expo-updates": "~0.2.0",
+    "@react-native-async-storage/async-storage": "^1.15.15",
+    "@react-native-firebase/app": "^14.2.2",
+    "@react-native-firebase/storage": "^14.2.2",
+    "@react-navigation/bottom-tabs": "^6.0.9",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
+    "expo": ">=44.0.0-0 <45.0.0",
+    "expo-av": "~10.2.0",
     "fbjs": "^3.0.2",
-    "react": "~16.9.0",
-    "react-dom": "~16.9.0",
-    "react-native": "^0.64.1",
-    "react-native-background-timer": "^2.4.0",
+    "react": "17.0.2",
+    "react-native": "^0.65.2",
+    "react-native-background-timer": "^2.4.1",
     "react-native-blob-util": "^0.13.18",
-    "react-native-console-time-polyfill": "^1.2.1",
-    "react-native-gesture-handler": "^1.10.3",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-pdf": "^6.4.0",
-    "react-native-reanimated": "~1.7.0",
-    "react-native-rename": "^2.9.0",
-    "react-native-safe-area-context": "0.7.3",
-    "react-native-screens": "~2.2.0",
-    "react-native-splash-screen": "^3.2.0",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.10.2",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^12.1.1",
-    "react-native-unimodules": "^0.12.0",
-    "react-native-web": "~0.11.7",
-    "react-navigation": "^4.3.9",
-    "react-navigation-stack": "^2.5.1",
-    "react-navigation-tabs": "^2.9.2",
-    "react-redux": "^7.2.4"
+    "react-native-vector-icons": "^9.0.0",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -52,8 +47,8 @@
     "babel-jest": "^26.6.3",
     "eslint": "7.14.0",
     "jest": "^26.6.3",
-    "metro-react-native-babel-preset": "^0.64.0",
-    "react-test-renderer": "17.0.1"
+    "metro-react-native-babel-preset": "^0.66.2",
+    "react-test-renderer": "17.0.2"
   },
   "jest": {
     "preset": "react-native"
