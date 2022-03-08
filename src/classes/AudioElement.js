@@ -3,9 +3,8 @@ import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
 import FirebaseFetchAPI from '../helpers/FirebaseFetchAPI';
 
 export default class AudioElement {
-  constructor(name, isMainAudio) {
+  constructor(name) {
     this.name = name;
-    this.isMainAudio = isMainAudio;
     this.Media = null;
   }
 
@@ -31,10 +30,11 @@ export default class AudioElement {
     return isDownloaded;
   };
 
-  setupAudioElement = async () => {
+  setup = async () => {
     let isDownloaded = await this._checkIfStored(this.name);
     let storedFile = await this._getAudioFromStoredLocation(isDownloaded);
-    this.Media = new Media(storedFile, isDownloaded, this.isMainAudio);
-    await this.Media.loadMedia();
+    this.Media = new Media(storedFile);
+    await this.Media.load();
+    console.log('Loaded Media');
   };
 }

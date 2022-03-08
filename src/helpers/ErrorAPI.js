@@ -8,7 +8,7 @@ export default class ErrorAPI {
     if (callback != null) {
       callback();
     }
-    console.log(error);
+    console.log(`ERROR API THREW: ${error}`);
   };
 
   static clearError = () => {

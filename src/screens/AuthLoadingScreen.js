@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, StatusBar, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AvatarSelectorComponent from '../components/AvatarSelectorComponent';
 
 export default class Screen extends Component {
   constructor() {
@@ -23,8 +24,11 @@ export default class Screen extends Component {
   render() {
     return (
       <View style={styles.Container}>
-        <ActivityIndicator />
-        <StatusBar barStyle="default" />
+        <AvatarSelectorComponent
+          AvatarObject={{ token: '' }}
+          isDisabled={true}
+        />
+        <Text style={styles.LoadingText}>Fetching profile...</Text>
       </View>
     );
   }
@@ -35,5 +39,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgb(30, 27, 57)',
+  },
+  LoadingText: {
+    fontFamily: 'JosefinSans-Regular',
+    fontSize: 20,
+    color: 'white',
   },
 });

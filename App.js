@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 // React Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,7 +20,7 @@ import PDFScreen from './src/screens/PDFScreen';
 import InfoScreen from './src/screens/InfoScreen';
 import SupportScreen from './src/screens/SupportScreen';
 import ReleaseScreen from './src/screens/ReleaseScreen';
-import AttribuitonScreen from './src/screens/AttributionScreen';
+import AttributionScreen from './src/screens/AttributionScreen';
 
 // Redux
 import store from './src/store/Store';
@@ -85,7 +85,7 @@ function InfoStackScreen() {
       <InfoStack.Screen name="About" component={AboutStackScreen} />
       <InfoStack.Screen name="Support" component={SupportScreen} />
       <InfoStack.Screen name="Release" component={ReleaseScreen} />
-      <InfoStack.Screen name="Attribution" component={AttribuitonScreen} />
+      <InfoStack.Screen name="Attribution" component={AttributionScreen} />
       <InfoStack.Screen name="Pdf" component={PDFScreen} />
     </InfoStack.Navigator>
   );
@@ -131,127 +131,3 @@ export default function App() {
     </Provider>
   );
 }
-
-/*
-// color of background for all navigators
-const colorOfBackground = 'white';
-
-const SessionStack = createStackNavigator(
-  {
-    Selector: SelectorScreen,
-    Session: SessionScreen,
-  },
-  {
-    initialRouteName: 'Selector',
-    defaultNavigationOptions: {
-      headerShown: false,
-      cardStyle: { backgroundColor: colorOfBackground },
-    },
-  },
-);
-
-const AboutStack = createStackNavigator(
-  {
-    About1: AboutScreen1,
-    About2: AboutScreen2,
-    About3: AboutScreen3,
-  },
-  {
-    initialRouteName: 'About1',
-    defaultNavigationOptions: {
-      headerShown: false,
-      cardStyle: { backgroundColor: colorOfBackground },
-    },
-  },
-);
-
-const InfoStack = createStackNavigator(
-  {
-    Info: InfoScreen,
-    About: AboutStack,
-    Support: SupportScreen,
-    Release: ReleaseScreen,
-    Attribution: AttribuitonScreen,
-    Pdf: PDFScreen,
-  },
-  {
-    initialRouteName: 'Info',
-    defaultNavigationOptions: {
-      headerShown: false,
-      cardStyle: { backgroundColor: colorOfBackground },
-    },
-  },
-);
-
-const AuthStack = createStackNavigator(
-  { Login: LoginScreen },
-  {
-    defaultNavigationOptions: {
-      headerShown: false,
-      cardStyle: { backgroundColor: colorOfBackground },
-    },
-  },
-);
-
-const UserStack = createStackNavigator(
-  { User: UserScreen },
-  {
-    defaultNavigationOptions: {
-      headerShown: false,
-      cardStyle: { backgroundColor: colorOfBackground },
-    },
-  },
-);
-
-const AccountStack = createSwitchNavigator({
-  AuthLoading: AuthLoadingScreen,
-  User: UserStack,
-  Auth: AuthStack,
-});
-
-const RootStack = createBottomTabNavigator(
-  {
-    Sessions: SessionStack,
-    Info: InfoStack,
-    Account: AccountStack,
-  },
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ tintColor }) => {
-        const { routeName } = navigation.state;
-        let IconComponent = AntDesign;
-        let iconName;
-        if (routeName === 'Info') {
-          iconName = 'infocirlceo';
-        } else if (routeName === 'Sessions') {
-          iconName = 'bars';
-        } else if (routeName === 'Account') {
-          iconName = 'user';
-        }
-        return <IconComponent name={iconName} size={25} color={tintColor} />;
-      },
-    }),
-    tabBarOptions: {
-      style: {
-        backgroundColor: 'rgb(30, 27, 57)',
-        borderTopColor: 'rgb(30, 27, 57)',
-      },
-      activeTintColor: 'white',
-      inactiveTintColor: 'gray',
-      showLabel: false,
-    },
-  },
-);
-
-let Navigation = createAppContainer(RootStack);
-
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Navigation />
-      </Provider>
-    );
-  }
-}
-*/

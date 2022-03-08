@@ -1,4 +1,11 @@
 <resources>
-  <color name="background">#FFFFFF</color> <!-- this should be whatever the main background color is -->
+  <color name="background">#1e1b39</color> <!-- this should be whatever the main background color is -->
   <color name="primary_dark">#1e1b39</color> <!-- this should be whatever the color of the splash screen is -->
+  <color name="bootsplash_background">#1E1B39</color>
+
+  <style name="BootTheme" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">@color/bootsplash_background</item>
+    <item name="windowSplashScreenAnimatedIcon">@mipmap/bootsplash_logo</item>
+    <item name="postSplashScreenTheme">@style/AppTheme</item>
+  </style>
 </resources>

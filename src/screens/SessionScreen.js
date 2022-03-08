@@ -28,8 +28,8 @@ import UserStatistics from '../helpers/UserStatistics';
 import CircularTimerComponent from '../components/CircularTimerComponent';
 
 class SessionScreen extends Component {
-  constructor(props, route) {
-    super(props, route);
+  constructor(props) {
+    super(props);
     // prevents changing state when the component is unmounted
     this._isMounted = false;
     const { info } = props.route.params;
@@ -45,13 +45,13 @@ class SessionScreen extends Component {
   }
 
   _handleSessionFinishing = () => {
-    console.log('_handleSessionFinishing');
     if (this.props.playbackObject.statusDidJustFinish) {
+      console.log('_handleSessionFinishing');
       store.dispatch(updateDidJustFinish(false));
       store.dispatch(updateHasFinished(true));
       store.dispatch(updateBtnIcon('caretright'));
       store.dispatch(updateIsPlaying(false));
-      this.Session.endSession();
+      this.Session.end();
       ErrorAPI.errorHandler(
         'Session was completed',
         `Congrats! You just completed the ${this.title} session.`,
@@ -61,16 +61,14 @@ class SessionScreen extends Component {
 
   _updateStatistics = async () => {
     if (this.Session.SoundBiteList) {
-      if (this.Session.SoundBiteList.soundBiteArray) {
-        const timer = this.Session.SoundBiteList.soundBiteArray[0].Timer;
-        timer.pauseTimer();
-        await UserStatistics.updateHoursCompleted(timer.totalTimePlayed);
-        await UserStatistics.updateDayStreak();
-        if (this.props.playbackObject.hasFinished) {
-          await UserStatistics.updateCompletedSessions();
-          await UserStatistics.updateFavoriteSession(this.title);
-          store.dispatch(updateHasFinished(false));
-        }
+      const timer = this.Session.SoundBiteList.objectArray[0].Timer;
+      timer.pause();
+      await UserStatistics.updateHoursCompleted(timer.totalTimePlayed);
+      await UserStatistics.updateDayStreak();
+      if (this.props.playbackObject.hasFinished) {
+        await UserStatistics.updateCompletedSessions();
+        await UserStatistics.updateFavoriteSession(this.title);
+        store.dispatch(updateHasFinished(false));
       }
     }
   };
@@ -84,23 +82,23 @@ class SessionScreen extends Component {
     // a function is passed into the setState function so that the circular
     // timer stops or starts before all the other functions.
     if (this.props.playbackObject.isPlaying) {
-      this.child.stopTimer();
-      this.Session.pauseSession();
+      this.child.stopAnimationTimer();
+      this.Session.pause();
       store.dispatch(updateBtnIcon('caretright'));
       store.dispatch(updateIsPlaying(false));
     } else {
-      this.child.startTimer();
-      this.Session.playSession();
+      this.child.startAnimationTimer();
+      this.Session.play();
       store.dispatch(updateBtnIcon('pause'));
       store.dispatch(updateIsPlaying(true));
     }
   };
 
   _loadAudio = async () => {
-    await this.Session.loadSession();
+    await this.Session.load();
     store.dispatch(updateHasLoaded(true));
     store.dispatch(updateBtnIcon('caretright'));
-    console.log('*** APP THINKS IT IS DONE ***');
+    console.log('Finished Loading');
   };
 
   componentDidMount = () => {
@@ -112,7 +110,7 @@ class SessionScreen extends Component {
   componentWillUnmount = () => {
     this._isMounted = false;
     BackgroundTimer.stop();
-    this.Session.unloadSession();
+    this.Session.unload();
     this.unsubscribe();
     this._updateStatistics();
   };

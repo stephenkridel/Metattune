@@ -23,9 +23,8 @@ class CircularTimerComponent extends Component {
     };
   }
 
-  startTimer = () => {
+  startAnimationTimer = () => {
     this.setState({ time: Date.now() });
-    console.log(this.state.duration);
     Animated.timing(this.progress, {
       toValue: -this.circumference,
       duration: this.state.duration,
@@ -34,7 +33,7 @@ class CircularTimerComponent extends Component {
     }).start();
   };
 
-  stopTimer = () => {
+  stopAnimationTimer = () => {
     let timeDifference = this.state.duration - (Date.now() - this.state.time);
     this.setState({ duration: timeDifference });
     Animated.timing(this.progress).stop();

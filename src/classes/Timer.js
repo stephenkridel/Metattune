@@ -6,7 +6,7 @@ export default class Timer {
     this.callback = callback;
     this.instance = null;
     this.remaining = delay;
-    this.startTime = null;
+    this.startTime = Date.now();
     this.totalTimePlayed = 0;
     this.hasStarted = false;
     this.gotPaused = false;
@@ -17,7 +17,7 @@ export default class Timer {
     this.hasStarted = true;
   };
 
-  startTimer = () => {
+  start = () => {
     this.startTime = Date.now();
     this.remaining -= Date.now() - this.startTime;
     BackgroundTimer.clearTimeout(this.instance);
@@ -31,7 +31,7 @@ export default class Timer {
     }
   };
 
-  pauseTimer = () => {
+  pause = () => {
     this.remaining -= Date.now() - this.startTime;
     if (this.delay != this.remaining) {
       this.totalTimePlayed = this.delay - this.remaining;
@@ -39,14 +39,14 @@ export default class Timer {
     BackgroundTimer.clearTimeout(this.instance);
   };
 
-  stopTimer = () => {
+  stop = () => {
     this.totalTimePlayed = this.delay - this.remaining;
     this.remaining = this.delay;
     BackgroundTimer.clearTimeout(this.instance);
   };
 
-  destroyTimer = () => {
-    this.stopTimer();
+  destroy = () => {
+    this.stop();
     this.instance = null;
   };
 }

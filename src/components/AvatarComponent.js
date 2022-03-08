@@ -25,11 +25,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderRadius: 200,
     borderColor: 'lightgrey',
-    borderWidth: 1,
+    borderWidth: 0.5,
     aspectRatio: 1,
   },
   AvatarImage: {
     height: '100%',
+    width: '100%',
     aspectRatio: 1,
   },
 });

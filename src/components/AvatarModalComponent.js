@@ -66,6 +66,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     flexDirection: 'row',
     backgroundColor: 'rgb(30, 27, 57)',
+    position: 'relative',
+    bottom: -1,
   },
 });
 

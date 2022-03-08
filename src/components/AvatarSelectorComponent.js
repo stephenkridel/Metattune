@@ -12,6 +12,7 @@ const AvatarSelectorComponent = props => {
   return (
     <TouchableOpacity
       style={styles.AvatarButton}
+      disabled={props.isDisabled || false}
       onPress={async () => {
         let newData = await AsyncStorageAPI.getItem('userToken');
         newData.selectedAvatar = props.AvatarObject;
@@ -36,10 +37,13 @@ const styles = StyleSheet.create({
       width: 10,
       height: 10,
     },
+    borderRadius: 200,
     shadowOpacity: 0.4,
     shadowRadius: 10,
     aspectRatio: 1,
-    width: '30%'
+    width: '30%',
+    borderColor: 'white',
+    borderWidth: 1,
   },
 });
 

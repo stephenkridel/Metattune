@@ -24,6 +24,7 @@ import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
 import StatisticsComponent from '../components/StatisticsComponent';
 import AvatarComponent from '../components/AvatarComponent';
 import AvatarModalComponent from '../components/AvatarModalComponent';
+import UserStatistics from '../helpers/UserStatistics';
 
 class UserScreen extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class UserScreen extends Component {
       store.dispatch(updateShowAvatarModal(false));
       await AsyncStorageAPI.deleteItem('userToken');
       store.dispatch(updateResetUser());
-      this.props.navigation.navigate('Login');
+      this.props.navigation.replace('Login');
     } catch (error) {
       console.log(error);
     }
@@ -44,6 +45,7 @@ class UserScreen extends Component {
   _getUserToken = async () => {
     try {
       const item = await AsyncStorageAPI.getItem('userToken');
+      console.log(item);
       if (item) {
         item.hoursCompleted = item.hoursCompleted.toFixed(2); // rounds number to 2 decimal places
         store.dispatch(updateUserName(item.userName));
@@ -60,6 +62,7 @@ class UserScreen extends Component {
 
   componentDidMount = () => {
     this._getUserToken();
+    UserStatistics.checkDayStreak();
   };
 
   render() {

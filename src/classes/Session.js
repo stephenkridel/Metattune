@@ -1,5 +1,5 @@
 import SoundBiteList from './SoundBiteList';
-import MainAudio from './MainAudio';
+import AudioElement from './AudioElement';
 import store from '../store/Store';
 import { updateHasLoaded } from '../actions/PlaybackObjectActions';
 import { updateProgressMessage } from '../actions/ProgressActions';
@@ -8,71 +8,54 @@ export default class Session {
   constructor(name, soundBites) {
     this.name = name;
     this.soundBites = soundBites;
+    this.MainAudio = new AudioElement(this.name);
+    this.isIntroSession = true;
+    this.unsubscribe;
 
-    this.MainAudio = new MainAudio(this.name, true);
     if (this.soundBites) {
+      this.isIntroSession = false;
       this.SoundBiteList = new SoundBiteList(this.soundBites);
     }
-    this.unsubscribe;
   }
 
-  loadSession = async () => {
+  load = async () => {
     store.dispatch(updateProgressMessage('Loading Main Audio'));
-    console.log('Loading Session...');
-    await this.MainAudio.setupAudioElement();
-    // if statements around SoundBiteList prevent action if session is the intro track
-    if (this.soundBites) {
-      store.dispatch(updateProgressMessage('Loading Vocal Cues'));
-      await this.SoundBiteList.setupSoundBites();
-    }
+
+    await this.MainAudio.setup();
+
+    store.dispatch(updateProgressMessage('Loading Vocal Cues'));
+
+    if (!this.isIntroSession) await this.SoundBiteList.setup();
+
     store.dispatch(updateProgressMessage(''));
   };
 
-  playSession = () => {
-    console.log('Playing Session...');
-    if (this.MainAudio.Media) {
-      this.MainAudio.Media.playMedia();
-    }
-    if (this.soundBites) {
-      this.SoundBiteList.startSoundBites();
-    }
+  play = () => {
+    this.MainAudio.Media.play();
+    if (!this.isIntroSession) this.SoundBiteList.start();
   };
 
-  pauseSession = () => {
-    if (this.MainAudio.Media) {
-      this.MainAudio.Media.pauseMedia();
-    }
-    if (this.soundBites) {
-      this.SoundBiteList.pauseSoundBites();
-    }
+  pause = () => {
+    this.MainAudio.Media.pause();
+    if (!this.isIntroSession) this.SoundBiteList.pause();
   };
 
-  endSession = () => {
-    if (this.MainAudio.Media) {
-      this.MainAudio.Media.stopMedia();
-    }
-    if (this.soundBites) {
-      this.SoundBiteList.stopSoundBites();
-    }
+  end = () => {
+    this.MainAudio.Media.stop();
+    if (!this.isIntroSession) this.SoundBiteList.stop();
   };
 
-  _unloadLogic = () => {
+  unloadMedia = () => {
     /*
     this is the main logic that will unload all the audio. Packaged in 
     a separate function so that it can be used in conjunction with a 
     subscription incase the audio hasn't loaded fully when unload is requested
     */
-    if (this.MainAudio.Media) {
-      this.MainAudio.Media.unloadMedia();
-    }
-    if (this.soundBites) {
-      console.log('Unloading SoundBites');
-      this.SoundBiteList.unloadSoundBites();
-    }
-    console.log('Done Unloading Audio');
+    this.MainAudio.Media.unload();
+    if (!this.isIntroSession) this.SoundBiteList.unload();
   };
 
-  _unloadAudioSubscription = () => {
+  unloadAudioSubscription = () => {
     /*
     this subscription only gets activated when unloading of audio is
     requested before the audio has loaded fully loaded. It gets unsubscribed
@@ -80,13 +63,13 @@ export default class Session {
     */
     let { playbackObject } = store.getState();
     if (playbackObject.hasLoaded) {
-      this._unloadLogic();
+      this.unloadMedia();
       store.dispatch(updateHasLoaded(false));
       this.unsubscribe();
     }
   };
 
-  unloadSession = () => {
+  unload = () => {
     /*
     this function gets called first in the unloading. It checks to see if the audio
     has fully loaded. If it has, it unloads normally, if not, it creates a subscription
@@ -96,9 +79,9 @@ export default class Session {
     */
     let { playbackObject } = store.getState();
     if (playbackObject.hasLoaded) {
-      this._unloadLogic();
+      this.unloadMedia();
     } else {
-      this.unsubscribe = store.subscribe(this._unloadAudioSubscription);
+      this.unsubscribe = store.subscribe(this.unloadAudioSubscription);
     }
   };
 }

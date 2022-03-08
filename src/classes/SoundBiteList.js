@@ -1,54 +1,34 @@
 import SoundBite from './SoundBite';
-import FirebaseFetchAPI from '../helpers/FirebaseFetchAPI';
-import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
 import store from '../store/Store';
 import { updateProgressMessage } from '../actions/ProgressActions';
 
 export default class SoundBiteList {
-  constructor(listOfSoundBites) {
-    this.listOfSoundBites = listOfSoundBites;
-    this.soundBiteArray = null;
+  constructor(titles) {
+    this.titles = titles;
+    this.objectArray = [];
   }
-
-  _loadFromDevice = async item => {
-    let storedFile = await AsyncStorageAPI.getItem(item);
-    return storedFile;
-  };
-
-  _fetchFromFirebase = async item => {
-    let storedFile = await FirebaseFetchAPI.fetchMedia(item.toLowerCase());
-    return storedFile;
-  };
-
-  _getAudioFromStoredLocation = async (isDownloaded, item) => {
-    let storedFile = isDownloaded
-      ? await this._loadFromDevice(item)
-      : await this._fetchFromFirebase(item);
-    return storedFile;
-  };
-
-  _checkIfStored = async item => {
-    let isDownloaded = await AsyncStorageAPI.isStoredInDevice(item);
-    return isDownloaded;
-  };
 
   _timerMath = () => {
     let timers = [];
-    for (i = 0; i < 10; i++) {
+    for (let i = 0; i < 11; i++) {
       let timeInMS = i * 30000 + 5000;
-      timers.push(timeInMS);
+      timers[i] = timeInMS;
     }
-    for (i = 0; i < 20; i++) {
+    for (let i = 11; i < 20; i++) {
       let timeInMS = i * 15000 + (10 * 30000 + 5000);
-      timers.push(timeInMS);
+      timers[i] = timeInMS;
     }
     return timers;
   };
 
+  // ------ why are there 30 elements but the timers only go to 20? ------
   _lengthenArray = array => {
     do {
       array = array.concat(array);
     } while (array.length < 30);
+
+    array.slice(0, 30);
+
     return array;
   };
 
@@ -64,101 +44,76 @@ export default class SoundBiteList {
     return array;
   };
 
-  setupSoundBites = async () => {
-    console.log('Setting Up SoundBiteList...');
-    let soundBiteNames = this.listOfSoundBites;
-
-    let soundBiteContents = await Promise.all(
-      soundBiteNames.map(async element => {
-        let isDownloaded = await this._checkIfStored(element);
-        let storedFile = await this._getAudioFromStoredLocation(
-          isDownloaded,
-          element,
-        );
-        return [element, storedFile, isDownloaded];
+  setup = async () => {
+    // must use Promise.all when awaiting .map
+    this.objectArray = await Promise.all(
+      this.titles.map(async element => {
+        let SoundBiteObject = new SoundBite(element);
+        await SoundBiteObject.setup();
+        console.log('Setup SoundBite');
+        return SoundBiteObject;
       }),
     );
 
-    soundBiteContents = this._lengthenArray(soundBiteContents);
-    soundBiteContents = soundBiteContents.slice(0, 30);
-    soundBiteContents = this._shuffleArray(soundBiteContents);
+    let timerArray = this._timerMath();
 
-    // setup a short array of SounBite objects to fetch the audio files
-    let executionTimes = this._timerMath();
-    let soundBiteArray = await Promise.all(
-      soundBiteContents.map(async (element, index) => {
-        let soundBite = new SoundBite(
-          element[0],
-          element[1],
-          element[2],
-          executionTimes[index],
-        );
+    this.objectArray.forEach((element, index) => {
+      element.delay = timerArray[index];
+      element.setupSbTimer();
+    });
 
-        await soundBite.setupAudioElement();
-        return soundBite;
-      }),
-    );
+    this.objectArray = this._lengthenArray(this.objectArray);
+    this.objectArray = this._shuffleArray(this.objectArray);
 
-    let lastSoundBite = await (async () => {
-      let isDownloaded = await this._checkIfStored('all');
-      let storedFile = await this._getAudioFromStoredLocation(
-        isDownloaded,
-        'all',
-      );
-      let soundBite = new SoundBite('all', storedFile, isDownloaded, 605000);
-      await soundBite.setupAudioElement();
-      return soundBite;
-    })();
-
-    soundBiteArray.push(lastSoundBite);
-
-    console.log('Done setting up SoundBiteList');
-    this.soundBiteArray = soundBiteArray;
+    let lastSoundBite = new SoundBite('all', 605000);
+    await lastSoundBite.setup();
+    lastSoundBite.setupSbTimer();
+    this.objectArray.push(lastSoundBite);
   };
 
-  startSoundBites = () => {
-    if (this.soundBiteArray && this.soundBiteArray.length > 0) {
-      this.soundBiteArray.forEach(element => {
+  start = () => {
+    if (this.objectArray && this.objectArray.length > 0) {
+      this.objectArray.forEach(element => {
         if (element.Timer.gotPaused) {
-          element.Media.playMedia();
+          element.Media.play();
           element.Timer.gotPaused = false;
         }
-        element.Timer.startTimer();
+        element.Timer.start();
       });
     }
   };
 
-  pauseSoundBites = () => {
-    if (this.soundBiteArray && this.soundBiteArray.length > 0) {
-      this.soundBiteArray.forEach((element, index, array) => {
+  pause = () => {
+    if (this.objectArray && this.objectArray.length > 0) {
+      this.objectArray.forEach((element, index, array) => {
         if (
           (index !== array.length - 1 &&
             element.Timer.hasStarted &&
             !array[index + 1].hasStarted) ||
           (index === array.length - 1 && element.Timer.hasStarted)
         ) {
-          element.Media.pauseMedia();
+          element.Media.pause();
           element.Timer.gotPaused = true;
         }
-        element.Timer.pauseTimer();
+        element.Timer.pause();
       });
     }
   };
 
-  stopSoundBites = () => {
-    if (this.soundBiteArray && this.soundBiteArray.length > 0) {
-      this.pauseSoundBites();
-      this.soundBiteArray.forEach(element => {
-        element.Timer.stopTimer();
+  stop = () => {
+    if (this.objectArray && this.objectArray.length > 0) {
+      this.pause();
+      this.objectArray.forEach(element => {
+        element.Timer.stop();
       });
     }
   };
 
-  unloadSoundBites = () => {
-    if (this.soundBiteArray && this.soundBiteArray.length > 0) {
-      this.soundBiteArray.forEach(element => {
-        element.Media.unloadMedia();
-        element.Timer.destroyTimer();
+  unload = () => {
+    if (this.objectArray && this.objectArray.length > 0) {
+      this.objectArray.forEach(element => {
+        element.Media.unload();
+        element.Timer.destroy();
       });
     }
   };

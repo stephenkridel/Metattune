@@ -29,7 +29,6 @@ export default class UserStatistics {
     store.dispatch(updateDayStreak(userData.dayStreak));
   };
 
-  /*
   static checkDayStreak = async () => {
     console.log('Day Streak Code Started');
     let userData = null;
@@ -43,7 +42,6 @@ export default class UserStatistics {
     await AsyncStorageAPI.saveItem('userToken', userData);
     store.dispatch(updateDayStreak(userData.dayStreak));
   };
-  */
 
   static updateHoursCompleted = async timePlayed => {
     const userData = await AsyncStorageAPI.getItem('userToken');
