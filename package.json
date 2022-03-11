@@ -32,6 +32,7 @@
     "react-native-background-timer": "^2.4.1",
     "react-native-blob-util": "^0.13.18",
     "react-native-bootsplash": "^4.1.0",
+    "react-native-codegen": "^0.0.13",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-pdf": "^6.4.0",
     "react-native-safe-area-context": "^3.3.2",
