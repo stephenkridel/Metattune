@@ -1,8 +1,18 @@
 import SoundBiteList from './SoundBiteList';
 import AudioElement from './AudioElement';
 import store from '../store/Store';
-import { updateHasLoaded } from '../actions/PlaybackObjectActions';
+import {
+  updateHasLoaded,
+  updateBtnIcon,
+  updateDidJustFinish,
+  updateHasFinished,
+  updateIsPlaying,
+  updateHasStarted,
+} from '../actions/PlaybackObjectActions';
 import { updateProgressMessage } from '../actions/ProgressActions';
+import UserStatistics from '../helpers/UserStatistics';
+import ErrorAPI from '../helpers/ErrorAPI';
+import BackgroundTimer from 'react-native-background-timer';
 
 export default class Session {
   constructor(name, soundBites) {
@@ -10,7 +20,7 @@ export default class Session {
     this.soundBites = soundBites;
     this.MainAudio = new AudioElement(this.name);
     this.isIntroSession = true;
-    this.unsubscribe;
+    this.unsubscribeMediaUnloading;
 
     if (this.soundBites) {
       this.isIntroSession = false;
@@ -18,30 +28,65 @@ export default class Session {
     }
   }
 
-  load = async () => {
-    store.dispatch(updateProgressMessage('Loading Main Audio'));
-
-    await this.MainAudio.setup();
-
-    store.dispatch(updateProgressMessage('Loading Vocal Cues'));
-
-    if (!this.isIntroSession) await this.SoundBiteList.setup();
-
-    store.dispatch(updateProgressMessage(''));
+  handleSessionFinishing = () => {
+    console.log('_handleSessionFinishing');
+    store.dispatch(updateDidJustFinish(false));
+    store.dispatch(updateHasFinished(true));
+    store.dispatch(updateBtnIcon('caretright'));
+    store.dispatch(updateIsPlaying(false));
+    this.end();
+    ErrorAPI.errorHandler(
+      'Session was completed',
+      `Congrats! You just completed the ${this.title} session.`,
+    );
   };
 
-  play = () => {
+  updateStatistics = async hasFinished => {
+    if (this.SoundBiteList) {
+      const timer = this.SoundBiteList.objectArray[0].Timer;
+      timer.pause();
+      await UserStatistics.updateHoursCompleted(timer.totalTimePlayed);
+      await UserStatistics.updateDayStreak();
+      if (hasFinished) {
+        await UserStatistics.updateCompletedSessions();
+        await UserStatistics.updateFavoriteSession(this.title);
+        store.dispatch(updateHasFinished(false));
+      }
+    }
+  };
+
+  load = async () => {
+    store.dispatch(updateProgressMessage('Loading Main Audio'));
+    await this.MainAudio.setup();
+    store.dispatch(updateProgressMessage('Loading Vocal Cues'));
+    if (!this.isIntroSession) await this.SoundBiteList.setup();
+    store.dispatch(updateProgressMessage(''));
+    store.dispatch(updateHasLoaded(true));
+    store.dispatch(updateBtnIcon('caretright'));
+    console.log('Finished Loading');
+  };
+
+  play = isPlaying => {
+    if (isPlaying) {
+      BackgroundTimer.start();
+      store.dispatch(updateHasStarted(true));
+    }
     this.MainAudio.Media.play();
     if (!this.isIntroSession) this.SoundBiteList.start();
+    store.dispatch(updateBtnIcon('pause'));
+    store.dispatch(updateIsPlaying(true));
   };
 
   pause = () => {
     this.MainAudio.Media.pause();
     if (!this.isIntroSession) this.SoundBiteList.pause();
+    store.dispatch(updateBtnIcon('caretright'));
+    store.dispatch(updateIsPlaying(false));
   };
 
   end = () => {
     this.MainAudio.Media.stop();
+    BackgroundTimer.stop();
     if (!this.isIntroSession) this.SoundBiteList.stop();
   };
 
@@ -65,7 +110,7 @@ export default class Session {
     if (playbackObject.hasLoaded) {
       this.unloadMedia();
       store.dispatch(updateHasLoaded(false));
-      this.unsubscribe();
+      this.unsubscribeMediaUnloading();
     }
   };
 
@@ -81,7 +126,9 @@ export default class Session {
     if (playbackObject.hasLoaded) {
       this.unloadMedia();
     } else {
-      this.unsubscribe = store.subscribe(this.unloadAudioSubscription);
+      this.unsubscribeMediaUnloading = store.subscribe(
+        this.unloadAudioSubscription,
+      );
     }
   };
 }

@@ -10,21 +10,11 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Session from '../classes/Session';
 import ModalComponent from '../components/ModalComponent';
-import BackgroundTimer from 'react-native-background-timer';
 import { connect } from 'react-redux';
 import store from '../store/Store';
-import {
-  resetPlaybackObject,
-  updateBtnIcon,
-  updateDidJustFinish,
-  updateHasLoaded,
-  updateHasStarted,
-  updateIsPlaying,
-  updateHasFinished,
-} from '../actions/PlaybackObjectActions';
+import { resetPlaybackObject } from '../actions/PlaybackObjectActions';
 import ErrorAPI from '../helpers/ErrorAPI';
 import ProgressComponent from '../components/ProgressComponent';
-import UserStatistics from '../helpers/UserStatistics';
 import CircularTimerComponent from '../components/CircularTimerComponent';
 
 class SessionScreen extends Component {
@@ -41,78 +31,39 @@ class SessionScreen extends Component {
     this.Session = new Session(this.title, this.soundBitesString);
     // using this variable to switch between icon families if needed
     this.iconFamily = AntDesign;
-    this.unsubscribe = store.subscribe(this._handleSessionFinishing);
+    this.unsubscribeSessionFinishing = store.subscribe(
+      this._handleSessionFinishing,
+    );
   }
 
   _handleSessionFinishing = () => {
-    if (this.props.playbackObject.statusDidJustFinish) {
-      console.log('_handleSessionFinishing');
-      store.dispatch(updateDidJustFinish(false));
-      store.dispatch(updateHasFinished(true));
-      store.dispatch(updateBtnIcon('caretright'));
-      store.dispatch(updateIsPlaying(false));
-      this.Session.end();
-      ErrorAPI.errorHandler(
-        'Session was completed',
-        `Congrats! You just completed the ${this.title} session.`,
-      );
-    }
-  };
-
-  _updateStatistics = async () => {
-    if (this.Session.SoundBiteList) {
-      const timer = this.Session.SoundBiteList.objectArray[0].Timer;
-      timer.pause();
-      await UserStatistics.updateHoursCompleted(timer.totalTimePlayed);
-      await UserStatistics.updateDayStreak();
-      if (this.props.playbackObject.hasFinished) {
-        await UserStatistics.updateCompletedSessions();
-        await UserStatistics.updateFavoriteSession(this.title);
-        store.dispatch(updateHasFinished(false));
-      }
-    }
+    if (this.props.playbackObject.statusDidJustFinish)
+      this.Session.handleSessionFinishing();
   };
 
   _onPlayPausePressed = () => {
-    if (!this.props.playbackObject.hasStarted) {
-      BackgroundTimer.start();
-      store.dispatch(updateHasStarted(true));
-    }
-
     // a function is passed into the setState function so that the circular
     // timer stops or starts before all the other functions.
     if (this.props.playbackObject.isPlaying) {
       this.child.stopAnimationTimer();
       this.Session.pause();
-      store.dispatch(updateBtnIcon('caretright'));
-      store.dispatch(updateIsPlaying(false));
     } else {
       this.child.startAnimationTimer();
-      this.Session.play();
-      store.dispatch(updateBtnIcon('pause'));
-      store.dispatch(updateIsPlaying(true));
+      this.Session.play(!this.props.playbackObject.hasStarted);
     }
   };
 
-  _loadAudio = async () => {
-    await this.Session.load();
-    store.dispatch(updateHasLoaded(true));
-    store.dispatch(updateBtnIcon('caretright'));
-    console.log('Finished Loading');
-  };
-
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this._isMounted = true;
     store.dispatch(resetPlaybackObject());
-    this._loadAudio();
+    await this.Session.load();
   };
 
   componentWillUnmount = () => {
+    this.Session.updateStatistics(this.props.playbackObject.hasFinished);
     this._isMounted = false;
-    BackgroundTimer.stop();
     this.Session.unload();
-    this.unsubscribe();
-    this._updateStatistics();
+    this.unsubscribeSessionFinishing();
   };
 
   render() {
