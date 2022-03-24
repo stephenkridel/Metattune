@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const ProgressComponent = props => {
+const ProgressTextElement = props => {
   return (
     <View style={styles.TextBox}>
       <Text style={styles.Message}>{props.messageText}</Text>
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     marginTop: 20,
-    height: 20
+    height: 20,
   },
   Message: {
     fontSize: 15,
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProgressComponent;
+export default ProgressTextElement;

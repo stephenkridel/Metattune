@@ -7,7 +7,7 @@ import {
   TextInput,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ModalComponent from '../components/ModalComponent';
+import ModalElement from '../components/ModalElement';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default class LoginScreen extends Component {
@@ -38,7 +38,7 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.Container}>
-        <ModalComponent
+        <ModalElement
           isVisible={this.state.isInfoNeeded}
           message={
             'Our app is still being developed, so please enjoy this basic account feature while we develop a more fully featured app. We do not store user data externally, so your information may not persist with future updates.'
@@ -46,7 +46,7 @@ export default class LoginScreen extends Component {
           onPressX={() => this.setState({ isInfoNeeded: false })}
           shouldShowButton={false}
         />
-        <ModalComponent
+        <ModalElement
           isVisible={this.state.isError}
           message={this.state.errorMsg}
           onPressX={() => this.setState({ isError: false })}

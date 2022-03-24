@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const ModalComponent = props => {
+const ModalElement = props => {
   const shouldShowButton = props.shouldShowButton ? 'flex' : 'none';
   return (
     <Modal visible={props.isVisible} animationType="slide">
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModalComponent;
+export default ModalElement;

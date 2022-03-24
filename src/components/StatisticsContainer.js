@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import IconComponent from './IconComponent';
+import IconContainer from './IconContainer';
 
-const StatisticsComponent = props => {
+const StatisticsContainer = props => {
   return (
     <LinearGradient
       colors={['rgb(142, 90, 255)', 'rgb(111, 98, 255)']}
@@ -11,7 +11,7 @@ const StatisticsComponent = props => {
       end={{ x: 0, y: 1 }}
       style={styles.Container}>
       <View style={styles.TopContainer}>
-        <IconComponent
+        <IconContainer
           iconName={props.iconName}
           iconSize={25}
           colors={['rgb(255, 177, 62)', 'rgb(255, 109, 123)']}
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StatisticsComponent;
+export default StatisticsContainer;

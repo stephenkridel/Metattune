@@ -1,23 +1,22 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
-import IconComponentPressable from '../components/IconComponentPressable';
-import IconComponent from '../components/IconComponent';
-import InfoComponent from '../components/InfoComponent';
-import LargeInfoComponent from '../components/LargeInfoComponent';
-import ScreenHeaderComponent from '../components/ScreenHeaderComponent';
+import IconButton from '../components/IconButton';
+import InfoContainer from '../components/InfoContainer';
+import LargeInfoContainer from '../components/LargeInfoContainer';
+import ScreenHeader from '../components/ScreenHeader';
 
 const InfoScreen = () => {
   return (
     <SafeAreaView style={styles.Container}>
       <ScrollView>
-        <ScreenHeaderComponent
+        <ScreenHeader
           header={'About This App'}
           subHeader={
             "Find information about ATT, our team, and the app's development below"
           }
         />
         <View style={styles.SelectorContainer}>
-          <InfoComponent
+          <InfoContainer
             header="About ATT"
             iconName="brain"
             screen="About"
@@ -25,7 +24,7 @@ const InfoScreen = () => {
             color="rgb(111, 98, 255)"
             iconColor="rgb(255, 101, 132)"
           />
-          <LargeInfoComponent
+          <LargeInfoContainer
             header="Support"
             iconName="hands-helping"
             screen="Support"
@@ -33,7 +32,7 @@ const InfoScreen = () => {
             color="rgb(111, 98, 255)"
             image={require('../assets/images/brothers-image.png')}
           />
-          <InfoComponent
+          <InfoContainer
             header="Attribution"
             iconName="creative-commons"
             screen="Attribution"
@@ -41,7 +40,7 @@ const InfoScreen = () => {
             color="rgb(111, 98, 255)"
             iconColor="rgb(255, 101, 132)"
           />
-          <LargeInfoComponent
+          <LargeInfoContainer
             header="Release Info"
             iconName="bug"
             screen="Release"
@@ -51,7 +50,7 @@ const InfoScreen = () => {
           />
         </View>
         <View style={styles.ExtraInfo}>
-          <IconComponentPressable
+          <IconButton
             colors={['rgb(255, 101, 132)', 'rgb(255, 101, 132)']}
             iconName={'creative-commons-by'}
             iconSize={40}
@@ -59,7 +58,7 @@ const InfoScreen = () => {
               uri: 'bundle-assets://legal/Attributions_Metattune.pdf',
             }}
           />
-          <IconComponentPressable
+          <IconButton
             colors={['rgb(255, 101, 132)', 'rgb(255, 101, 132)']}
             iconName={'user-lock'}
             iconSize={40}
@@ -67,7 +66,7 @@ const InfoScreen = () => {
               uri: 'bundle-assets://legal/Privacy_Policy_Metattune.pdf',
             }}
           />
-          <IconComponentPressable
+          <IconButton
             colors={['rgb(255, 101, 132)', 'rgb(255, 101, 132)']}
             iconName={'exclamation-circle'}
             iconSize={40}

@@ -4,7 +4,7 @@ import ArrowButton from './ArrowButton';
 
 const width = Dimensions.get('window').width;
 
-const SelectorComponent = props => {
+const SessionSelectorContainer = props => {
   return (
     <View style={[styles.Container, { backgroundColor: props.info.color }]}>
       <View style={styles.LeftContainer}>
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SelectorComponent;
+export default SessionSelectorContainer;

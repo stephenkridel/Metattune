@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import IconComponent from './IconComponent';
+import IconContainer from './IconContainer';
 
-const InfoComponent = props => {
+const InfoContainer = props => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate(props.screen)}
       style={[{ backgroundColor: props.color }, styles.Container]}>
-      <IconComponent
+      <IconContainer
         iconName={props.iconName}
         iconSize={40}
         colors={['rgb(207, 159, 237)', 'rgb(255, 101, 132)']}
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InfoComponent;
+export default InfoContainer;

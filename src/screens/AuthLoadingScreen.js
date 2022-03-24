@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AvatarSelectorComponent from '../components/AvatarSelectorComponent';
+import AvatarButton from '../components/AvatarButton';
 
 export default class Screen extends Component {
   constructor() {
@@ -24,10 +24,7 @@ export default class Screen extends Component {
   render() {
     return (
       <View style={styles.Container}>
-        <AvatarSelectorComponent
-          AvatarObject={{ token: '' }}
-          isDisabled={true}
-        />
+        <AvatarButton AvatarObject={{ token: '' }} isDisabled={true} />
         <Text style={styles.LoadingText}>Fetching profile...</Text>
       </View>
     );

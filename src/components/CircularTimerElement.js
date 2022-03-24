@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Animated, Easing } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
-class CircularTimerComponent extends Component {
+class CircularTimerElement extends Component {
   constructor(props) {
     super(props);
 
@@ -72,4 +72,4 @@ class CircularTimerComponent extends Component {
   }
 }
 
-export default CircularTimerComponent;
+export default CircularTimerElement;

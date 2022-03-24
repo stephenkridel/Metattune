@@ -6,7 +6,7 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import ModalComponent from '../components/ModalComponent';
+import ModalElement from '../components/ModalElement';
 import store from '../store/Store';
 import {
   updateHoursCompleted,
@@ -21,9 +21,9 @@ import {
 } from '../actions/UserActions';
 import { connect } from 'react-redux';
 import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
-import StatisticsComponent from '../components/StatisticsComponent';
-import AvatarComponent from '../components/AvatarComponent';
-import AvatarModalComponent from '../components/AvatarModalComponent';
+import StatisticsContainer from '../components/StatisticsContainer';
+import AvatarContainer from '../components/AvatarContainer';
+import AvatarModal from '../components/AvatarModal';
 import UserStatistics from '../helpers/UserStatistics';
 
 class UserScreen extends Component {
@@ -68,7 +68,7 @@ class UserScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.Container}>
-        <ModalComponent
+        <ModalElement
           isVisible={this.props.user.showWarning}
           onPressX={() => store.dispatch(updateShowWarning(false))}
           onPressDelete={() => {
@@ -78,7 +78,7 @@ class UserScreen extends Component {
           message="Are you sure you want to delete your account?"
           shouldShowButton={true}
         />
-        <AvatarModalComponent
+        <AvatarModal
           isVisible={this.props.user.showAvatarModal}
           onPressX={() => store.dispatch(updateShowAvatarModal(false))}
         />
@@ -86,7 +86,7 @@ class UserScreen extends Component {
           <TouchableOpacity
             onPress={() => store.dispatch(updateShowAvatarModal(true))}
             style={styles.AvatarButton}>
-            <AvatarComponent
+            <AvatarContainer
               AvatarObject={this.props.user.selectedAvatar}
               avatarWidth={'100%'}
             />
@@ -103,25 +103,25 @@ class UserScreen extends Component {
         </View>
         <View style={styles.StatisticsOuterContainer}>
           <View style={styles.StatisticsInnerContainer}>
-            <StatisticsComponent
+            <StatisticsContainer
               iconName={'headphones'}
               header={'Hours Listened'}
               statistic={this.props.user.hoursCompleted}
             />
-            <StatisticsComponent
+            <StatisticsContainer
               iconName={'check'}
               header={'Finished Sessions'}
               statistic={this.props.user.sessionsCompleted}
             />
           </View>
           <View style={styles.StatisticsInnerContainer}>
-            <StatisticsComponent
+            <StatisticsContainer
               iconName={'star'}
               header={'Favorite Session'}
               statistic={this.props.user.favoriteSession.title}
               //statistic={this.props.user.hoursCompleted}
             />
-            <StatisticsComponent
+            <StatisticsContainer
               iconName={'calendar-check'}
               header={'Day Streak'}
               statistic={this.props.user.dayStreak}

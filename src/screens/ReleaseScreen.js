@@ -1,9 +1,9 @@
 import React from 'react';
-import TextInfoComponent from '../components/TextInfoComponent';
+import TextInfoContainer from '../components/TextInfoContainer';
 
 const ReleaseScreen = () => {
   return (
-    <TextInfoComponent
+    <TextInfoContainer
       infoText={
         'This version is our first app store release! We are always working on fixing bugs and improving the app to give users the best experience. Tap on the button below to submit feedback!'
       }

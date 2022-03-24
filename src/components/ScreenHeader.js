@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const ScreenHeaderComponent = props => {
+const ScreenHeader = props => {
   return (
     <View style={styles.Container}>
       <Text style={styles.Header}>{props.header}</Text>
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ScreenHeaderComponent;
+export default ScreenHeader;

@@ -8,7 +8,7 @@ import {
   Linking,
 } from 'react-native';
 
-const LinkButtonComponent = props => {
+const LinkButton = props => {
   return (
     <View style={styles.Container}>
       <Image resizeMode={'contain'} source={props.image} style={styles.Image} />
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LinkButtonComponent;
+export default LinkButton;

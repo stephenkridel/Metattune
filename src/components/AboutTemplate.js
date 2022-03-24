@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import ArrowButton from '../components/ArrowButton';
+import ArrowButton from './ArrowButton';
 
-const AboutComponent = props => {
+const AboutTemplate = props => {
   return (
     <View style={styles.Hero}>
       <Image resizeMode="contain" source={props.image} style={styles.Image} />
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AboutComponent;
+export default AboutTemplate;

@@ -1,9 +1,9 @@
 import React from 'react';
-import TextInfoComponent from '../components/TextInfoComponent';
+import TextInfoContainer from '../components/TextInfoContainer';
 
 const AttributionScreen = () => {
   return (
-    <TextInfoComponent
+    <TextInfoContainer
       infoText={
         "This app wouldn't have been possible without the help of the open source community, including Micah Lanier who created the Avatar Illustration System which we used for our avatars"
       }

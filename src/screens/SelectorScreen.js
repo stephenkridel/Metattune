@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
-import SelectorComponent from '../components/SelectorComponent';
+import SessionSelectorContainer from '../components/SessionSelectorContainer';
 import AudioObjects from '../data/AudioObjects.js';
-import ScreenHeaderComponent from '../components/ScreenHeaderComponent';
+import ScreenHeader from '../components/ScreenHeader';
 import RNBootSplash from 'react-native-bootsplash';
 
 const SelectorScreen = () => {
@@ -16,15 +16,15 @@ const SelectorScreen = () => {
         data={AudioObjects}
         keyExtractor={item => item.title}
         ListHeaderComponent={
-          <ScreenHeaderComponent
+          <ScreenHeader
             header={'Sessions'}
             subHeader={'Choose from one of our core sessions'}
           />
         }
         renderItem={({ item }) => {
           return (
-            <SelectorComponent
-              // passes info (.title, .file, .color) to the SelectorComponent
+            <SessionSelectorContainer
+              // passes info (.title, .file, .color) to the SessionSelectorContainer
               info={item}
             />
           );

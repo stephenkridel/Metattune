@@ -6,9 +6,9 @@ import {
 } from '../actions/UserActions';
 import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
 import store from '../store/Store';
-import AvatarComponent from './AvatarComponent';
+import AvatarContainer from './AvatarContainer';
 
-const AvatarSelectorComponent = props => {
+const AvatarButton = props => {
   return (
     <TouchableOpacity
       style={styles.AvatarButton}
@@ -20,7 +20,7 @@ const AvatarSelectorComponent = props => {
         store.dispatch(updateSelectedAvatar(props.AvatarObject));
         store.dispatch(updateShowAvatarModal(false));
       }}>
-      <AvatarComponent AvatarObject={props.AvatarObject} avatarWidth={'100%'} />
+      <AvatarContainer AvatarObject={props.AvatarObject} avatarWidth={'100%'} />
     </TouchableOpacity>
   );
 };
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AvatarSelectorComponent;
+export default AvatarButton;

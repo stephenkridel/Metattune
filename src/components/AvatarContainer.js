@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 
-const AvatarComponent = props => {
+const AvatarContainer = props => {
   return (
     <View style={[styles.AvatarContainer, { width: props.avatarWidth }]}>
       <Image
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AvatarComponent;
+export default AvatarContainer;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import IconComponent from './IconComponent';
+import IconContainer from './IconContainer';
 import { useNavigation } from '@react-navigation/native';
 
-const IconComponentPressable = props => {
+const IconButton = props => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -12,7 +12,7 @@ const IconComponentPressable = props => {
           source: props.source,
         })
       }>
-      <IconComponent
+      <IconContainer
         colors={props.colors}
         iconName={props.iconName}
         iconSize={props.iconSize}
@@ -21,4 +21,4 @@ const IconComponentPressable = props => {
   );
 };
 
-export default IconComponentPressable;
+export default IconButton;

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
 
-const IconComponent = props => {
+const IconContainer = props => {
   return (
     <LinearGradient
       colors={props.colors}
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IconComponent;
+export default IconContainer;

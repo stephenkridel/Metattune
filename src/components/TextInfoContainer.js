@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   Linking,
   SafeAreaView,
-  Platform
+  Platform,
 } from 'react-native';
 
-const TextInfoComponent = props => {
+const TextInfoContainer = props => {
   return (
     <SafeAreaView style={styles.Container}>
       <View style={styles.ImageContainer}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     alignSelf: 'center',
-    paddingTop: Platform.OS === 'ios' ? 50 : 0
+    paddingTop: Platform.OS === 'ios' ? 50 : 0,
   },
   Image: {
     height: '100%',
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TextInfoComponent;
+export default TextInfoContainer;

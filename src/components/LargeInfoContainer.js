@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const LargeInfoComponent = props => {
+const LargeInfoContainer = props => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LargeInfoComponent;
+export default LargeInfoContainer;

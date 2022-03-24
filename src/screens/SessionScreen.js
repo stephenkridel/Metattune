@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Session from '../classes/Session';
-import ModalComponent from '../components/ModalComponent';
+import ModalElement from '../components/ModalElement';
 import { connect } from 'react-redux';
 import store from '../store/Store';
 import { resetPlaybackObject } from '../actions/PlaybackObjectActions';
 import ErrorAPI from '../helpers/ErrorAPI';
-import ProgressComponent from '../components/ProgressComponent';
-import CircularTimerComponent from '../components/CircularTimerComponent';
+import ProgressTextElement from '../components/ProgressTextElement';
+import CircularTimerElement from '../components/CircularTimerElement';
 
 class SessionScreen extends Component {
   constructor(props) {
@@ -69,7 +69,7 @@ class SessionScreen extends Component {
   render() {
     return (
       <View style={[styles.Hero, { backgroundColor: this.color }]}>
-        <ModalComponent
+        <ModalElement
           isVisible={this.props.error.isError}
           message={this.props.error.errorMsg}
           onPressX={() => {
@@ -112,14 +112,14 @@ class SessionScreen extends Component {
               />
             </View>
           </TouchableOpacity>
-          <CircularTimerComponent
+          <CircularTimerElement
             ref={child => {
               this.child = child;
             }}
             duration={this.duration}
           />
         </View>
-        <ProgressComponent messageText={this.props.progress.messageText} />
+        <ProgressTextElement messageText={this.props.progress.messageText} />
       </View>
     );
   }

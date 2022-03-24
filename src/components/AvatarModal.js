@@ -13,9 +13,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import store from '../store/Store';
 import { updateShowWarning } from '../actions/UserActions';
 import AvatarList from '../data/Avatars';
-import AvatarSelectorComponent from './AvatarSelectorComponent';
+import AvatarButton from './AvatarButton';
 
-const AvatarModalComponent = props => {
+const AvatarModal = props => {
   return (
     <Modal visible={props.isVisible} animationType="slide">
       <SafeAreaView style={styles.Modal}>
@@ -28,7 +28,7 @@ const AvatarModalComponent = props => {
           data={AvatarList}
           keyExtractor={item => item.token}
           renderItem={({ item }) => {
-            return <AvatarSelectorComponent AvatarObject={item} />;
+            return <AvatarButton AvatarObject={item} />;
           }}
         />
       </SafeAreaView>
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AvatarModalComponent;
+export default AvatarModal;
