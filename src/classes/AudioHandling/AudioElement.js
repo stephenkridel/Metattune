@@ -1,6 +1,6 @@
 import Media from './Media';
-import AsyncStorageAPI from '../helpers/AsyncStorageAPI';
-import FirebaseFetchAPI from '../helpers/FirebaseFetchAPI';
+import AsyncStorageAPI from '../../helpers/AsyncStorageAPI';
+import FirebaseFetchAPI from '../../helpers/FirebaseFetchAPI';
 
 export default class AudioElement {
   constructor(name) {

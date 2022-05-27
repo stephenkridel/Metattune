@@ -1,6 +1,6 @@
 import SoundBiteList from './SoundBiteList';
 import AudioElement from './AudioElement';
-import store from '../store/Store';
+import store from '../../store/Store';
 import {
   updateHasLoaded,
   updateBtnIcon,
@@ -8,10 +8,10 @@ import {
   updateHasFinished,
   updateIsPlaying,
   updateHasStarted,
-} from '../actions/PlaybackObjectActions';
-import { updateProgressMessage } from '../actions/ProgressActions';
-import UserStatistics from '../helpers/UserStatistics';
-import ErrorAPI from '../helpers/ErrorAPI';
+} from '../../actions/PlaybackObjectActions';
+import { updateProgressMessage } from '../../actions/ProgressActions';
+import UserStatistics from '../../helpers/UserStatistics';
+import ErrorAPI from '../../helpers/ErrorAPI';
 import BackgroundTimer from 'react-native-background-timer';
 
 export default class Session {

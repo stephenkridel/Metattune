@@ -1,7 +1,7 @@
 import { Audio } from 'expo-av';
-import { updateDidJustFinish } from '../actions/PlaybackObjectActions';
-import ErrorAPI from '../helpers/ErrorAPI';
-import store from '../store/Store';
+import { updateDidJustFinish } from '../../actions/PlaybackObjectActions';
+import ErrorAPI from '../../helpers/ErrorAPI';
+import store from '../../store/Store';
 
 export default class Media {
   constructor(source) {

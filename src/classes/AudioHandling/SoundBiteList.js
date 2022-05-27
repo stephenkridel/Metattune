@@ -1,6 +1,6 @@
 import SoundBite from './SoundBite';
-import store from '../store/Store';
-import { updateProgressMessage } from '../actions/ProgressActions';
+import store from '../../store/Store';
+import { updateProgressMessage } from '../../actions/ProgressActions';
 
 export default class SoundBiteList {
   constructor(titles) {

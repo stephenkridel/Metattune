@@ -8,7 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Session from '../classes/Session';
+import Session from '../classes/AudioHandling/Session';
 import ModalElement from '../components/ModalElement';
 import { connect } from 'react-redux';
 import store from '../store/Store';
