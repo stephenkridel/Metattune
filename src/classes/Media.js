@@ -42,8 +42,8 @@ export default class Media {
     }
   };
 
-  play = async () => {
-    await this.playbackInstance.playAsync().catch(error => {
+  play = () => {
+    this.playbackInstance.playAsync().catch(error => {
       ErrorAPI.errorHandler(
         error,
         'Sorry, there was an error playing the audio. Please close the app and try again.',
@@ -51,8 +51,8 @@ export default class Media {
     });
   };
 
-  pause = async () => {
-    await this.playbackInstance.pauseAsync().catch(error => {
+  pause = () => {
+    this.playbackInstance.pauseAsync().catch(error => {
       ErrorAPI.errorHandler(
         error,
         'Sorry, there was an error pause the audio. Please close the app and try again.',
@@ -60,8 +60,8 @@ export default class Media {
     });
   };
 
-  stop = async () => {
-    await this.playbackInstance.stopAsync().catch(error => {
+  stop = () => {
+    this.playbackInstance.stopAsync().catch(error => {
       ErrorAPI.errorHandler(
         error,
         'Sorry, there was an error stopping the audio. Please close the app and try again.',
@@ -69,13 +69,15 @@ export default class Media {
     });
   };
 
-  unload = async () => {
-    await this.playbackInstance.unloadAsync().catch(error => {
-      ErrorAPI.errorHandler(
-        error,
-        'Sorry, there was an error unloading the audio. Please close the app and try again.',
-      );
-    });
-    this.playbackInstance = null;
+  unload = () => {
+    this.playbackInstance
+      .unloadAsync()
+      .then(() => (this.playbackInstance = null))
+      .catch(error => {
+        ErrorAPI.errorHandler(
+          error,
+          'Sorry, there was an error unloading the audio. Please close the app and try again.',
+        );
+      });
   };
 }

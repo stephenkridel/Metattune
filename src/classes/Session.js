@@ -37,7 +37,7 @@ export default class Session {
     this.end();
     ErrorAPI.errorHandler(
       'Session was completed',
-      `Congrats! You just completed the ${this.title} session.`,
+      `Congrats! You just completed the ${this.name} session.`,
     );
   };
 
@@ -49,7 +49,7 @@ export default class Session {
       await UserStatistics.updateDayStreak();
       if (hasFinished) {
         await UserStatistics.updateCompletedSessions();
-        await UserStatistics.updateFavoriteSession(this.title);
+        await UserStatistics.updateFavoriteSession(this.name);
         store.dispatch(updateHasFinished(false));
       }
     }
