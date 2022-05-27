@@ -5,7 +5,6 @@ const ScreenHeader = props => {
   return (
     <View style={styles.Container}>
       <Text style={styles.Header}>{props.header}</Text>
-      <Text style={styles.SubHeader}>{props.subHeader}</Text>
     </View>
   );
 };
