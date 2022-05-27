@@ -1,34 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AvatarButton from '../components/AvatarButton';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default class Screen extends Component {
-  constructor() {
-    super();
-  }
+function AuthLoadingScreen(props) {
+  useFocusEffect(() => {
+    (async function () {
+      const userToken = await AsyncStorage.getItem('userToken');
+      props.navigation.navigate(userToken ? 'User' : 'Login');
+    })();
+  });
 
-  componentDidMount() {
-    this._getUserToken();
-  }
-
-  // Fetch the token from storage then navigate to our appropriate place
-  _getUserToken = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? 'User' : 'Login');
-  };
-
-  render() {
-    return (
-      <View style={styles.Container}>
-        <AvatarButton AvatarObject={{ token: '' }} isDisabled={true} />
-        <Text style={styles.LoadingText}>Fetching profile...</Text>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.Container}>
+      <AvatarButton AvatarObject={{ token: '' }} isDisabled={true} />
+      <Text style={styles.LoadingText}>Fetching profile...</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -44,3 +33,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
+export default AuthLoadingScreen;
