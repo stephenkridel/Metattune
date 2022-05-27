@@ -6,10 +6,9 @@ import { useFocusEffect } from '@react-navigation/native';
 
 function AuthLoadingScreen(props) {
   useFocusEffect(() => {
-    (async function () {
-      const userToken = await AsyncStorage.getItem('userToken');
-      props.navigation.navigate(userToken ? 'User' : 'Login');
-    })();
+    AsyncStorage.getItem('userToken').then(token => {
+      props.navigation.navigate(token ? 'User' : 'Login');
+    });
   });
 
   return (
