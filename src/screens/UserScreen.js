@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -25,27 +25,27 @@ import StatisticsContainer from '../components/StatisticsContainer';
 import AvatarContainer from '../components/AvatarContainer';
 import AvatarModal from '../components/AvatarModal';
 import UserStatistics from '../helpers/UserStatistics';
+import ErrorAPI from '../helpers/ErrorAPI';
 
-class UserScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+const UserScreen = props => {
   _deleteAccountAsync = async () => {
     try {
       store.dispatch(updateShowAvatarModal(false));
       await AsyncStorageAPI.deleteItem('userToken');
       store.dispatch(updateResetUser());
-      this.props.navigation.replace('Login');
+      props.navigation.replace('Login');
     } catch (error) {
-      console.log(error);
+      ErrorAPI.errorHandler(
+        error,
+        'Sorry, there was an error deleting your profile.',
+        props.navigation('Login'),
+      );
     }
   };
 
   _getUserToken = async () => {
     try {
       const item = await AsyncStorageAPI.getItem('userToken');
-      console.log(item);
       if (item) {
         item.hoursCompleted = item.hoursCompleted.toFixed(2); // rounds number to 2 decimal places
         store.dispatch(updateUserName(item.userName));
@@ -56,83 +56,83 @@ class UserScreen extends Component {
         store.dispatch(updateSelectedAvatar(item.selectedAvatar));
       }
     } catch (error) {
-      console.log(error);
+      ErrorAPI.errorHandler(
+        error,
+        'Sorry, there was an error loading your profile.',
+        props.navigation('Info'),
+      );
     }
   };
 
-  componentDidMount = () => {
-    this._getUserToken();
+  useEffect(() => {
+    _getUserToken();
     UserStatistics.checkDayStreak();
-  };
+  }, []);
 
-  render() {
-    return (
-      <SafeAreaView style={styles.Container}>
-        <ModalElement
-          isVisible={this.props.user.showWarning}
-          onPressX={() => store.dispatch(updateShowWarning(false))}
-          onPressDelete={() => {
-            this._deleteAccountAsync();
-            store.dispatch(updateShowWarning(false));
-          }}
-          message="Are you sure you want to delete your account?"
-          shouldShowButton={true}
-        />
-        <AvatarModal
-          isVisible={this.props.user.showAvatarModal}
-          onPressX={() => store.dispatch(updateShowAvatarModal(false))}
-        />
-        <View style={styles.HeaderContainer}>
-          <TouchableOpacity
-            onPress={() => store.dispatch(updateShowAvatarModal(true))}
-            style={styles.AvatarButton}>
-            <AvatarContainer
-              AvatarObject={this.props.user.selectedAvatar}
-              avatarWidth={'100%'}
-            />
-          </TouchableOpacity>
-          <View style={styles.TextContainer}>
-            <Text
-              style={
-                styles.GreetingText
-              }>{`Hello, ${this.props.user.userName}!`}</Text>
-            <Text style={styles.SubHeader}>
-              we tracked your statistics for you
-            </Text>
-          </View>
+  return (
+    <SafeAreaView style={styles.Container}>
+      <ModalElement
+        isVisible={props.user.showWarning}
+        onPressX={() => store.dispatch(updateShowWarning(false))}
+        onPressDelete={() => {
+          _deleteAccountAsync();
+          store.dispatch(updateShowWarning(false));
+        }}
+        message="Are you sure you want to delete your account?"
+        shouldShowButton={true}
+      />
+      <AvatarModal
+        isVisible={props.user.showAvatarModal}
+        onPressX={() => store.dispatch(updateShowAvatarModal(false))}
+      />
+      <View style={styles.HeaderContainer}>
+        <TouchableOpacity
+          onPress={() => store.dispatch(updateShowAvatarModal(true))}
+          style={styles.AvatarButton}>
+          <AvatarContainer
+            AvatarObject={props.user.selectedAvatar}
+            avatarWidth={'100%'}
+          />
+        </TouchableOpacity>
+        <View style={styles.TextContainer}>
+          <Text
+            style={
+              styles.GreetingText
+            }>{`Hello, ${props.user.userName}!`}</Text>
+          <Text style={styles.SubHeader}>
+            we tracked your statistics for you
+          </Text>
         </View>
-        <View style={styles.StatisticsOuterContainer}>
-          <View style={styles.StatisticsInnerContainer}>
-            <StatisticsContainer
-              iconName={'headphones'}
-              header={'Hours Listened'}
-              statistic={this.props.user.hoursCompleted}
-            />
-            <StatisticsContainer
-              iconName={'check'}
-              header={'Finished Sessions'}
-              statistic={this.props.user.sessionsCompleted}
-            />
-          </View>
-          <View style={styles.StatisticsInnerContainer}>
-            <StatisticsContainer
-              iconName={'star'}
-              header={'Favorite Session'}
-              statistic={this.props.user.favoriteSession.title}
-              //statistic={this.props.user.hoursCompleted}
-            />
-            <StatisticsContainer
-              iconName={'calendar-check'}
-              header={'Day Streak'}
-              statistic={this.props.user.dayStreak}
-              //statistic={this.props.user.hoursCompleted}
-            />
-          </View>
+      </View>
+      <View style={styles.StatisticsOuterContainer}>
+        <View style={styles.StatisticsInnerContainer}>
+          <StatisticsContainer
+            iconName={'headphones'}
+            header={'Hours Listened'}
+            statistic={props.user.hoursCompleted}
+          />
+          <StatisticsContainer
+            iconName={'check'}
+            header={'Finished Sessions'}
+            statistic={props.user.sessionsCompleted}
+          />
         </View>
-      </SafeAreaView>
-    );
-  }
-}
+        <View style={styles.StatisticsInnerContainer}>
+          <StatisticsContainer
+            iconName={'star'}
+            header={'Favorite Session'}
+            statistic={props.user.favoriteSession.title}
+          />
+          <StatisticsContainer
+            iconName={'calendar-check'}
+            header={'Day Streak'}
+            statistic={props.user.dayStreak}
+          />
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   Container: {

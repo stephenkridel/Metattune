@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AvatarButton from '../components/AvatarButton';
 import { useFocusEffect } from '@react-navigation/native';
 
-function AuthLoadingScreen(props) {
+const AuthLoadingScreen = props => {
   useFocusEffect(() => {
     AsyncStorage.getItem('userToken').then(token => {
       props.navigation.navigate(token ? 'User' : 'Login');
@@ -17,7 +17,7 @@ function AuthLoadingScreen(props) {
       <Text style={styles.LoadingText}>Fetching profile...</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   Container: {
