@@ -27,7 +27,7 @@
     "expo": ">=44.0.0-0 <45.0.0",
     "expo-av": "~10.2.0",
     "fbjs": "^3.0.4",
-    "react": "18.1.0",
+    "react": "^17.0.2",
     "react-native": "^0.68",
     "react-native-background-timer": "^2.4.1",
     "react-native-blob-util": "^0.16.0",
